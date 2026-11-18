@@ -2,16 +2,17 @@
 
 <h1 align="center">zh-nutrition-humanizer</h1>
 
-<p align="center"><strong>Voice and style alignment for Chinese nutrition writing</strong></p>
-<p align="center">Match the tone of policy documents, learned-society books and standards · zero dependencies · runs locally</p>
-<p align="center"><strong>v1.0.5 — Table Notes and FAQ on Naming</strong></p>
+<p align="center"><strong>Voice, terminology and style alignment for Chinese nutrition writing</strong></p>
+<p align="center">Match the tone of policy documents, learned-society books and standards · checks register, terms and definitions · zero dependencies</p>
+<p align="center"><strong>v1.1.0 — Terminology and Definition Checks</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.5"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.1.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
+  <img src="https://img.shields.io/badge/Built%20with-DSH-2f81f7" alt="Built with DSH">
 </p>
 
 ![overview](docs/assets/overview-en.svg)
@@ -79,7 +80,7 @@ python3 scripts/check.py examples/after.md      # expect: zero paragraph-level h
 
 ## How it judges
 
-Four families: 12 counted rules, 3 document-level style checks, 1 advisory. Every threshold comes from the corpus.
+Five families: L/T/C are register and structure (12 rules), K is terminology (15 patterns across 12 terms), S is document-level style (3 checks).
 
 <table width="100%">
   <thead><tr><th>Family</th><th>Catches</th><th>Institution</th><th>LLM draft</th><th>Verdict</th></tr></thead>
@@ -87,12 +88,15 @@ Four families: 12 counted rules, 3 document-level style checks, 1 advisory. Ever
     <tr><td>L colloquial (7)</td><td>Chinese numerals with units, second person and imperatives, colloquial adjectives, metaphor nouns, 「像是／好比」, 「不是X而是Y」, evaluative 「更X」 endings</td><td>0–0.03</td><td>0.15–2.0</td><td>fix on sight</td></tr>
     <tr><td>T template (4)</td><td>「其机制在于」, 「而非」, 「亦」, 「宜采用」</td><td>0–0.03</td><td>0.36–1.07</td><td>fix above a density</td></tr>
     <tr><td>C structure (1)</td><td>numeric ranges written with 「至」 instead of ～</td><td>0</td><td>4.52</td><td>always ～</td></tr>
+    <tr><td>K terminology (15)</td><td>维他命, 粗纤维, 升糖指数, "carbs are sugar", "fat is lipid", "nutritional component is nutrient"…</td><td>0</td><td>draft-dependent</td><td>fix on sight, standard text cited</td></tr>
     <tr><td>S style (3)</td><td>mixed units, mixed terminology, missing English gloss</td><td>—</td><td>—</td><td>listed, not scored</td></tr>
-    <tr><td colspan="5">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density rather than occurrence.</td></tr>
+    <tr><td colspan="5">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density. K rules are definite errors: fix on sight.</td></tr>
   </tbody>
 </table>
 
-What a diff looks like (real drafts, numbers untouched):
+### What a diff looks like
+
+Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/after.md).
 
 <table width="100%">
   <thead><tr><th>Rule</th><th>Before</th><th>After</th></tr></thead>
@@ -104,7 +108,24 @@ What a diff looks like (real drafts, numbers untouched):
   </tbody>
 </table>
 
-Full rule table in [`SKILL.md`](SKILL.md) (Chinese); evidence per rule in [`references/rule-audit.md`](references/rule-audit.md); all 20 pairs in [`examples/after.md`](examples/after.md).
+### How terminology and definitions are checked
+
+`references/terms.json` holds 22 terms. Thirteen carry definitions quoted verbatim from the standards
+(GB 28050—2025 §2, GB 13432—2013 §2); the rest carry names and English only, marked
+`needs_definition`, and no definition is written from memory.
+
+<table width="100%">
+  <thead><tr><th>Check</th><th>How</th><th>Auto-fix?</th></tr></thead>
+  <tbody>
+    <tr><td>Wrong form</td><td>Error forms in the term table: 维他命, 粗纤维, 升糖指数, 必要氨基酸</td><td>Yes, suggests the standard form</td></tr>
+    <tr><td>Wrong definition</td><td>Reversed inclusion such as "carbs are sugar", "fat is lipid", "nutritional component is nutrient"</td><td>Yes, with the standard definition and clause</td></tr>
+    <tr><td>Definition under review</td><td>When the text says "X 是指 / defined as", the standard definition is printed for comparison</td><td>No, human compares</td></tr>
+    <tr><td>Level and usage</td><td>Mixed usage inside one document (碳水化合物/糖类, 脂肪/脂类, 能量/热量, GI/升糖指数)</td><td>Reported only</td></tr>
+    <tr><td colspan="3">Gap: GB/T 21922—2026 and GB/Z 21922 (referenced by GB 28050) are not in the corpus, so terms that depend on them are marked "to verify".</td></tr>
+  </tbody>
+</table>
+
+Full rule table in [`SKILL.md`](SKILL.md) (Chinese); rule evidence in [`references/rule-audit.md`](references/rule-audit.md).
 
 ## Good fit / bad fit
 
@@ -165,7 +186,7 @@ Directory names follow each harness's own documentation; the table reflects the 
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.5</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.1.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>
@@ -192,7 +213,8 @@ The rule skeleton transfers; the thresholds do not. Rebuild the baseline with `s
 In English a humanizer makes machine text read like a person wrote it. This repository keeps the word but inverts the goal: the target is not a natural individual but an institution publishing. The Chinese title uses 「语体校准」 (register calibration), which is more accurate than "humanising".
 
 **Can it fix a wrong technical term?**
-It can detect *mixed* usage within one document; it cannot decide which term is correct. That needs a term list — GB/T 21922—2026 is not in the corpus, so the checker only flags 碳水化合物 / 糖类, 脂肪 / 脂类 and 血糖生成指数 / 升糖指数 used side by side, plus missing English glosses on first use. Substantive correction requires a terminology table first.
+It fixes *known* errors: 维他命→维生素, 粗纤维→膳食纤维, 升糖指数→血糖生成指数, 必要氨基酸→必需氨基酸, and reversed definitions such as "carbs are sugar" or "fat is lipid". The authority is `references/terms.json`, where 13 definitions are quoted verbatim from GB 28050—2025 §2 and GB 13432—2013 §2.
+It cannot judge *unknown* correctness: terms outside the table are only checked for mixed usage inside one document, and anything depending on GB/T 21922—2026 is marked "to verify" because the standard text is not in the corpus.
 
 **How is this different from "de-AI" tools?**
 Different objective. Those tools make text read like a natural individual — colloquialisms and personal voice are assets. Here the targets are policy documents, learned-society books and standards, where colloquialisms and personal voice are deductions. The same "delete connectives" advice points in opposite directions under the two objectives.
@@ -208,10 +230,20 @@ Different objective. Those tools make text read like a natural individual — co
     <tr><td><a href="references/ai-tells.md">references/ai-tells.md</a></td><td>before/after table by rule id, plus seven "do not change" cases (Chinese)</td></tr>
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>evaluation report: density, false positives, sweep, misses, blind ratings (Chinese)</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 real drafts and rewrites, numbers untouched (Chinese)</td></tr>
+    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 terms; 13 definitions quoted from GB 28050—2025 / GB 13432—2013</td></tr>
+    <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>authors and credits: who decided what, how attribution is recorded</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>corpus sources and copyright</td></tr>
     <tr><td colspan="2">All documents are in Chinese except README.en.md and THIRD_PARTY_NOTICES.md.</td></tr>
   </tbody>
 </table>
+
+## Authors and credits
+
+Initiated and signed off by **ChemistryBus**; corpus extraction, rule implementation, evaluation and
+first drafts by **DSH (DeepSeek Harness)**. Every commit carries
+`Co-Authored-By: DSH (DeepSeek Harness)`, which renders as a second avatar in the commit list.
+GitHub's Contributors panel counts commit authors with linked accounts; DSH has none, and none was
+invented — the division of work and the audit command are in [`CONTRIBUTORS.md`](CONTRIBUTORS.md).
 
 ## Licence
 

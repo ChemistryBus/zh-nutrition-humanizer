@@ -93,7 +93,16 @@ def main():
             dirty.append(m.group(1))
     ok("examples/after.md 段落级零命中", not dirty, "、".join(dirty))
 
-    # 5 链式路径存在
+    # 5 术语规则：fixture 能抓、正样本不误报
+    fixture = ROOT / "tests" / "fixtures" / "terms_bad.md"
+    if fixture.exists():
+        k = sum(i["count"] for i in check.rule_hits(fixture.read_text(encoding="utf-8"))
+                if i["group"] == "K")
+        ok("术语样例命中 ≥5", k >= 5, f"{k} 处")
+    k_gold = sum(i["count"] for _, b in gold for i in check.rule_hits(b) if i["group"] == "K")
+    ok("正样本术语误报 = 0", k_gold == 0, f"{k_gold} 处")
+
+    # 6 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
@@ -111,7 +120,7 @@ def main():
     if FAILED:
         print(f"失败 {len(FAILED)} 项：" + "、".join(FAILED))
         return 1
-    print(f"全部通过（{len(check.RULES)} 条计数规则 + 3 项体例）")
+    print(f"全部通过（{len(check.RULES)} 条语体/结构规则 + {len(check.TERM_RULES)} 条术语规则 + 3 项体例）")
     return 0
 
 

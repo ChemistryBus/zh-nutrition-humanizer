@@ -101,6 +101,39 @@ GLOSS_TERMS = [
 ]
 
 
+# ---------------------------------------------------------------- 术语表
+TERMS_PATH = Path(__file__).resolve().parent.parent / "references" / "terms.json"
+
+
+def load_terms(path=TERMS_PATH):
+    """读术语表。文件缺失时返回空表，检查器仍可运行。"""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return [], {}
+    terms = data.get("terms", [])
+    rules = []
+    for t in terms:
+        for w in t.get("wrong", []):
+            rules.append({"term": t["term"], "pattern": w["pattern"], "hint": w["hint"],
+                          "definition": t.get("definition", ""), "source": t.get("source", "")})
+    return terms, rules
+
+
+TERMS, TERM_RULES = load_terms()
+
+
+def definition_notes(body: str):
+    """定义句：段落里出现「X 是指/定义为」时，把标准定义摆出来供比对。"""
+    notes = []
+    for t in TERMS:
+        if not t.get("definition"):
+            continue
+        if re.search(re.escape(t["term"]) + r"[^。]{0,8}(是指|指的是|定义为|系指|称为)", body):
+            notes.append(f"「{t['term']}」定义句待核；{t['source']}：{t['definition']}")
+    return notes
+
+
 def nchars(s: str) -> int:
     return len(re.sub(r"\s", "", s))
 
@@ -138,6 +171,18 @@ def rule_hits(body: str):
         if excess_total:
             out.append({"group": "T", "id": rid, "rule": name, "count": excess_total,
                         "samples": samples[:3], "hint": hint, "evidence": evidence})
+    by_term = {}
+    for r in TERM_RULES:
+        for m in re.finditer(r["pattern"], body):
+            e = by_term.setdefault(r["term"], {"count": 0, "samples": [], "hint": r["hint"],
+                                              "source": r["source"]})
+            e["count"] += 1
+            if len(e["samples"]) < 3:
+                e["samples"].append(m.group(0)[:16])
+    for term, e in by_term.items():
+        out.append({"group": "K", "id": "K1", "rule": f"术语误写：{term}", "count": e["count"],
+                    "samples": e["samples"], "hint": e["hint"],
+                    "evidence": f"{e['source']}" if e["source"] else "术语表 references/terms.json"})
     return out
 
 
@@ -184,7 +229,7 @@ def doc_checks(text: str):
         if ca and cb:
             issues.append({"group": "S", "id": "S2", "rule": f"术语混用：{a} / {b}",
                            "count": 1, "samples": [f"{a}×{ca}", f"{b}×{cb}"],
-                           "hint": hint, "evidence": "GB/T 21922—2026 与 DRIs 2023 用语"})
+                           "hint": hint, "evidence": "GB 28050—2025 §2 术语与 DRIs 2023 用语（术语标准原文未入库）"})
     if len(text) > 1500:
         gloss = re.findall(r"[\u4e00-\u9fff]{2,12}（[A-Za-z][^）]{2,40}）", text)
         if not gloss:
@@ -207,7 +252,8 @@ def analyze(text: str) -> dict:
                       "samples": [], "hint": hint,
                       "evidence": "机构语料段末总结句 0 处 / 8.8 万字；段长 P95 ≈ 650 字"})
     doc_issues, notes = doc_checks(body)
-    counted = [i for i in items if i["group"] in "LTC"]
+    notes = definition_notes(body) + notes
+    counted = [i for i in items if i["group"] in "LTKC"]
     total = sum(i["count"] for i in counted)
     return {"chars": chars, "total": total,
             "per_kchar": round(total / max(chars, 1) * 1000, 1),
@@ -230,8 +276,8 @@ def main():
         sys.exit(1 if res["per_kchar"] > args.threshold else 0)
 
     print(f"命中 {res['total']} 处 / {res['chars']} 字（{res['per_kchar']} 处每千字）")
-    names = {"L": "口语降维", "T": "模板化", "C": "结构", "S": "体例", "P": "提示"}
-    for g in "LTCP":
+    names = {"L": "口语降维", "T": "模板化", "C": "结构", "K": "术语", "S": "体例", "P": "提示"}
+    for g in "LTKCP":
         rs = [i for i in res["items"] if i["group"] == g]
         if not rs:
             continue
