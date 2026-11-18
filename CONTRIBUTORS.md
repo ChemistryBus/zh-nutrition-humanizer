@@ -22,6 +22,12 @@ GitHub 的 Contributors 按「提交作者邮箱所绑定的 GitHub 账号」统
 - **本文档**记录协作范围；
 - **README「作者与致谢」** 指向本文档。
 
+仓库自带一条 commit-msg 钩子，新提交会自动补上这行 trailer：
+
+```bash
+git config core.hooksPath .githooks   # 克隆后执行一次
+```
+
 核对方式：
 
 ```bash

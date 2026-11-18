@@ -1,0 +1,7 @@
+#!/bin/sh
+# 自动为提交补上 DSH 的 Co-Authored-By（已存在则跳过）
+msg=$(cat "$1")
+case "$msg" in
+  *"Co-Authored-By: DSH"*) ;;
+  *) printf '\n\nCo-Authored-By: DSH (DeepSeek Harness) <noreply@deepseek.com>\n' >> "$1" ;;
+esac
