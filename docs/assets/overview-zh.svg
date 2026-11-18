@@ -3,74 +3,66 @@
     <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#8c959f"/>
     </marker>
-    <style>
-      .t  { font-size: 13px; fill: #1f2328; }
-      .s  { font-size: 11.5px; fill: #57606a; }
-      .h  { font-size: 13.5px; font-weight: 700; fill: #1f2328; }
-      .k  { font-size: 20px; font-weight: 700; fill: #1f2328; }
-      .n  { font-size: 11px; fill: #6e7781; }
-      .box{ fill: #ffffff; stroke: #d0d7de; rx: 10; }
-    </style>
   </defs>
 
   <rect width="1000" height="620" fill="#ffffff"/>
   <text x="40" y="46" font-size="26" font-weight="700" fill="#1f2328">zh-nutrition-humanizer</text>
-  <text x="40" y="72" class="s" font-size="13">中文营养写作品控 · 把稿子校准到中文营养界公开发布文字的口吻</text>
+  <text x="40" y="72" font-size="13" fill="#57606a">中文营养写作品控 · 把稿子校准到中文营养界公开发布文字的口吻</text>
 
   <!-- 三类权威文本 -->
-  <text x="40" y="112" class="h">一、要贴齐的三类文本</text>
+  <text x="40" y="112" font-size="13.5px" font-weight="700" fill="#1f2328">一、要贴齐的三类文本</text>
 
-  <rect x="40" y="126" width="296" height="126" class="box"/>
-  <text x="58" y="150" class="h">国家营养政策文件</text>
-  <text x="58" y="172" class="s">《国民营养计划（2017—2030）》</text>
-  <text x="58" y="191" class="s">健康中国行动 · 国家卫健委食养指南</text>
-  <text x="58" y="210" class="s">定义「建议、应、宜」的用法</text>
-  <text x="58" y="233" class="n">政策口吻：面向人群，不面向读者个人</text>
+  <rect x="40" y="126" width="296" height="126" fill="#ffffff" stroke="#d0d7de" rx="10"/>
+  <text x="58" y="150" font-size="13.5px" font-weight="700" fill="#1f2328">国家营养政策文件</text>
+  <text x="58" y="172" font-size="11.5px" fill="#57606a">《国民营养计划（2017—2030）》</text>
+  <text x="58" y="191" font-size="11.5px" fill="#57606a">健康中国行动 · 国家卫健委食养指南</text>
+  <text x="58" y="210" font-size="11.5px" fill="#57606a">定义「建议、应、宜」的用法</text>
+  <text x="58" y="233" font-size="11px" fill="#6e7781">政策口吻：面向人群，不面向读者个人</text>
 
-  <rect x="352" y="126" width="296" height="126" class="box"/>
-  <text x="370" y="150" class="h">中国营养学会出版物</text>
-  <text x="370" y="172" class="s">《中国营养科学全书（第 2 版）》</text>
-  <text x="370" y="191" class="s">《中国居民膳食指南（2022）》</text>
-  <text x="370" y="210" class="s">《DRIs（2023）》</text>
-  <text x="370" y="233" class="n">教材口吻：定义先行，机制随后</text>
+  <rect x="352" y="126" width="296" height="126" fill="#ffffff" stroke="#d0d7de" rx="10"/>
+  <text x="370" y="150" font-size="13.5px" font-weight="700" fill="#1f2328">中国营养学会出版物</text>
+  <text x="370" y="172" font-size="11.5px" fill="#57606a">《中国营养科学全书（第 2 版）》</text>
+  <text x="370" y="191" font-size="11.5px" fill="#57606a">《中国居民膳食指南（2022）》</text>
+  <text x="370" y="210" font-size="11.5px" fill="#57606a">《DRIs（2023）》</text>
+  <text x="370" y="233" font-size="11px" fill="#6e7781">教材口吻：定义先行，机制随后</text>
 
-  <rect x="664" y="126" width="296" height="126" class="box"/>
-  <text x="682" y="150" class="h">国家 / 行业 / 地方标准</text>
-  <text x="682" y="172" class="s">GB 24154、GB 28050、GB 7718</text>
-  <text x="682" y="191" class="s">WS/T 系列 · GB/T 21922 术语</text>
-  <text x="682" y="210" class="s">地方食养与营养配餐规范</text>
-  <text x="682" y="233" class="n">标准口吻：量、单位、术语不重述</text>
+  <rect x="664" y="126" width="296" height="126" fill="#ffffff" stroke="#d0d7de" rx="10"/>
+  <text x="682" y="150" font-size="13.5px" font-weight="700" fill="#1f2328">国家 / 行业 / 地方标准</text>
+  <text x="682" y="172" font-size="11.5px" fill="#57606a">GB 24154、GB 28050、GB 7718</text>
+  <text x="682" y="191" font-size="11.5px" fill="#57606a">WS/T 系列 · GB/T 21922 术语</text>
+  <text x="682" y="210" font-size="11.5px" fill="#57606a">地方食养与营养配餐规范</text>
+  <text x="682" y="233" font-size="11px" fill="#6e7781">标准口吻：量、单位、术语不重述</text>
 
   <line x1="500" y1="256" x2="500" y2="286" stroke="#8c959f" stroke-width="1.5" marker-end="url(#arr)"/>
 
   <!-- 基线 -->
   <rect x="40" y="292" width="920" height="62" rx="10" fill="#fff8e6" stroke="#e6cc80"/>
-  <text x="60" y="318" class="h">二、语料基线：141 段 / 5.3 万字，200–400 字摘录，逐段带出处与页码</text>
-  <text x="60" y="340" class="s">八项统计：句长分布 · 连接词频率 · 每段句数 · 第一人称 · 数字与单位 · 术语写法 · 依据位置 · 段首连接词</text>
+  <text x="60" y="318" font-size="13.5px" font-weight="700" fill="#1f2328">二、语料基线：141 段 / 5.3 万字，200–400 字摘录，逐段带出处与页码</text>
+  <text x="60" y="340" font-size="11.5px" fill="#57606a">八项统计：句长分布 · 连接词频率 · 每段句数 · 第一人称 · 数字与单位 · 术语写法 · 依据位置 · 段首连接词</text>
 
   <line x1="500" y1="358" x2="500" y2="386" stroke="#8c959f" stroke-width="1.5" marker-end="url(#arr)"/>
 
   <!-- 流程 -->
-  <text x="40" y="408" class="h">三、一稿的路径</text>
-  <rect x="40" y="420" width="164" height="58" class="box"/>
-  <text x="122" y="444" class="t" text-anchor="middle">稿子</text>
-  <text x="122" y="463" class="n" text-anchor="middle">正文 / 公众号版</text>
+  <text x="40" y="408" font-size="13.5px" font-weight="700" fill="#1f2328">三、一稿的路径</text>
+  <rect x="40" y="420" width="164" height="58" fill="#ffffff" stroke="#d0d7de" rx="10"/>
+  <text x="122" y="444" text-anchor="middle" font-size="13px" fill="#1f2328">稿子</text>
+  <text x="122" y="463" text-anchor="middle" font-size="11px" fill="#6e7781">正文 / 公众号版</text>
 
   <rect x="232" y="420" width="184" height="58" rx="10" fill="#eef6ff" stroke="#a5c9f5"/>
-  <text x="324" y="444" class="t" text-anchor="middle">check.py 机检</text>
-  <text x="324" y="463" class="n" text-anchor="middle">12 条计数 + 3 项体例</text>
+  <text x="324" y="444" text-anchor="middle" font-size="13px" fill="#1f2328">check.py 机检</text>
+  <text x="324" y="463" text-anchor="middle" font-size="11px" fill="#6e7781">12 条计数 + 3 项体例</text>
 
-  <rect x="444" y="420" width="164" height="58" class="box"/>
-  <text x="526" y="444" class="t" text-anchor="middle">人工判</text>
-  <text x="526" y="463" class="n" text-anchor="middle">改 / 留 / 补</text>
+  <rect x="444" y="420" width="164" height="58" fill="#ffffff" stroke="#d0d7de" rx="10"/>
+  <text x="526" y="444" text-anchor="middle" font-size="13px" fill="#1f2328">人工判</text>
+  <text x="526" y="463" text-anchor="middle" font-size="11px" fill="#6e7781">改 / 留 / 补</text>
 
-  <rect x="636" y="420" width="150" height="58" class="box"/>
-  <text x="711" y="444" class="t" text-anchor="middle">改写</text>
-  <text x="711" y="463" class="n" text-anchor="middle">L→T→C→S</text>
+  <rect x="636" y="420" width="150" height="58" fill="#ffffff" stroke="#d0d7de" rx="10"/>
+  <text x="711" y="444" text-anchor="middle" font-size="13px" fill="#1f2328">改写</text>
+  <text x="711" y="463" text-anchor="middle" font-size="11px" fill="#6e7781">L→T→C→S</text>
 
   <rect x="814" y="420" width="146" height="58" rx="10" fill="#eaf7ee" stroke="#9fd6ae"/>
-  <text x="887" y="444" class="t" text-anchor="middle">复核</text>
-  <text x="887" y="463" class="n" text-anchor="middle">数字与依据不动</text>
+  <text x="887" y="444" text-anchor="middle" font-size="13px" fill="#1f2328">复核</text>
+  <text x="887" y="463" text-anchor="middle" font-size="11px" fill="#6e7781">数字与依据不动</text>
 
   <line x1="204" y1="449" x2="228" y2="449" stroke="#8c959f" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="416" y1="449" x2="440" y2="449" stroke="#8c959f" stroke-width="1.5" marker-end="url(#arr)"/>
@@ -79,16 +71,16 @@
 
   <!-- 评测 -->
   <rect x="40" y="498" width="452" height="96" rx="10" fill="#f6f8fa" stroke="#d0d7de"/>
-  <text x="58" y="522" class="h">四、评测：50 段正样本 vs 50 段大模型初稿</text>
-  <text x="58" y="546" class="t">命中密度差 <tspan font-weight="700">74.5×</tspan>　段级误报 <tspan font-weight="700">4.0%</tspan></text>
-  <text x="58" y="568" class="s">段级召回 92%（教材体 88% / 科普体 96%）</text>
-  <text x="58" y="586" class="n">阈值扫描 1–8，拐点 1–2，默认 3</text>
+  <text x="58" y="522" font-size="13.5px" font-weight="700" fill="#1f2328">四、评测：50 段正样本 vs 50 段大模型初稿</text>
+  <text x="58" y="546" font-size="13px" fill="#1f2328">命中密度差 <tspan font-weight="700">74.5×</tspan>　段级误报 <tspan font-weight="700">4.0%</tspan></text>
+  <text x="58" y="568" font-size="11.5px" fill="#57606a">段级召回 92%（教材体 88% / 科普体 96%）</text>
+  <text x="58" y="586" font-size="11px" fill="#6e7781">阈值扫描 1–8，拐点 1–2，默认 3</text>
 
   <rect x="508" y="498" width="452" height="96" rx="10" fill="#f6f8fa" stroke="#d0d7de"/>
-  <text x="526" y="522" class="h">五、盲评：20 组改前 / 改后，A/B 随机</text>
-  <text x="526" y="546" class="t">科普体 <tspan font-weight="700">20 胜 0 负</tspan>（4.25 vs 2.45）</text>
-  <text x="526" y="568" class="t">教材体 <tspan font-weight="700">16 平</tspan>（4.90 vs 4.90）</text>
-  <text x="526" y="586" class="n">教材体只能改体例，改不动语体</text>
+  <text x="526" y="522" font-size="13.5px" font-weight="700" fill="#1f2328">五、盲评：20 组改前 / 改后，A/B 随机</text>
+  <text x="526" y="546" font-size="13px" fill="#1f2328">科普体 <tspan font-weight="700">20 胜 0 负</tspan>（4.25 vs 2.45）</text>
+  <text x="526" y="568" font-size="13px" fill="#1f2328">教材体 <tspan font-weight="700">16 平</tspan>（4.90 vs 4.90）</text>
+  <text x="526" y="586" font-size="11px" fill="#6e7781">教材体只能改体例，改不动语体</text>
 
-  <text x="40" y="614" class="n">改的是表达，不是事实：数字、单位、证据等级一律不动。</text>
+  <text x="40" y="614" font-size="11px" fill="#6e7781">改的是表达，不是事实：数字、单位、证据等级一律不动。</text>
 </svg>
