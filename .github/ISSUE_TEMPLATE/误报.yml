@@ -1,0 +1,51 @@
+name: 误报（规则命中了好文字）
+description: 权威语体或正常表述被规则标了，需要窄化或删除该规则
+title: "[误报] "
+labels: ["false-positive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        误报比漏报更严重：它会让人不再信任检查器。请尽量给出可复核的原文。
+  - type: input
+    id: rule
+    attributes:
+      label: 规则编号
+      description: 见 `python3 scripts/check.py 稿子.md --explain` 输出的 [L1] / [T2] / [C1] / [S1]
+      placeholder: "L1"
+    validations:
+      required: true
+  - type: textarea
+    id: sentence
+    attributes:
+      label: 被误标的句子
+      description: 一段即可，200–400 字，注明出处（书名 + 页码）
+      placeholder: |
+        原文：……
+        出处：《中国营养科学全书（第2版）》上册，p.xxx
+    validations:
+      required: true
+  - type: dropdown
+    id: register
+    attributes:
+      label: 这段文字的语体
+      options:
+        - 教材（术语密集、给单位、有依据）
+        - 国家级指南／食养指南
+        - 标准／法规条文
+        - 科普（面向公众）
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: 为什么不算问题
+      description: 事实枚举？法规名称？引用原文？固定搭配？
+    validations:
+      required: true
+  - type: input
+    id: freq
+    attributes:
+      label: 这类句子的出现频率（可选）
+      placeholder: "同一本书里估计每千字 2 处"

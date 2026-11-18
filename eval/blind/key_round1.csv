@@ -1,0 +1,21 @@
+item,title,A_is,B_is
+01,运动员能量需要量的估算（`neg_001`，教材体）,A=before,B=after
+02,碳水化合物与肌糖原储备（`neg_002`，教材体）,A=after,B=before
+03,蛋白质的氨基酸组成与利用率（`neg_003`，教材体）,A=before,B=after
+04,脂肪的供能与脂肪酸构成（`neg_004`，教材体）,A=after,B=before
+05,水与电解质平衡（`neg_005`，教材体）,A=before,B=after
+06,钠、钾与运动性肌肉痉挛（`neg_006`，教材体）,A=after,B=before
+07,铁营养状况与运动能力（`neg_007`，教材体）,A=before,B=after
+08,钙、维生素 D 与骨健康（`neg_008`，教材体）,A=before,B=after
+09,咖啡因的作用机制与剂量（`neg_009`，教材体）,A=before,B=after
+10,肌酸的补充方案（`neg_010`，教材体）,A=before,B=after
+11,减脂期与代谢适应（`neg_027`，科普体）,A=before,B=after
+12,老年健身者的蛋白质分配（`neg_028`，科普体）,A=after,B=before
+13,乳清蛋白与植物蛋白（`neg_029`，科普体）,A=after,B=before
+14,膳食纤维与肠道菌群（`neg_030`，科普体）,A=before,B=after
+15,外出比赛与旅行饮食（`neg_031`，科普体）,A=after,B=before
+16,生酮饮食与运动表现（`neg_032`，科普体）,A=after,B=before
+17,蛋白补充时机的常见误区（`neg_033`，科普体）,A=after,B=before
+18,运动营养食品标签与法规（`neg_034`，科普体）,A=after,B=before
+19,女性跑者的铁与骨健康（`neg_035`，科普体）,A=before,B=after
+20,铁不足与运动能力（`neg_036`，科普体）,A=after,B=before

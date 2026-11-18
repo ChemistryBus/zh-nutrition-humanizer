@@ -1,0 +1,41 @@
+name: 漏报（AI 腔没被抓住）
+description: 明显的口语化、模板腔或体例问题，检查器没标
+title: "[漏报] "
+labels: ["false-negative"]
+body:
+  - type: textarea
+    id: sentence
+    attributes:
+      label: 漏掉的句子
+      description: 一段即可；如果是有意生成的对照，请注明
+      placeholder: |
+        原文：……
+        为什么觉得不对：……
+    validations:
+      required: true
+  - type: dropdown
+    id: family
+    attributes:
+      label: 属于哪一族
+      options:
+        - L 口语降维（口语词、第二人称、比喻）
+        - T 模板化（其机制在于、而非、亦、可＋动词）
+        - C 结构（数值区间、段末复述）
+        - S 体例（单位、术语、首现英文）
+        - 说不清，但读着不像教材
+    validations:
+      required: true
+  - type: textarea
+    id: corpus
+    attributes:
+      label: 能提供对照语料吗
+      description: 同主题的权威原文段落（注明出处页码），用来确认这是不是真的偏离
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 自查
+      options:
+        - label: 我已确认这句话没有被 L/T/C/S 任一条规则命中
+          required: true
+        - label: 我同意「漏报」不等于「该加规则」——要看语料证据
+          required: true
