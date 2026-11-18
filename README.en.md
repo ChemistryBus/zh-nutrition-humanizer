@@ -10,7 +10,8 @@
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
-  <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.8-3.12">
+  <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
+  <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
 </p>
 
 ![overview](docs/assets/overview-en.svg)
@@ -72,7 +73,7 @@ Four families: 12 counted rules, 3 document-level style checks, 1 advisory. Ever
 |---|---|---|---:|---:|---|
 | L colloquial (7) | Chinese numerals with units, second person/imperatives, colloquial adjectives, metaphor nouns, "像/好比", "不是X而是Y", evaluative "更X" | 0–0.03 | 0.15–2.0 | fix on sight |
 | T template (4) | "其机制在于", "而非", "亦", "宜采用" | 0–0.03 | 0.36–1.07 | fix above a density |
-| C structure (1) | numeric ranges written with 「至」 | 0 | 4.52 | always ～ |
+| C structure (1) | numeric ranges written with “至” | 0 | 4.52 | always ～ |
 | S style (3) | mixed units, mixed terminology, missing English gloss | — | — | listed, not scored |
 
 Full rule table in [`SKILL.md`](SKILL.md); evidence per rule in [`references/rule-audit.md`](references/rule-audit.md) (Chinese).
@@ -123,8 +124,8 @@ Final blind round, on the exact repository text: popular-register rewrites **20 
 
 ## FAQ
 
-**Why not delete 「此外／同时」?**
-The corpus uses them 3.27 times per 1,000 characters; textbook-register LLM drafts use 3.57. Connectives do not discriminate. What should go is the restatement that follows 「由此可见」.
+**Why not delete “此外／同时”?**
+The corpus uses them 3.27 times per 1,000 characters; textbook-register LLM drafts use 3.57. Connectives do not discriminate. What should go is the restatement that follows “由此可见”.
 
 **Will it ruin good prose?**
 Sometimes. The 4.0% false-positive rate is the measured cost on authoritative text, which is why the tool only produces a list and a human decides. No rule touches a number.

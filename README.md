@@ -10,21 +10,22 @@
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
-  <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.8-3.12">
+  <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
+  <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
 </p>
 
 ![zh-nutrition-humanizer 总览](docs/assets/overview-zh.svg)
 
 ## 它是什么
 
-humanizer 大多在追「像人写的」。这个不是。
+humanizer 大多在追“像人写的”。这个不是。
 
 `zh-nutrition-humanizer` 的目标语体是**机构文本**：句式规整、术语统一、剂量带单位、论断跟着依据走、不抒情不总结。它附带一份 5.3 万字的权威语料基线，每条规则的阈值都能用仓库里的脚本复算，而不是一张凭经验写下的清单。
 
 它主要解决四类问题：
 
 - 大模型写营养稿，句式、数字、术语都在，但读起来像科普号；
-- 「去 AI 味」的通用技巧（删连接词、拆长句、加口语）用在教材体上会**反向降分**；
+- “去 AI 味”的通用技巧（删连接词、拆长句、加口语）用在教材体上会**反向降分**；
 - 中文没有公认的 AI 检测标准，凭感觉改，改完没人能复核；
 - 语料在本地、版权不能整本转载，所以只能靠 200–400 字摘录建基线。
 
@@ -72,7 +73,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 |---|---|---|---:|---:|---|
 | L 口语降维（7 条） | 汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾 | 0–0.03 | 0.15–2.0 | 出现即改 |
 | T 模板化（4 条） | 其机制在于、而非、亦、宜采用 | 0–0.03 | 0.36–1.07 | 超过密度才改 |
-| C 结构（1 条） | 数值区间用「至」 | 0 | 4.52 | 一律改 ～ |
+| C 结构（1 条） | 数值区间用“至” | 0 | 4.52 | 一律改 ～ |
 | S 体例（3 项） | 单位混用、术语混用、首现未给英文 | — | — | 逐条列出，不计密度 |
 
 完整规则表见 [`SKILL.md`](SKILL.md)，每条的依据见 [`references/rule-audit.md`](references/rule-audit.md)。
@@ -91,7 +92,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 - 纯英文稿（用 academic-humanizer）；
 - 事实核查、引用真伪、证据等级与论断强度是否匹配——这三项必须人看，机检不碰。
 
-## 证据，不是「AI 概率」
+## 证据，不是“AI 概率”
 
 | 指标 | 结果 | 目标 |
 |---|---|---|
@@ -123,14 +124,14 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ## 常见问题
 
-**Q：为什么不删「此外／同时」？**
-机构文本 3.27 处/千字，大模型教材体 3.57，删连接词不是判别特征。要删的是「由此可见」后面那句复述。
+**Q：为什么不删“此外／同时”？**
+机构文本 3.27 处/千字，大模型教材体 3.57，删连接词不是判别特征。要删的是“由此可见”后面那句复述。
 
 **Q：会不会把好文字改坏？**
 会。误报率 4% 就是对权威原文的实测误伤；所以机检只出清单，改不改由人判，规则里也没有一条会动数字。
 
 **Q：能判断一段话是不是 AI 写的吗？**
-不能。这里给的是「相对于本语料的偏离度」，不是 AI 概率。中文没有公认的检测基准，任何声称能判的都要看它的正负样本。
+不能。这里给的是“相对于本语料的偏离度”，不是 AI 概率。中文没有公认的检测基准，任何声称能判的都要看它的正负样本。
 
 **Q：为什么语料只有 200–400 字摘录？**
 版权。每段标注来源、出版方、页码，只用于统计与对照，不整本转载；原始 PDF 不入库。
@@ -145,7 +146,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 | [`SKILL.md`](SKILL.md) | 技能主文件：定位、规则表、流程、局限 |
 | [`references/baseline.md`](references/baseline.md) | 141 段语料的八项统计、提取路由、复现方法 |
 | [`references/rule-audit.md`](references/rule-audit.md) | v0.1 的 25 条规则逐条判（删 17、并 5、留 4、待验证 2） |
-| [`references/ai-tells.md`](references/ai-tells.md) | 按规则编号排的对照表 + 七条「什么时候不该改」 |
+| [`references/ai-tells.md`](references/ai-tells.md) | 按规则编号排的对照表 + 七条“什么时候不该改” |
 | [`eval/results.md`](eval/results.md) | 评测报告：密度差、误报率、阈值扫描、漏报、盲评 |
 | [`examples/after.md`](examples/after.md) | 20 组真实初稿与改写，数字零改动 |
 | [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) | 语料来源与版权声明 |
