@@ -95,10 +95,12 @@ def main():
 
     # 5 链式路径存在
     missing = []
-    for md in ("README.md", "README.en.md", "SKILL.md"):
+    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
-        for link in re.findall(r"\]\(([^)#]+?)(?:#[^)]*)?\)", text):
-            if link.startswith(("http", "mailto")):
+        links = re.findall(r"\]\(([^)#]+?)(?:#[^)]*)?\)", text)
+        links += re.findall(r'(?:href|src)="([^"#]+?)"', text)
+        for link in links:
+            if link.startswith(("http", "mailto", "#")):
                 continue
             if not (ROOT / link).exists():
                 missing.append(f"{md} → {link}")

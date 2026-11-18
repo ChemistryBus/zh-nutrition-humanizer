@@ -3,12 +3,12 @@
 <h1 align="center">zh-nutrition-humanizer</h1>
 
 <p align="center"><strong>中文营养写作品控</strong></p>
-<p align="center">不是去 AI 味，是把稿子校到中国营养学会教材与国家级食养指南的规范。</p>
-<p align="center"><strong>v1.0.1 — Repository Rename and docarbiter-style Docs</strong></p>
+<p align="center">不是去 AI 味，是把稿子校准到中文营养界公开发布文字的口吻。</p>
+<p align="center"><strong>v1.0.2 — Voice Alignment and Full-width Tables</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.2"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -18,16 +18,27 @@
 
 ## 它是什么
 
-humanizer 大多在追“像人写的”。这个不是。
+humanizer 大多在追「像人写的」。这里追的是另一件事：**中文营养界公开发布文字时的口吻**。
 
-`zh-nutrition-humanizer` 的目标语体是**机构文本**：句式规整、术语统一、剂量带单位、论断跟着依据走、不抒情不总结。它附带一份 5.3 万字的权威语料基线，每条规则的阈值都能用仓库里的脚本复算，而不是一张凭经验写下的清单。
+这个口吻不是一种抽象的风格偏好，它由三类文本具体定义：
+
+<table width="100%">
+  <thead><tr><th width="22%">类别</th><th width="44%">代表文本</th><th width="34%">它定下了什么</th></tr></thead>
+  <tbody>
+    <tr><td>国家营养政策文件</td><td>《国民营养计划（2017—2030 年）》、健康中国行动、国家卫生健康委员会食养指南系列（11 份，2023–2026）</td><td>「建议、应、宜、不宜」的用法；面向人群而非面向读者个人</td></tr>
+    <tr><td>中国营养学会出版物</td><td>《中国营养科学全书（第 2 版）》、《中国居民膳食指南（2022）》、《中国居民膳食营养素参考摄入量（DRIs，2023）》</td><td>术语层级、定义写法、剂量单位、论断与依据的相对位置</td></tr>
+    <tr><td>国家 / 行业 / 地方标准</td><td>GB 24154、GB 28050、GB 7718、WS/T 系列、GB/T 21922—2026 术语标准、地方食养与配餐规范</td><td>量的写法、单位体例、术语与分类边界</td></tr>
+  </tbody>
+</table>
+
+本仓库做的，是把这三类文本拆成可测的指标——术语层级、剂量写法、句式长度、依据位置——再用 **141 段、5.3 万字**的语料校准阈值。所以「像不像」不是谁说了算，而是能落到「每千字几次」上。
 
 它主要解决四类问题：
 
-- 大模型写营养稿，句式、数字、术语都在，但读起来像科普号；
-- “去 AI 味”的通用技巧（删连接词、拆长句、加口语）用在教材体上会**反向降分**；
-- 中文没有公认的 AI 检测标准，凭感觉改，改完没人能复核；
-- 语料在本地、版权不能整本转载，所以只能靠 200–400 字摘录建基线。
+- 大模型写营养稿，事实与数字都对，但口吻不对：像科普号，不像公开发布的文件；
+- 「去 AI 味」的通用技巧（删连接词、拆长句、加口语）用在机构文本上会**反向降分**；
+- 中文没有公认的 AI 检测标准，凭感觉改，改完没法复核；
+- 语料在本地、版权不能整本转载，只能靠 200–400 字摘录建基线。
 
 ## 30 秒开始
 
@@ -69,14 +80,28 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 四族规则，12 条计数 + 3 项文档级体例 + 1 项提示。阈值全部来自语料实测。
 
-| 族 | 抓什么 | 机构文本 | 大模型初稿 | 判法 |
-|---|---|---|---:|---:|---|
-| L 口语降维（7 条） | 汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾 | 0–0.03 | 0.15–2.0 | 出现即改 |
-| T 模板化（4 条） | 其机制在于、而非、亦、宜采用 | 0–0.03 | 0.36–1.07 | 超过密度才改 |
-| C 结构（1 条） | 数值区间用“至” | 0 | 4.52 | 一律改 ～ |
-| S 体例（3 项） | 单位混用、术语混用、首现未给英文 | — | — | 逐条列出，不计密度 |
+<table width="100%">
+  <thead><tr><th width="20%">族</th><th width="44%">抓什么</th><th width="14%">机构文本</th><th width="12%">大模型初稿</th><th width="10%">判法</th></tr></thead>
+  <tbody>
+    <tr><td>L 口语降维（7 条）</td><td>汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾</td><td>0–0.03</td><td>0.15–2.0</td><td>出现即改</td></tr>
+    <tr><td>T 模板化（4 条）</td><td>其机制在于、而非、亦、宜采用</td><td>0–0.03</td><td>0.36–1.07</td><td>超过密度才改</td></tr>
+    <tr><td>C 结构（1 条）</td><td>数值区间用“至”</td><td>0</td><td>4.52</td><td>一律改 ～</td></tr>
+    <tr><td>S 体例（3 项）</td><td>单位混用、术语混用、首现未给英文</td><td>—</td><td>—</td><td>逐条列出，不计密度</td></tr>
+  </tbody>
+</table>
 
-完整规则表见 [`SKILL.md`](SKILL.md)，每条的依据见 [`references/rule-audit.md`](references/rule-audit.md)。
+改前改后长这样（真实初稿，数字不动）：
+
+<table width="100%">
+  <thead><tr><th width="12%">规则</th><th width="44%">改前</th><th width="44%">改后</th></tr></thead>
+  <tbody>
+    <tr><td>L1</td><td>每天蛋白质提高到每公斤体重一点六到二点四克</td><td>蛋白质提高到 1.6～2.4 g/kg</td></tr>
+    <tr><td>T1</td><td>其核心依据是能量平衡原则，即摄入能量与总能量消耗相抵</td><td>估算以能量平衡为基础：摄入能量与总能量消耗相抵</td></tr>
+    <tr><td>C1</td><td>每日 5 至 7 g/kg/d</td><td>每日 5～7 g/kg/d</td></tr>
+  </tbody>
+</table>
+
+完整规则表见 [`SKILL.md`](SKILL.md)，每条的依据见 [`references/rule-audit.md`](references/rule-audit.md)，20 组完整对照见 [`examples/after.md`](examples/after.md)。
 
 ## 适合 / 不适合
 
@@ -92,14 +117,17 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 - 纯英文稿（用 academic-humanizer）；
 - 事实核查、引用真伪、证据等级与论断强度是否匹配——这三项必须人看，机检不碰。
 
-## 证据，不是“AI 概率”
+## 证据，不是「AI 概率」
 
-| 指标 | 结果 | 目标 |
-|---|---|---|
-| 命中密度差 | **74.5×**（机构 0.11 vs 初稿 8.40 处/千字） | ≥3× |
-| 段级误报率 | **4.0%**（2/50 段权威原文被标） | <15% |
-| 段级召回 | **92%**（教材体 88% / 科普体 96%） | — |
-| 阈值拐点 | 1–2 处/千字（J=+0.88），默认取 3 | — |
+<table width="100%">
+  <thead><tr><th width="30%">指标</th><th width="46%">结果</th><th width="24%">目标</th></tr></thead>
+  <tbody>
+    <tr><td>命中密度差</td><td><strong>74.5×</strong>（机构 0.11 vs 初稿 8.40 处/千字）</td><td>≥3×</td></tr>
+    <tr><td>段级误报率</td><td><strong>4.0%</strong>（2/50 段权威原文被标）</td><td>&lt;15%</td></tr>
+    <tr><td>段级召回</td><td><strong>92%</strong>（教材体 88% / 科普体 96%）</td><td>—</td></tr>
+    <tr><td>阈值拐点</td><td>1–2 处/千字（J=+0.88），默认取 3</td><td>—</td></tr>
+  </tbody>
+</table>
 
 正样本 50 段（1.78 万字，与建基线的页码不重叠）、负样本 50 段（科普体 24 / 教材体 26）。逐规则表、阈值曲线、消融、漏报分析与三轮盲评在 [`eval/results.md`](eval/results.md)。
 
@@ -107,31 +135,37 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ## 支持哪些 harness
 
-| 环境 | 用法 |
-|---|---|
-| 纯命令行 / CI | `python3 scripts/check.py 稿子.md --threshold 3`，退出码 1 即超阈值 |
-| Claude Code | 仓库放进 `~/.claude/skills/`，读 `SKILL.md` |
-| DSH / Cordis | 放进 `~/.dsh/skills/`，`SKILL.md` 已带 frontmatter |
-| 自建流程 | `--json` 输出喂给下游；`scripts/eval.py` 可接入回归测试 |
+<table width="100%">
+  <thead><tr><th width="30%">环境</th><th width="70%">用法</th></tr></thead>
+  <tbody>
+    <tr><td>纯命令行 / CI</td><td><code>python3 scripts/check.py 稿子.md --threshold 3</code>，退出码 1 即超阈值</td></tr>
+    <tr><td>Claude Code</td><td>仓库放进 <code>~/.claude/skills/</code>，读 <code>SKILL.md</code></td></tr>
+    <tr><td>DSH / Cordis</td><td>放进 <code>~/.dsh/skills/</code>，<code>SKILL.md</code> 已带 frontmatter</td></tr>
+    <tr><td>自建流程</td><td><code>--json</code> 输出喂给下游；<code>scripts/eval.py</code> 可接入回归测试</td></tr>
+  </tbody>
+</table>
 
 ## 安装选项
 
-| 需求 | 做法 |
-|---|---|
-| 只想查一篇稿子 | `git clone` 后直接跑 `scripts/check.py`，不安装 |
-| 当技能长期用 | 克隆到技能目录，版本用 tag 锁（`git checkout v1.0.1`） |
-| 接进 CI | 把 `scripts/check.py` 拷进仓库，或 `git submodule add` |
+<table width="100%">
+  <thead><tr><th width="30%">需求</th><th width="70%">做法</th></tr></thead>
+  <tbody>
+    <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.0.2</code>）</td></tr>
+    <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
+  </tbody>
+</table>
 
 ## 常见问题
 
-**Q：为什么不删“此外／同时”？**
-机构文本 3.27 处/千字，大模型教材体 3.57，删连接词不是判别特征。要删的是“由此可见”后面那句复述。
+**Q：为什么不删「此外／同时」？**
+机构文本 3.27 处/千字，大模型教材体 3.57，删连接词不是判别特征。要删的是「由此可见」后面那句复述。
 
 **Q：会不会把好文字改坏？**
 会。误报率 4% 就是对权威原文的实测误伤；所以机检只出清单，改不改由人判，规则里也没有一条会动数字。
 
 **Q：能判断一段话是不是 AI 写的吗？**
-不能。这里给的是“相对于本语料的偏离度”，不是 AI 概率。中文没有公认的检测基准，任何声称能判的都要看它的正负样本。
+不能。这里给的是「相对于本语料的偏离度」，不是 AI 概率。中文没有公认的检测基准，任何声称能判的都要看它的正负样本。
 
 **Q：为什么语料只有 200–400 字摘录？**
 版权。每段标注来源、出版方、页码，只用于统计与对照，不整本转载；原始 PDF 不入库。
@@ -139,17 +173,23 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 **Q：能用在别的领域吗？**
 规则骨架可以，阈值不行。换领域必须重建基线——`scripts/stats.py` 与 `scripts/features.py` 就是干这个的。
 
+**Q：和「去 AI 味」的工具有什么不同？**
+目标不同。那类工具让文字更像自然人写作，允许口语与个人声音；这里要求更像政策文件、学会出版物与标准，口语与个人声音恰恰是减分项。同一个「删连接词」在这两套目标下结论相反。
+
 ## 文档
 
-| 文件 | 内容 |
-|---|---|
-| [`SKILL.md`](SKILL.md) | 技能主文件：定位、规则表、流程、局限 |
-| [`references/baseline.md`](references/baseline.md) | 141 段语料的八项统计、提取路由、复现方法 |
-| [`references/rule-audit.md`](references/rule-audit.md) | v0.1 的 25 条规则逐条判（删 17、并 5、留 4、待验证 2） |
-| [`references/ai-tells.md`](references/ai-tells.md) | 按规则编号排的对照表 + 七条“什么时候不该改” |
-| [`eval/results.md`](eval/results.md) | 评测报告：密度差、误报率、阈值扫描、漏报、盲评 |
-| [`examples/after.md`](examples/after.md) | 20 组真实初稿与改写，数字零改动 |
-| [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) | 语料来源与版权声明 |
+<table width="100%">
+  <thead><tr><th width="34%">文件</th><th width="66%">内容</th></tr></thead>
+  <tbody>
+    <tr><td><a href="SKILL.md">SKILL.md</a></td><td>技能主文件：定位、规则表、流程、局限</td></tr>
+    <tr><td><a href="references/baseline.md">references/baseline.md</a></td><td>141 段语料的八项统计、提取路由、复现方法</td></tr>
+    <tr><td><a href="references/rule-audit.md">references/rule-audit.md</a></td><td>v0.1 的 25 条规则逐条判（删 17、并 5、留 4、待验证 2）</td></tr>
+    <tr><td><a href="references/ai-tells.md">references/ai-tells.md</a></td><td>按规则编号排的对照表 + 七条「什么时候不该改」</td></tr>
+    <tr><td><a href="eval/results.md">eval/results.md</a></td><td>评测报告：密度差、误报率、阈值扫描、漏报、盲评</td></tr>
+    <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 组真实初稿与改写，数字零改动</td></tr>
+    <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
+  </tbody>
+</table>
 
 ## 许可
 
