@@ -3,12 +3,12 @@
 <h1 align="center">zh-nutrition-humanizer</h1>
 
 <p align="center"><strong>Voice and style alignment for Chinese nutrition writing</strong></p>
-<p align="center">Match the tone of policy documents, learned-society books and standards · zero dependencies · corpus-calibrated thresholds</p>
-<p align="center"><strong>v1.0.4 — Harness Coverage and Table Layout</strong></p>
+<p align="center">Match the tone of policy documents, learned-society books and standards · zero dependencies · runs locally</p>
+<p align="center"><strong>v1.0.5 — Table Notes and FAQ on Naming</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.4"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.5"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -28,6 +28,7 @@ That voice is not a matter of taste. It is specified by three bodies of text:
     <tr><td>National nutrition policy</td><td>National Nutrition Plan (2017–2030); Healthy China Action; the National Health Commission dietary-guidance series (11 documents, 2023–2026)</td><td>How 应 / 宜 / 不宜 / 建议 are used; addressed to a population, not to a reader</td></tr>
     <tr><td>Chinese Nutrition Society books</td><td><em>Encyclopedia of Nutrition Science</em> (2nd ed.); <em>Dietary Guidelines for Chinese Residents</em> (2022); <em>DRIs</em> (2023)</td><td>Terminology hierarchy, definition style, dose units, where evidence sits relative to a claim</td></tr>
     <tr><td>National, industry and local standards</td><td>GB 24154, GB 28050, GB 7718, the WS/T series, GB/T 21922—2026 terminology, local dietary-guidance specifications</td><td>How quantities are written, unit conventions, terminology and category boundaries</td></tr>
+    <tr><td colspan="3">The three bodies are parallel, not substitutes: policy fixes the voice, learned-society books fix terminology and definitions, standards fix quantities and units.</td></tr>
   </tbody>
 </table>
 
@@ -87,6 +88,7 @@ Four families: 12 counted rules, 3 document-level style checks, 1 advisory. Ever
     <tr><td>T template (4)</td><td>「其机制在于」, 「而非」, 「亦」, 「宜采用」</td><td>0–0.03</td><td>0.36–1.07</td><td>fix above a density</td></tr>
     <tr><td>C structure (1)</td><td>numeric ranges written with 「至」 instead of ～</td><td>0</td><td>4.52</td><td>always ～</td></tr>
     <tr><td>S style (3)</td><td>mixed units, mixed terminology, missing English gloss</td><td>—</td><td>—</td><td>listed, not scored</td></tr>
+    <tr><td colspan="5">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density rather than occurrence.</td></tr>
   </tbody>
 </table>
 
@@ -98,6 +100,7 @@ What a diff looks like (real drafts, numbers untouched):
     <tr><td>L1</td><td>每天蛋白质提高到每公斤体重一点六到二点四克</td><td>蛋白质提高到 1.6～2.4 g/kg</td></tr>
     <tr><td>T1</td><td>其核心依据是能量平衡原则，即摄入能量与总能量消耗相抵</td><td>估算以能量平衡为基础：摄入能量与总能量消耗相抵</td></tr>
     <tr><td>C1</td><td>每日 5 至 7 g/kg/d</td><td>每日 5～7 g/kg/d</td></tr>
+    <tr><td colspan="3">All 20 pairs are in examples/after.md; rewrites never touch numbers, units or evidence grades.</td></tr>
   </tbody>
 </table>
 
@@ -126,6 +129,7 @@ Full rule table in [`SKILL.md`](SKILL.md) (Chinese); evidence per rule in [`refe
     <tr><td>Paragraph false positives</td><td><strong>4.0%</strong> (2 of 50 authoritative paragraphs flagged)</td><td>&lt;15%</td></tr>
     <tr><td>Paragraph recall</td><td><strong>92%</strong> (textbook 88% / popular 96%)</td><td>—</td></tr>
     <tr><td>Threshold knee</td><td>1–2 per 1,000 chars (J = +0.88); default 3</td><td>—</td></tr>
+    <tr><td colspan="3">Metric definitions and recomputation commands are in eval/results.md; the 4/50 missed cases are in section 7.</td></tr>
   </tbody>
 </table>
 
@@ -149,6 +153,7 @@ Drop the directory in the right place; `SKILL.md` already carries frontmatter, n
     <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>project-level: <code>.agents/skills</code></td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>project-level: <code>.codebuddy/skills/</code> (inherited from the CodeBuddy core)</td></tr>
     <tr><td>Custom pipeline</td><td>—</td><td>consume <code>--json</code>; <code>scripts/eval.py</code> works as a regression test</td></tr>
+    <tr><td colspan="3">Directory names follow each harness's own documentation; the table reflects conventions as of November 2026.</td></tr>
   </tbody>
 </table>
 
@@ -160,8 +165,9 @@ Directory names follow each harness's own documentation; the table reflects the 
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.4</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.5</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
+    <tr><td colspan="2">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>
 </table>
 
@@ -182,6 +188,12 @@ Copyright. Every excerpt carries source, publisher and page number; nothing is r
 **Can I use it in another domain?**
 The rule skeleton transfers; the thresholds do not. Rebuild the baseline with `scripts/stats.py` and `scripts/features.py`.
 
+**Why "humanizer"?**
+In English a humanizer makes machine text read like a person wrote it. This repository keeps the word but inverts the goal: the target is not a natural individual but an institution publishing. The Chinese title uses 「语体校准」 (register calibration), which is more accurate than "humanising".
+
+**Can it fix a wrong technical term?**
+It can detect *mixed* usage within one document; it cannot decide which term is correct. That needs a term list — GB/T 21922—2026 is not in the corpus, so the checker only flags 碳水化合物 / 糖类, 脂肪 / 脂类 and 血糖生成指数 / 升糖指数 used side by side, plus missing English glosses on first use. Substantive correction requires a terminology table first.
+
 **How is this different from "de-AI" tools?**
 Different objective. Those tools make text read like a natural individual — colloquialisms and personal voice are assets. Here the targets are policy documents, learned-society books and standards, where colloquialisms and personal voice are deductions. The same "delete connectives" advice points in opposite directions under the two objectives.
 
@@ -197,6 +209,7 @@ Different objective. Those tools make text read like a natural individual — co
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>evaluation report: density, false positives, sweep, misses, blind ratings (Chinese)</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 real drafts and rewrites, numbers untouched (Chinese)</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>corpus sources and copyright</td></tr>
+    <tr><td colspan="2">All documents are in Chinese except README.en.md and THIRD_PARTY_NOTICES.md.</td></tr>
   </tbody>
 </table>
 

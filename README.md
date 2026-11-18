@@ -3,12 +3,12 @@
 <h1 align="center">zh-nutrition-humanizer</h1>
 
 <p align="center"><strong>中文营养写作的语体校准</strong></p>
-<p align="center">对齐政策文件、学会出版物与标准的口吻 · 零依赖 · 规则阈值有语料基线</p>
-<p align="center"><strong>v1.0.4 — Harness Coverage and Table Layout</strong></p>
+<p align="center">对齐政策文件、学会出版物与标准的口吻 · 零依赖 · 本地运行</p>
+<p align="center"><strong>v1.0.5 — Table Notes and FAQ on Naming</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.4"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.5"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -28,6 +28,7 @@ humanizer 大多在追「像人写的」。这里追的是另一件事：**中�
     <tr><td>国家营养政策文件</td><td>《国民营养计划（2017—2030 年）》、健康中国行动、国家卫生健康委员会食养指南系列（11 份，2023–2026）</td><td>「建议、应、宜、不宜」的用法；面向人群而非面向读者个人</td></tr>
     <tr><td>中国营养学会出版物</td><td>《中国营养科学全书（第 2 版）》、《中国居民膳食指南（2022）》、《中国居民膳食营养素参考摄入量（DRIs，2023）》</td><td>术语层级、定义写法、剂量单位、论断与依据的相对位置</td></tr>
     <tr><td>国家 / 行业 / 地方标准</td><td>GB 24154、GB 28050、GB 7718、WS/T 系列、GB/T 21922—2026 术语标准、地方食养与配餐规范</td><td>量的写法、单位体例、术语与分类边界</td></tr>
+    <tr><td colspan="3">三类文本并列而非替代：政策文件定口吻，学会出版物定术语与定义，标准定量与单位的写法。</td></tr>
   </tbody>
 </table>
 
@@ -87,6 +88,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>T 模板化（4 条）</td><td>其机制在于、而非、亦、宜采用</td><td>0–0.03</td><td>0.36–1.07</td><td>超过密度才改</td></tr>
     <tr><td>C 结构（1 条）</td><td>数值区间用“至”</td><td>0</td><td>4.52</td><td>一律改 ～</td></tr>
     <tr><td>S 体例（3 项）</td><td>单位混用、术语混用、首现未给英文</td><td>—</td><td>—</td><td>逐条列出，不计密度</td></tr>
+    <tr><td colspan="5">每千字为实测值：L 族在机构文本里为 0，T 族有少量正当用法，所以按密度判，不按出现即改。</td></tr>
   </tbody>
 </table>
 
@@ -98,6 +100,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>L1</td><td>每天蛋白质提高到每公斤体重一点六到二点四克</td><td>蛋白质提高到 1.6～2.4 g/kg</td></tr>
     <tr><td>T1</td><td>其核心依据是能量平衡原则，即摄入能量与总能量消耗相抵</td><td>估算以能量平衡为基础：摄入能量与总能量消耗相抵</td></tr>
     <tr><td>C1</td><td>每日 5 至 7 g/kg/d</td><td>每日 5～7 g/kg/d</td></tr>
+    <tr><td colspan="3">20 组完整对照在 examples/after.md；改写不动数字、单位与证据等级。</td></tr>
   </tbody>
 </table>
 
@@ -126,6 +129,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>段级误报率</td><td><strong>4.0%</strong>（2/50 段权威原文被标）</td><td>&lt;15%</td></tr>
     <tr><td>段级召回</td><td><strong>92%</strong>（教材体 88% / 科普体 96%）</td><td>—</td></tr>
     <tr><td>阈值拐点</td><td>1–2 处/千字（J=+0.88），默认取 3</td><td>—</td></tr>
+    <tr><td colspan="3">指标定义与复算命令见 eval/results.md；漏报 4/50 的个案分析在同一文件第 7 节。</td></tr>
   </tbody>
 </table>
 
@@ -149,6 +153,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td>项目级可放 <code>.agents/skills</code></td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>项目级用 <code>.codebuddy/skills/</code>（沿用 CodeBuddy 内核的目录名）</td></tr>
     <tr><td>自建流程</td><td>—</td><td><code>--json</code> 输出喂给下游；<code>scripts/eval.py</code> 可接入回归测试</td></tr>
+    <tr><td colspan="3">目录以各 harness 官方文档为准；本表按 2026 年 11 月的约定整理。</td></tr>
   </tbody>
 </table>
 
@@ -160,8 +165,9 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.0.4</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.0.5</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
+    <tr><td colspan="2">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
 </table>
 
@@ -182,6 +188,12 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 **Q：能用在别的领域吗？**
 规则骨架可以，阈值不行。换领域必须重建基线——`scripts/stats.py` 与 `scripts/features.py` 就是干这个的。
 
+**Q：为什么叫 humanizer？**
+英文里 humanizer 指把机器文本改得像人写的工具。这里沿用这个词，但目标是反的：不是让它像自然人，而是让它像机构发布的文字。中文标题用「语体校准」，比「人味化」准确。
+
+**Q：术语写错了能改吗？**
+能查「同篇混用」，不能判「对错」。判断对错要先有术语表——GB/T 21922—2026 没有入库，所以现在只查三件事：同一篇里碳水化合物／糖类混用、脂肪／脂类混用、血糖生成指数／升糖指数混用；以及首次出现未给英文。要查实质错误，需要先建术语表。
+
 **Q：和「去 AI 味」的工具有什么不同？**
 目标不同。那类工具让文字更像自然人写作，允许口语与个人声音；这里要求更像政策文件、学会出版物与标准，口语与个人声音恰恰是减分项。同一个「删连接词」在这两套目标下结论相反。
 
@@ -197,6 +209,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>评测报告：密度差、误报率、阈值扫描、漏报、盲评</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 组真实初稿与改写，数字零改动</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
+    <tr><td colspan="2">除 README.en.md 与 THIRD_PARTY_NOTICES.md 外，文档正文均为中文。</td></tr>
   </tbody>
 </table>
 
