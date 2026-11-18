@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的语体校准</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 零依赖 · 规则阈值有语料基线</p>
-<p align="center"><strong>v1.0.3 — Writing-Register Wording and SVG Rendering</strong></p>
+<p align="center"><strong>v1.0.4 — Harness Coverage and Table Layout</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.3"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.4"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -23,7 +23,7 @@ humanizer 大多在追「像人写的」。这里追的是另一件事：**中�
 这个口吻不是一种抽象的风格偏好，它由三类文本具体定义：
 
 <table width="100%">
-  <thead><tr><th width="22%">类别</th><th width="44%">代表文本</th><th width="34%">它定下了什么</th></tr></thead>
+  <thead><tr><th>类别</th><th>代表文本</th><th>它定下了什么</th></tr></thead>
   <tbody>
     <tr><td>国家营养政策文件</td><td>《国民营养计划（2017—2030 年）》、健康中国行动、国家卫生健康委员会食养指南系列（11 份，2023–2026）</td><td>「建议、应、宜、不宜」的用法；面向人群而非面向读者个人</td></tr>
     <tr><td>中国营养学会出版物</td><td>《中国营养科学全书（第 2 版）》、《中国居民膳食指南（2022）》、《中国居民膳食营养素参考摄入量（DRIs，2023）》</td><td>术语层级、定义写法、剂量单位、论断与依据的相对位置</td></tr>
@@ -81,7 +81,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 四族规则，12 条计数 + 3 项文档级体例 + 1 项提示。阈值全部来自语料实测。
 
 <table width="100%">
-  <thead><tr><th width="20%">族</th><th width="44%">抓什么</th><th width="14%">机构文本</th><th width="12%">大模型初稿</th><th width="10%">判法</th></tr></thead>
+  <thead><tr><th>族</th><th>抓什么</th><th>机构文本</th><th>大模型初稿</th><th>判法</th></tr></thead>
   <tbody>
     <tr><td>L 口语降维（7 条）</td><td>汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾</td><td>0–0.03</td><td>0.15–2.0</td><td>出现即改</td></tr>
     <tr><td>T 模板化（4 条）</td><td>其机制在于、而非、亦、宜采用</td><td>0–0.03</td><td>0.36–1.07</td><td>超过密度才改</td></tr>
@@ -93,7 +93,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 改前改后长这样（真实初稿，数字不动）：
 
 <table width="100%">
-  <thead><tr><th width="12%">规则</th><th width="44%">改前</th><th width="44%">改后</th></tr></thead>
+  <thead><tr><th>规则</th><th>改前</th><th>改后</th></tr></thead>
   <tbody>
     <tr><td>L1</td><td>每天蛋白质提高到每公斤体重一点六到二点四克</td><td>蛋白质提高到 1.6～2.4 g/kg</td></tr>
     <tr><td>T1</td><td>其核心依据是能量平衡原则，即摄入能量与总能量消耗相抵</td><td>估算以能量平衡为基础：摄入能量与总能量消耗相抵</td></tr>
@@ -120,7 +120,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 ## 证据，不是「AI 概率」
 
 <table width="100%">
-  <thead><tr><th width="30%">指标</th><th width="46%">结果</th><th width="24%">目标</th></tr></thead>
+  <thead><tr><th>指标</th><th>结果</th><th>目标</th></tr></thead>
   <tbody>
     <tr><td>命中密度差</td><td><strong>74.5×</strong>（机构 0.11 vs 初稿 8.40 处/千字）</td><td>≥3×</td></tr>
     <tr><td>段级误报率</td><td><strong>4.0%</strong>（2/50 段权威原文被标）</td><td>&lt;15%</td></tr>
@@ -135,23 +135,32 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ## 支持哪些 harness
 
+技能目录放对，`SKILL.md` 自带 frontmatter，不需要改配置。
+
 <table width="100%">
-  <thead><tr><th width="30%">环境</th><th width="70%">用法</th></tr></thead>
+  <thead><tr><th>环境</th><th>技能目录</th><th>说明</th></tr></thead>
   <tbody>
-    <tr><td>纯命令行 / CI</td><td><code>python3 scripts/check.py 稿子.md --threshold 3</code>，退出码 1 即超阈值</td></tr>
-    <tr><td>Claude Code</td><td>仓库放进 <code>~/.claude/skills/</code>，读 <code>SKILL.md</code></td></tr>
-    <tr><td>DSH / Cordis</td><td>放进 <code>~/.dsh/skills/</code>，<code>SKILL.md</code> 已带 frontmatter</td></tr>
-    <tr><td>自建流程</td><td><code>--json</code> 输出喂给下游；<code>scripts/eval.py</code> 可接入回归测试</td></tr>
+    <tr><td>纯命令行 / CI</td><td>—</td><td><code>python3 scripts/check.py 稿子.md --threshold 3</code>，退出码 1 即超阈值</td></tr>
+    <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td><td>整目录复制，读 <code>SKILL.md</code></td></tr>
+    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>同上；技能多时在对话里点名 <code>zh-nutrition-humanizer</code></td></tr>
+    <tr><td>DSH（DeepSeek Harness）</td><td><code>~/.dsh/skills/</code></td><td>同上，frontmatter 已就绪</td></tr>
+    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>用户级目录，目录名即技能名</td></tr>
+    <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> 或 <code>~/.config/agents/skills/</code></td><td>后者为共享目录，多个 harness 可共用一份</td></tr>
+    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td>项目级可放 <code>.agents/skills</code></td></tr>
+    <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>项目级用 <code>.codebuddy/skills/</code>（沿用 CodeBuddy 内核的目录名）</td></tr>
+    <tr><td>自建流程</td><td>—</td><td><code>--json</code> 输出喂给下游；<code>scripts/eval.py</code> 可接入回归测试</td></tr>
   </tbody>
 </table>
+
+目录名以各 harness 官方文档为准；上表按 2026-11 的实际目录约定整理，版本升级后若目录变动，以文档为准。
 
 ## 安装选项
 
 <table width="100%">
-  <thead><tr><th width="30%">需求</th><th width="70%">做法</th></tr></thead>
+  <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.0.3</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.0.4</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
   </tbody>
 </table>
@@ -179,7 +188,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 ## 文档
 
 <table width="100%">
-  <thead><tr><th width="34%">文件</th><th width="66%">内容</th></tr></thead>
+  <thead><tr><th>文件</th><th>内容</th></tr></thead>
   <tbody>
     <tr><td><a href="SKILL.md">SKILL.md</a></td><td>技能主文件：定位、规则表、流程、局限</td></tr>
     <tr><td><a href="references/baseline.md">references/baseline.md</a></td><td>141 段语料的八项统计、提取路由、复现方法</td></tr>

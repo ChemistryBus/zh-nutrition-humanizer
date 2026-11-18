@@ -2,6 +2,16 @@
 
 版本规则：规则表增删 → 第二位 +1；只改文档与示例 → 第三位 +1；语料或评测方法变更 → 记录在节内。
 
+## v1.0.4（2026-11-18）harness 覆盖与表格排版
+
+- 「支持哪些 harness」从 4 行扩到 9 行，补上 ZCode、Kimi CLI、MiniMax、WorkBuddy，
+  并给出各自技能目录：
+  `~/.zcode/skills/`、`~/.kimi/skills/` 或 `~/.config/agents/skills/`、
+  `~/.agents/skills/` 或 `~/.config/minimax/skills`、`~/.workbuddy/skills/`（项目级 `.codebuddy/skills/`）。
+  目录名以各自官方文档为准，表下注明「2026-11 的约定」。
+- 表格排版：去掉 `<th width="NN%">`，只保留 `<table width="100%">`，列宽交给浏览器按内容自适应。
+  之前用固定百分比分配列宽，窄列被撑、宽列被压，整表看起来比正文窄一截。
+
 ## v1.0.3（2026-11-18）措辞与渲染
 
 - 中文标题从「中文营养写作品控」改为「中文营养写作的语体校准」：「品控」是工业质检的说法，

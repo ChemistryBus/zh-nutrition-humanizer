@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Voice and style alignment for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · zero dependencies · corpus-calibrated thresholds</p>
-<p align="center"><strong>v1.0.3 — Writing-Register Wording and SVG Rendering</strong></p>
+<p align="center"><strong>v1.0.4 — Harness Coverage and Table Layout</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.3"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.4"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -23,7 +23,7 @@ Most humanizers chase "sounds like a person". This one chases something else: **
 That voice is not a matter of taste. It is specified by three bodies of text:
 
 <table width="100%">
-  <thead><tr><th width="22%">Class</th><th width="44%">Representative texts</th><th width="34%">What it fixes</th></tr></thead>
+  <thead><tr><th>Class</th><th>Representative texts</th><th>What it fixes</th></tr></thead>
   <tbody>
     <tr><td>National nutrition policy</td><td>National Nutrition Plan (2017–2030); Healthy China Action; the National Health Commission dietary-guidance series (11 documents, 2023–2026)</td><td>How 应 / 宜 / 不宜 / 建议 are used; addressed to a population, not to a reader</td></tr>
     <tr><td>Chinese Nutrition Society books</td><td><em>Encyclopedia of Nutrition Science</em> (2nd ed.); <em>Dietary Guidelines for Chinese Residents</em> (2022); <em>DRIs</em> (2023)</td><td>Terminology hierarchy, definition style, dose units, where evidence sits relative to a claim</td></tr>
@@ -81,7 +81,7 @@ python3 scripts/check.py examples/after.md      # expect: zero paragraph-level h
 Four families: 12 counted rules, 3 document-level style checks, 1 advisory. Every threshold comes from the corpus.
 
 <table width="100%">
-  <thead><tr><th width="20%">Family</th><th width="44%">Catches</th><th width="14%">Institution</th><th width="12%">LLM draft</th><th width="10%">Verdict</th></tr></thead>
+  <thead><tr><th>Family</th><th>Catches</th><th>Institution</th><th>LLM draft</th><th>Verdict</th></tr></thead>
   <tbody>
     <tr><td>L colloquial (7)</td><td>Chinese numerals with units, second person and imperatives, colloquial adjectives, metaphor nouns, 「像是／好比」, 「不是X而是Y」, evaluative 「更X」 endings</td><td>0–0.03</td><td>0.15–2.0</td><td>fix on sight</td></tr>
     <tr><td>T template (4)</td><td>「其机制在于」, 「而非」, 「亦」, 「宜采用」</td><td>0–0.03</td><td>0.36–1.07</td><td>fix above a density</td></tr>
@@ -93,7 +93,7 @@ Four families: 12 counted rules, 3 document-level style checks, 1 advisory. Ever
 What a diff looks like (real drafts, numbers untouched):
 
 <table width="100%">
-  <thead><tr><th width="12%">Rule</th><th width="44%">Before</th><th width="44%">After</th></tr></thead>
+  <thead><tr><th>Rule</th><th>Before</th><th>After</th></tr></thead>
   <tbody>
     <tr><td>L1</td><td>每天蛋白质提高到每公斤体重一点六到二点四克</td><td>蛋白质提高到 1.6～2.4 g/kg</td></tr>
     <tr><td>T1</td><td>其核心依据是能量平衡原则，即摄入能量与总能量消耗相抵</td><td>估算以能量平衡为基础：摄入能量与总能量消耗相抵</td></tr>
@@ -120,7 +120,7 @@ Full rule table in [`SKILL.md`](SKILL.md) (Chinese); evidence per rule in [`refe
 ## Evidence, not an "AI probability"
 
 <table width="100%">
-  <thead><tr><th width="30%">Metric</th><th width="46%">Result</th><th width="24%">Target</th></tr></thead>
+  <thead><tr><th>Metric</th><th>Result</th><th>Target</th></tr></thead>
   <tbody>
     <tr><td>Hit-density ratio</td><td><strong>74.5×</strong> (institution 0.11 vs draft 8.40 per 1,000 chars)</td><td>≥3×</td></tr>
     <tr><td>Paragraph false positives</td><td><strong>4.0%</strong> (2 of 50 authoritative paragraphs flagged)</td><td>&lt;15%</td></tr>
@@ -135,23 +135,32 @@ Final blind round, on the exact repository text: popular-register rewrites **20 
 
 ## Supported harnesses
 
+Drop the directory in the right place; `SKILL.md` already carries frontmatter, no configuration needed.
+
 <table width="100%">
-  <thead><tr><th width="30%">Environment</th><th width="70%">Usage</th></tr></thead>
+  <thead><tr><th>Environment</th><th>Skills directory</th><th>Notes</th></tr></thead>
   <tbody>
-    <tr><td>CLI / CI</td><td><code>python3 scripts/check.py draft.md --threshold 3</code>; exit code 1 means over threshold</td></tr>
-    <tr><td>Claude Code</td><td>clone into <code>~/.claude/skills/</code>; reads <code>SKILL.md</code></td></tr>
-    <tr><td>DSH / Cordis</td><td>clone into <code>~/.dsh/skills/</code>; <code>SKILL.md</code> already carries frontmatter</td></tr>
-    <tr><td>Custom pipeline</td><td>consume <code>--json</code>; <code>scripts/eval.py</code> works as a regression test</td></tr>
+    <tr><td>CLI / CI</td><td>—</td><td><code>python3 scripts/check.py draft.md --threshold 3</code>; exit code 1 means over threshold</td></tr>
+    <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td><td>copy the directory; reads <code>SKILL.md</code></td></tr>
+    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>same; name the skill explicitly when several are installed</td></tr>
+    <tr><td>DSH (DeepSeek Harness)</td><td><code>~/.dsh/skills/</code></td><td>same; frontmatter ready</td></tr>
+    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>user-level directory; the directory name is the skill name</td></tr>
+    <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> or <code>~/.config/agents/skills/</code></td><td>the second is a shared directory usable by several harnesses</td></tr>
+    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>project-level: <code>.agents/skills</code></td></tr>
+    <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>project-level: <code>.codebuddy/skills/</code> (inherited from the CodeBuddy core)</td></tr>
+    <tr><td>Custom pipeline</td><td>—</td><td>consume <code>--json</code>; <code>scripts/eval.py</code> works as a regression test</td></tr>
   </tbody>
 </table>
+
+Directory names follow each harness's own documentation; the table reflects the conventions as of November 2026.
 
 ## Install options
 
 <table width="100%">
-  <thead><tr><th width="30%">Need</th><th width="70%">Do</th></tr></thead>
+  <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.3</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.4</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
   </tbody>
 </table>
@@ -179,7 +188,7 @@ Different objective. Those tools make text read like a natural individual — co
 ## Documents
 
 <table width="100%">
-  <thead><tr><th width="34%">File</th><th width="66%">Content</th></tr></thead>
+  <thead><tr><th>File</th><th>Content</th></tr></thead>
   <tbody>
     <tr><td><a href="SKILL.md">SKILL.md</a></td><td>the skill: positioning, rule table, workflow, limitations (Chinese)</td></tr>
     <tr><td><a href="references/baseline.md">references/baseline.md</a></td><td>eight statistics over 141 excerpts, extraction routing, reproduction (Chinese)</td></tr>
