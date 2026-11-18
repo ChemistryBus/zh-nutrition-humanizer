@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Voice, terminology and style alignment for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · checks register, terms and definitions · zero dependencies</p>
-<p align="center"><strong>v1.1.0 — Terminology and Definition Checks</strong></p>
+<p align="center"><strong>v1.1.1 — A Terminology Rule Corrected</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.1.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.1.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -80,7 +80,7 @@ python3 scripts/check.py examples/after.md      # expect: zero paragraph-level h
 
 ## How it judges
 
-Five families: L/T/C are register and structure (12 rules), K is terminology (15 patterns across 12 terms), S is document-level style (3 checks).
+Five families: L/T/C are register and structure (12 rules), K is terminology (14 patterns across 11 terms), S is document-level style (3 checks).
 
 <table width="100%">
   <thead><tr><th>Family</th><th>Catches</th><th>Institution</th><th>LLM draft</th><th>Verdict</th></tr></thead>
@@ -88,7 +88,7 @@ Five families: L/T/C are register and structure (12 rules), K is terminology (15
     <tr><td>L colloquial (7)</td><td>Chinese numerals with units, second person and imperatives, colloquial adjectives, metaphor nouns, 「像是／好比」, 「不是X而是Y」, evaluative 「更X」 endings</td><td>0–0.03</td><td>0.15–2.0</td><td>fix on sight</td></tr>
     <tr><td>T template (4)</td><td>「其机制在于」, 「而非」, 「亦」, 「宜采用」</td><td>0–0.03</td><td>0.36–1.07</td><td>fix above a density</td></tr>
     <tr><td>C structure (1)</td><td>numeric ranges written with 「至」 instead of ～</td><td>0</td><td>4.52</td><td>always ～</td></tr>
-    <tr><td>K terminology (15)</td><td>维他命, 粗纤维, 升糖指数, "carbs are sugar", "fat is lipid", "nutritional component is nutrient"…</td><td>0</td><td>draft-dependent</td><td>fix on sight, standard text cited</td></tr>
+    <tr><td>K terminology (14)</td><td>维他命, 粗纤维, 必要氨基酸, "carbs are sugar", "fat is lipid", "nutritional component is nutrient"…</td><td>0</td><td>draft-dependent</td><td>fix on sight, standard text cited</td></tr>
     <tr><td>S style (3)</td><td>mixed units, mixed terminology, missing English gloss</td><td>—</td><td>—</td><td>listed, not scored</td></tr>
     <tr><td colspan="5">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density. K rules are definite errors: fix on sight.</td></tr>
   </tbody>
@@ -117,7 +117,7 @@ Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/a
 <table width="100%">
   <thead><tr><th>Check</th><th>How</th><th>Auto-fix?</th></tr></thead>
   <tbody>
-    <tr><td>Wrong form</td><td>Error forms in the term table: 维他命, 粗纤维, 升糖指数, 必要氨基酸</td><td>Yes, suggests the standard form</td></tr>
+    <tr><td>Wrong form</td><td>Error forms in the term table: 维他命, 粗纤维, 必要氨基酸</td><td>Yes, suggests the standard form</td></tr>
     <tr><td>Wrong definition</td><td>Reversed inclusion such as "carbs are sugar", "fat is lipid", "nutritional component is nutrient"</td><td>Yes, with the standard definition and clause</td></tr>
     <tr><td>Definition under review</td><td>When the text says "X 是指 / defined as", the standard definition is printed for comparison</td><td>No, human compares</td></tr>
     <tr><td>Level and usage</td><td>Mixed usage inside one document (碳水化合物/糖类, 脂肪/脂类, 能量/热量, GI/升糖指数)</td><td>Reported only</td></tr>
@@ -186,7 +186,7 @@ Directory names follow each harness's own documentation; the table reflects the 
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.1.0</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.1.1</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>

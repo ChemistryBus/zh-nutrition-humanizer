@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的语体与术语校准</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 既查语体，也查术语与定义 · 零依赖</p>
-<p align="center"><strong>v1.1.0 — Terminology and Definition Checks</strong></p>
+<p align="center"><strong>v1.1.1 — A Terminology Rule Corrected</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.1.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.1.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -80,7 +80,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ## 怎么判
 
-五族规则：L/T/C 是语体与结构（12 条），K 是术语（15 条错误写法，覆盖 12 个术语），S 是文档级体例（3 项）。
+五族规则：L/T/C 是语体与结构（12 条），K 是术语（14 条错误写法，覆盖 11 个术语），S 是文档级体例（3 项）。
 
 <table width="100%">
   <thead><tr><th>族</th><th>抓什么</th><th>机构文本</th><th>大模型初稿</th><th>判法</th></tr></thead>
@@ -88,7 +88,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>L 口语降维（7 条）</td><td>汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾</td><td>0–0.03</td><td>0.15–2.0</td><td>出现即改</td></tr>
     <tr><td>T 模板化（4 条）</td><td>其机制在于、而非、亦、宜采用</td><td>0–0.03</td><td>0.36–1.07</td><td>超过密度才改</td></tr>
     <tr><td>C 结构（1 条）</td><td>数值区间用“至”</td><td>0</td><td>4.52</td><td>一律改 ～</td></tr>
-    <tr><td>K 术语（15 条）</td><td>维他命、粗纤维、升糖指数、碳水化合物就是糖、脂肪即脂类、营养成分就是营养素……</td><td>0</td><td>视稿件</td><td>命中即改，依据为标准原文</td></tr>
+    <tr><td>K 术语（14 条）</td><td>维他命、粗纤维、必要氨基酸、碳水化合物就是糖、脂肪即脂类、营养成分就是营养素……</td><td>0</td><td>视稿件</td><td>命中即改，依据为标准原文</td></tr>
     <tr><td>S 体例（3 项）</td><td>单位混用、术语混用、首现未给英文</td><td>—</td><td>—</td><td>逐条列出，不计密度</td></tr>
     <tr><td colspan="5">每千字为实测值：L 族在机构文本里为 0，T 族有少量正当用法，所以按密度判；K 族是确定性错误，命中即改。</td></tr>
   </tbody>
@@ -116,7 +116,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 <table width="100%">
   <thead><tr><th>查什么</th><th>怎么查</th><th>能不能自动改</th></tr></thead>
   <tbody>
-    <tr><td>写法错误</td><td>术语表里的错误形式：维他命、粗纤维、升糖指数、必要氨基酸</td><td>能，给出标准写法</td></tr>
+    <tr><td>写法错误</td><td>术语表里的错误形式：维他命、粗纤维、必要氨基酸</td><td>能，给出标准写法</td></tr>
     <tr><td>定义错误</td><td>「碳水化合物就是糖」「脂肪即脂类」「营养成分就是营养素」这类方向反了的包含关系</td><td>能，附标准定义与条款号</td></tr>
     <tr><td>定义句待核</td><td>正文出现「X 是指／定义为」时，把标准定义摆出来供比对</td><td>不自动改，人比对</td></tr>
     <tr><td>层级与口径</td><td>同篇混用（碳水／糖类、脂肪／脂类、能量／热量、GI／升糖指数）</td><td>只报，由人判</td></tr>
@@ -185,7 +185,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.1.0</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.1.1</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
