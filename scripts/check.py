@@ -8,7 +8,7 @@
     python3 scripts/check.py 文稿.md --explain     # 每条规则附基线证据
     python3 scripts/check.py 文稿.md --threshold 3 # 每千字允许命中数
 
-规则从语料基线来：每条都有「机构文本实测频率」作依据，写在 references/baseline.md。
+规则从语料基线来：每条都有“机构文本实测频率”作依据，写在 references/baseline.md。
 退出码 1 表示超过阈值。
 """
 
@@ -55,15 +55,15 @@ RULES = [
     # T 模板化：机构文本也有，但密度低；按每千字阈值判
     ("T", "T1", "模板机制句",
      r"(其机制在于|其依据在于|其核心在于|作用机制在于|机制上，|其原理在于)",
-     "删「其机制在于」，直接写机制本身；一句一个论断",
+     "删“其机制在于”，直接写机制本身；一句一个论断",
      "机构文本 0.03 处 / 千字；大模型教材体 1.07 处 / 千字（35 倍）"),
     ("T", "T2", "而非",
      r"而非",
-     "改「而不是」或正面陈述；一篇超过 2 次即模板腔",
+     "改“而不是”或正面陈述；一篇超过 2 次即模板腔",
      "机构文本 0 处 / 千字；大模型教材体 0.95 处 / 千字（31% 段落）"),
-    ("T", "T3", "「亦」",
+    ("T", "T3", "“亦”",
      r"亦(?=[\u4e00-\u9fff])",
-     "改「也」或删；「亦」是文言残留，教材正文少用",
+     "改“也”或删；“亦”是文言残留，教材正文少用",
      "机构文本 1 处 / 7.1 万字；大模型教材体 0.36 处 / 千字（12% 段落）"),
     ("T", "T4", "宜采用／可采用",
      r"(宜|可)采用",
@@ -72,7 +72,7 @@ RULES = [
 ]
 
 # 密度型规则：段落内超过阈值才计命中（阈值来自机构文本 P90）
-DENSITY_RULES = []  # 暂无密度型规则：阈值扫描后「可＋动词」净贡献为零，已删（见 references/rule-audit.md）
+DENSITY_RULES = []  # 暂无密度型规则：阈值扫描后“可＋动词”净贡献为零，已删（见 references/rule-audit.md）
 
 # 术语体例（文档级）
 TERM_PAIRS = [
@@ -151,7 +151,7 @@ def structural_checks(text: str):
         if len(sents) < 3:
             continue
         last = sents[-1].strip()
-        # 阈值来自语料：机构文本段末以「这/因此」起句且 ≤30 字者 1/81 段，
+        # 阈值来自语料：机构文本段末以“这/因此”起句且 ≤30 字者 1/81 段，
         # 大模型负样本 0/50 段 —— 分离度不足，降为提示，不计分。
         if len(last) <= 30 and re.match(r"^(这|因此|可见|说明|总之)", last):
             tails += 1
@@ -160,7 +160,7 @@ def structural_checks(text: str):
                        "看是否只是复述；机构文本偶有，不强制删"))
     ranges = len(re.findall(r"\d+\s*(?:至|到)\s*\d+", text))
     if ranges:
-        issues.append(("C", "C1", "数值区间用「至」", ranges,
+        issues.append(("C", "C1", "数值区间用“至”", ranges,
                        "统一为 ～：3～6 mg/kg。GB/T 15835：数值范围用浪纹线"))
 
     opens = sum(1 for p in paras
@@ -188,11 +188,11 @@ def doc_checks(text: str):
     if len(text) > 1500:
         gloss = re.findall(r"[\u4e00-\u9fff]{2,12}（[A-Za-z][^）]{2,40}）", text)
         if not gloss:
-            notes.append("全文无「中文（English）」夹注：教材体首现给英文，指南体可免")
+            notes.append("全文无“中文（English）”夹注：教材体首现给英文，指南体可免")
         else:
             for cn, en in GLOSS_TERMS:
                 if cn in text and en.split()[0] not in text:
-                    notes.append(f"「{cn}」未给英文（{en}）")
+                    notes.append(f"“{cn}”未给英文（{en}）")
                     break
     return issues, notes
 

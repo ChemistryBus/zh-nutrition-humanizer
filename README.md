@@ -1,208 +1,155 @@
-# sport-nutrition-humanizer
+<p align="right"><a href="README.en.md"><img src="https://img.shields.io/badge/English-README-2f81f7?style=flat-square" alt="English"></a></p>
 
-**中文运动营养写作品控：把 AI 初稿校到中国营养学会教材与国家级食养指南的规范水平。**
+<h1 align="center">zh-nutrition-humanizer</h1>
 
-不是“让文字更像人写的”，是“让文字达到机构文本的规范”。
-仓库里带一份 5.3 万字的权威语料基线，每条规则的阈值都能复算。
+<p align="center"><strong>中文营养写作品控</strong></p>
+<p align="center">不是去 AI 味，是把稿子校到中国营养学会教材与国家级食养指南的规范。</p>
+<p align="center"><strong>v1.0.1 — Repository Rename and docarbiter-style Docs</strong></p>
 
-[中文](#中文) · [English](#english)
+<p align="center">
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
+  <img src="https://img.shields.io/badge/python-3.8--3.12-blue" alt="Python 3.8-3.12">
+</p>
 
----
+![zh-nutrition-humanizer 总览](docs/assets/overview-zh.svg)
 
-## 中文
+## 它是什么
 
-### 为什么另做一个
+humanizer 大多在追「像人写的」。这个不是。
 
-现有开源 humanizer 的目标语体是**自然人的写作**：去掉机器腔、允许口语、鼓励个人声音。
-本项目的目标语体是**机构文本**：句式规整、术语统一、论断跟着依据走、不抒情不总结。
-两者不是程度差别，是方向差别——把教材改成“像人写的”，恰好是失败。
+`zh-nutrition-humanizer` 的目标语体是**机构文本**：句式规整、术语统一、剂量带单位、论断跟着依据走、不抒情不总结。它附带一份 5.3 万字的权威语料基线，每条规则的阈值都能用仓库里的脚本复算，而不是一张凭经验写下的清单。
 
-| | 清单型 humanizer | 本项目 |
-|---|---|---|
-| 目标语体 | 自然人的写作 | 中国营养学会教材、国家卫健委食养指南 |
-| 规则来源 | 归纳（维基“AI 写作迹象”一类清单，如 blader/humanizer、stop-slop、Aboudjem、op7418 的中文改编） | 语料统计：141 段权威原文 vs 50 段大模型初稿 |
-| 阈值 | 经验设定 | 每条都有实测频率与 P90；误报率、命中密度差可复算 |
-| 连接词 | 越少越好 | 机构文本 3.27 处 / 千字；删连接词这条在本语体里**是错的** |
-| 数字 | 随意 | 阿拉伯数字＋单位，区间用 `～`（GB/T 15835） |
-| 评测 | 主观 | 正负样本各 50 段，密度差 76×、段级误报 4%，拐点阈值可查 |
+它主要解决四类问题：
 
-### 它测什么
+- 大模型写营养稿，句式、数字、术语都在，但读起来像科普号；
+- 「去 AI 味」的通用技巧（删连接词、拆长句、加口语）用在教材体上会**反向降分**；
+- 中文没有公认的 AI 检测标准，凭感觉改，改完没人能复核；
+- 语料在本地、版权不能整本转载，所以只能靠 200–400 字摘录建基线。
 
-四族规则，共 12 条计数 + 3 项体例 + 1 项提示（完整表见 `SKILL.md`）：
+## 30 秒开始
 
-- **L 口语降维**（7 条）：汉字数字带单位、第二人称与祈使、口语化形容、比喻实体词、像／好比、不是X而是Y、更X收尾。
-  机构文本里这些是零，出现即改。
-- **T 模板化**（4 条）：其机制在于、而非、亦、宜采用。机构文本也有，但密度低，靠阈值判。
-- **C 结构**（1 条）：数值区间用“至”而非“～”。
-- **S 体例**（3 项，文档级，不计入密度）：单位混用、术语混用、首现未给英文；另有 1 项提示（段末复述）。
+### 方式一：让 agent 帮你装
 
-**不测**：事实一致性、引用真伪、证据等级与论断强度是否匹配。这三项只能人看。
+把下面这段发给 Claude Code / Codex / DSH：
 
-### 安装
+```text
+请先问我是否允许把 zh-nutrition-humanizer 放进技能目录，得到允许后再执行：
+git clone https://github.com/ChemistryBus/zh-nutrition-humanizer.git ~/.claude/skills/zh-nutrition-humanizer
+安装完成后运行 python3 scripts/check.py examples/before.md --explain，把命中清单给我。
+不要改动我的稿子，也不要上传任何文本。
+```
+
+### 方式二：手动安装
 
 ```bash
-git clone https://github.com/ChemistryBus/sport-nutrition-humanizer.git
-cd sport-nutrition-humanizer
-python3 scripts/check.py examples/before.md --explain   # 拿 20 组真实初稿试跑
+git clone https://github.com/ChemistryBus/zh-nutrition-humanizer.git
+cd zh-nutrition-humanizer
+python3 scripts/check.py examples/before.md --explain
 ```
 
-零依赖，Python 3.8+ 即可，不需要 pip 安装任何包。
+零依赖，Python 3.8+，不需要 pip 装任何东西。
 
-作为 Claude Code / DSH 技能使用：把仓库放进技能目录即可，SKILL.md 已带 frontmatter。
+### 先试一次机检
 
 ```bash
-cp -r sport-nutrition-humanizer ~/.claude/skills/
-# 或
-cp -r sport-nutrition-humanizer ~/.dsh/skills/
+python3 scripts/check.py 你的稿子.md --explain
 ```
 
-### 使用
+没有稿子？用仓库自带的 20 组真实初稿：
 
 ```bash
-python3 scripts/check.py 稿子.md                 # 命中清单
-python3 scripts/check.py 稿子.md --explain       # 每条附语料依据
-python3 scripts/check.py 稿子.md --json          # 给下游
-python3 scripts/check.py 稿子.md --threshold 3   # 每千字允许命中数（默认 3）
+python3 scripts/check.py examples/before.md     # 预期：10.4 处/千字，退出码 1
+python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（说明性文字除外）
 ```
 
-输出：
+## 怎么判
 
-```
-命中 6 处 / 2380 字（2.5 处每千字）
-L 口语降维 汉字数字＋计量单位×2；第二人称与祈使×1
-T 模板化 而非×2
-S 体例 术语混用：碳水化合物 / 糖类
+四族规则，12 条计数 + 3 项文档级体例 + 1 项提示。阈值全部来自语料实测。
 
-  [L1] 汉字数字＋计量单位 ×2  三百毫克、二十克  → 改为阿拉伯数字＋单位
-       依据：机构文本 0 处 / 千字；大模型科普体 2.0 处 / 千字
-```
+| 族 | 抓什么 | 机构文本 | 大模型初稿 | 判法 |
+|---|---|---|---:|---:|---|
+| L 口语降维（7 条） | 汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾 | 0–0.03 | 0.15–2.0 | 出现即改 |
+| T 模板化（4 条） | 其机制在于、而非、亦、宜采用 | 0–0.03 | 0.36–1.07 | 超过密度才改 |
+| C 结构（1 条） | 数值区间用「至」 | 0 | 4.52 | 一律改 ～ |
+| S 体例（3 项） | 单位混用、术语混用、首现未给英文 | — | — | 逐条列出，不计密度 |
 
-退出码 `1` 表示超过阈值，可直接接进 CI：
+完整规则表见 [`SKILL.md`](SKILL.md)，每条的依据见 [`references/rule-audit.md`](references/rule-audit.md)。
 
-```yaml
-- run: python3 scripts/check.py 10_正文/*.md --threshold 3
-```
+## 适合 / 不适合
 
-工作流：机检 → 人工逐条判（改／留／补）→ 按 L→T→C→S 顺序改 → 复跑 → 回读数字与证据等级。
+**适合**
 
-### 评测
+- 中文营养、运动营养、食养类稿件的交付前检查；
+- 书稿正文与公众号版分别过一遍（同一内容，两种语体）；
+- 别人或大模型写的稿子要进项目，先过这道门。
 
-```bash
-python3 scripts/stats.py references/corpus                  # 八项基线统计
-python3 scripts/eval.py --gold eval/gold --neg eval/neg    # 密度差、误报率、阈值扫描
-python3 scripts/features.py --gold references/corpus --neg eval/neg   # 候选特征分离度
-```
+**不适合**
 
-**主结果**（正样本 50 段 / 1.78 万字，负样本 50 段 / 1.64 万字）：
+- 文学性科普、短视频文案——那是另一套语体，L 族规则会大面积误伤；
+- 纯英文稿（用 academic-humanizer）；
+- 事实核查、引用真伪、证据等级与论断强度是否匹配——这三项必须人看，机检不碰。
+
+## 证据，不是「AI 概率」
 
 | 指标 | 结果 | 目标 |
 |---|---|---|
-| 命中密度差 | **76.4×**（机构 0.11 / 千字，AI 8.40 / 千字） | ≥3× |
-| 段级误报率 | **4.0%**（2/50） | <15% |
-| 段级召回 | **92%**（教材体 88%，科普体 96%） | — |
-| 拐点阈值 | 1–2 处 / 千字（J = +0.88）；默认取 3（召回 80%，误报 2%） | — |
+| 命中密度差 | **74.5×**（机构 0.11 vs 初稿 8.40 处/千字） | ≥3× |
+| 段级误报率 | **4.0%**（2/50 段权威原文被标） | <15% |
+| 段级召回 | **92%**（教材体 88% / 科普体 96%） | — |
+| 阈值拐点 | 1–2 处/千字（J=+0.88），默认取 3 | — |
 
-阈值扫描曲线、逐规则命中表、消融（去掉“数值区间”规则后密度差 51.8×）、
-漏报个案分析，见 **`eval/results.md`**。原始数据在 `eval/sweep.csv` 与 `eval/blind/`。
+正样本 50 段（1.78 万字，与建基线的页码不重叠）、负样本 50 段（科普体 24 / 教材体 26）。逐规则表、阈值曲线、消融、漏报分析与三轮盲评在 [`eval/results.md`](eval/results.md)。
 
-盲评：20 组改前／改后，A/B 随机、位置均衡，三轮共 6 位独立评分者。
-最终一轮（与仓库文本逐字一致）：科普体改写 **20 胜 0 负**（4.25 vs 2.45）；
-教材体 **16 平**（4.90 vs 4.90）——教材体 AI 稿只能改体例，改不动语体。
-第一轮曾因「把句子压成电报句」被评分者判负，据此重写了示例。全过程见 `eval/results.md` §6。
+盲评最终轮（与仓库文本逐字一致）：科普体改写 **20 胜 0 负**（4.25 vs 2.45），教材体 **16 平**（4.90 vs 4.90）——**教材体 AI 稿只能改体例，改不动语体**。这句是三轮盲评打出来的，第一轮我因为把句子压成电报句被判负 18 次。
 
-### 仓库结构
+## 支持哪些 harness
 
-```
-SKILL.md                  技能主文件：定位、规则、流程、局限
-README.md                 本文件（中英）
-LICENSE                   MIT（代码）＋语料摘录说明
-CHANGELOG.md              版本与决策记录
-references/
-  baseline.md             八项语料统计、提取路由、复现方法
-  rule-audit.md           v0.1 的 25 条规则逐条判（删 17、并 5、留 4、待验证 2）
-  ai-tells.md             改前改后对照（20 组，按规则族分组）
-  corpus/                 141 段 200–400 字摘录，带出处与页码
-eval/
-  gold/  neg/  neg_holdout/   评测集（正 50、负 50、留出 28）
-  results.md  sweep.csv       结果与阈值曲线
-  blind/                      盲评包、答案键、两轮评分
-examples/
-  before.md  after.md     20 组真实初稿与改写
-scripts/
-  check.py                机检（零依赖）
-  eval.py                 评测：密度差、误报率、阈值扫描
-  stats.py                八项基线统计
-  features.py             候选特征分离度（规则挖掘用）
-.github/ISSUE_TEMPLATE/   误报 / 漏报 / 新规则建议
-```
+| 环境 | 用法 |
+|---|---|
+| 纯命令行 / CI | `python3 scripts/check.py 稿子.md --threshold 3`，退出码 1 即超阈值 |
+| Claude Code | 仓库放进 `~/.claude/skills/`，读 `SKILL.md` |
+| DSH / Cordis | 放进 `~/.dsh/skills/`，`SKILL.md` 已带 frontmatter |
+| 自建流程 | `--json` 输出喂给下游；`scripts/eval.py` 可接入回归测试 |
 
-### 语料与许可
+## 安装选项
 
-- 代码 MIT。
-- `references/corpus/`、`eval/gold/` 下是从《中国营养科学全书（第 2 版）》《中国居民膳食指南（2022）》
-  《DRIs（2023）》《食养指南》摘出的 200–400 字短段，**逐段标注来源、出版方、页码**，
-  只用于语体统计与对照，不整本转载。原书版权归各著作权人，摘录不在 MIT 授权范围内。
-- 原始 PDF 不入库。要复现抽样，需本机持有同一批文件，按 `references/baseline.md` §2.1 的窗口重跑。
-- 已知缺口：GB/T 21922—2026 术语标准未能入库，术语体例这一项缺标准原文基线。
+| 需求 | 做法 |
+|---|---|
+| 只想查一篇稿子 | `git clone` 后直接跑 `scripts/check.py`，不安装 |
+| 当技能长期用 | 克隆到技能目录，版本用 tag 锁（`git checkout v1.0.1`） |
+| 接进 CI | 把 `scripts/check.py` 拷进仓库，或 `git submodule add` |
 
-### 维护
+## 常见问题
 
-每季度复核一次，流程写在 `CHANGELOG.md` 末尾：
+**Q：为什么不删「此外／同时」？**
+机构文本 3.27 处/千字，大模型教材体 3.57，删连接词不是判别特征。要删的是「由此可见」后面那句复述。
 
-1. 新增 2–3 份当年发布的指南／教材到语料，各取 6–20 段。
-2. 跑 `scripts/stats.py`，比对八项指标漂移；超过 20% 的项要查原因。
-3. 跑 `scripts/eval.py`，误报率涨过 10% 就窄化对应规则。
-4. 有规则长期零命中 → 删；有新特征分离度 ≥3× → 进表并在 `rule-audit.md` 记账。
+**Q：会不会把好文字改坏？**
+会。误报率 4% 就是对权威原文的实测误伤；所以机检只出清单，改不改由人判，规则里也没有一条会动数字。
 
----
+**Q：能判断一段话是不是 AI 写的吗？**
+不能。这里给的是「相对于本语料的偏离度」，不是 AI 概率。中文没有公认的检测基准，任何声称能判的都要看它的正负样本。
 
-## English
+**Q：为什么语料只有 200–400 字摘录？**
+版权。每段标注来源、出版方、页码，只用于统计与对照，不整本转载；原始 PDF 不入库。
 
-**Chinese-language quality control for sports-nutrition writing: move an AI draft up to the
-register of the Chinese Nutrition Society's textbooks and the national dietary-guidance (食养指南) series.**
+**Q：能用在别的领域吗？**
+规则骨架可以，阈值不行。换领域必须重建基线——`scripts/stats.py` 与 `scripts/features.py` 就是干这个的。
 
-This is not "make it sound human". The target register is *institutional Chinese*: uniform
-terminology, quantities with units, claims followed by evidence, no rhetorical flourishes.
-Most open-source humanizers optimize for a different objective (a natural individual voice) —
-for a textbook, that is the failure mode.
+## 文档
 
-### What it is calibrated on
+| 文件 | 内容 |
+|---|---|
+| [`SKILL.md`](SKILL.md) | 技能主文件：定位、规则表、流程、局限 |
+| [`references/baseline.md`](references/baseline.md) | 141 段语料的八项统计、提取路由、复现方法 |
+| [`references/rule-audit.md`](references/rule-audit.md) | v0.1 的 25 条规则逐条判（删 17、并 5、留 4、待验证 2） |
+| [`references/ai-tells.md`](references/ai-tells.md) | 按规则编号排的对照表 + 七条「什么时候不该改」 |
+| [`eval/results.md`](eval/results.md) | 评测报告：密度差、误报率、阈值扫描、漏报、盲评 |
+| [`examples/after.md`](examples/after.md) | 20 组真实初稿与改写，数字零改动 |
+| [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) | 语料来源与版权声明 |
 
-- **Corpus baseline**: 141 excerpts (200–400 characters each) from the *Chinese Nutrition Science
-  Encyclopedia* (2nd ed.), *Dietary Guidelines for Chinese Residents* (2022), *DRIs* (2023) and
-  eleven national dietary-guidance documents, each with publisher and page number.
-- **Evaluation**: 50 held-out authoritative paragraphs vs 50 LLM-written paragraphs
-  (24 popular-science register, 26 textbook register), plus 28 held-out negatives.
+## 许可
 
-### Results
-
-| Metric | Result | Target |
-|---|---|---|
-| Hit-density ratio (AI vs institution) | **76.4×** (8.40 vs 0.11 per 1,000 chars) | ≥3× |
-| Paragraph-level false-positive rate | **4.0%** (2/50) | <15% |
-| Paragraph-level recall | **92%** (textbook 88%, popular 96%) | — |
-| Knee of the threshold sweep | 1–2 hits per 1,000 chars (J = +0.88) | — |
-
-### Install and run
-
-```bash
-git clone https://github.com/ChemistryBus/sport-nutrition-humanizer.git
-cd sport-nutrition-humanizer
-python3 scripts/check.py your_draft.md --explain
-```
-
-Zero dependencies. Exit code 1 when the draft exceeds 3 hits per 1,000 characters.
-
-### Rules in one line
-
-- **L — colloquial downgrade** (7): Chinese numerals with units, second person/imperatives,
-  colloquial adjectives, metaphor nouns, "像/好比", "不是X而是Y", evaluative "更X" endings.
-- **T — template phrases** (4): "其机制在于", "而非", "亦", "宜采用".
-- **C — structure** (1): numeric ranges written with “至” instead of ～.
-- **S — house style** (4, document-level): mixed unit conventions, mixed terminology,
-  missing English gloss on first use, paragraph-tail restatement (advisory).
-
-### Licence
-
-Code MIT. Corpus excerpts are short quotations with attribution, not covered by the MIT grant;
-copyright remains with the respective publishers.
+代码 MIT，见 [`LICENSE`](LICENSE)。语料摘录不在 MIT 授权范围内，来源与版权见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。

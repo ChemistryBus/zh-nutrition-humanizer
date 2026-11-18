@@ -97,7 +97,8 @@ def main():
         sys.exit(2)
 
     g, n = density(gold), density(neg)
-    ratio = round(n["per_k"] / max(g["per_k"], 0.01), 2)
+    # 用未舍入的密度算比值；用舍入后的 per_k 相除会把 0.11 抬成 0.1126 的假精度
+    ratio = round((n["hits"] / max(n["chars"], 1)) / max(g["hits"] / max(g["chars"], 1), 1e-9), 1)
     lo, hi = [int(x) for x in args.sweep.split("-")]
     rows, knee = sweep(gold, neg, lo, hi)
 
