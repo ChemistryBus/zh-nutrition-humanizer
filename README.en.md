@@ -110,8 +110,8 @@ Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/a
 
 ### How terminology and definitions are checked
 
-`references/terms.json` holds 22 terms. Thirteen carry definitions quoted verbatim from the standards
-(GB 28050—2025 §2, GB 13432—2013 §2); the rest carry names and English only, marked
+`references/terms.json` holds 22 terms. Sixteen carry definitions quoted verbatim from the standards
+(13 in GB 28050—2025 §2, 3 in GB 13432—2013 §2); the rest carry names and English only, marked
 `needs_definition`, and no definition is written from memory.
 
 <table width="100%">
@@ -213,7 +213,7 @@ The rule skeleton transfers; the thresholds do not. Rebuild the baseline with `s
 In English a humanizer makes machine text read like a person wrote it. This repository keeps the word but inverts the goal: the target is not a natural individual but an institution publishing. The Chinese title uses 「语体校准」 (register calibration), which is more accurate than "humanising".
 
 **Can it fix a wrong technical term?**
-It fixes *known* errors: 维他命→维生素, 粗纤维→膳食纤维, 升糖指数→血糖生成指数, 必要氨基酸→必需氨基酸, and reversed definitions such as "carbs are sugar" or "fat is lipid". The authority is `references/terms.json`, where 13 definitions are quoted verbatim from GB 28050—2025 §2 and GB 13432—2013 §2.
+It fixes *known* errors: 维他命→维生素, 粗纤维→膳食纤维, 必要氨基酸→必需氨基酸, and reversed definitions such as "carbs are sugar" or "fat is lipid". The authority is `references/terms.json`: 22 terms, 16 definitions quoted verbatim (13 from GB 28050—2025 §2, 3 from GB 13432—2013 §2).
 It cannot judge *unknown* correctness: terms outside the table are only checked for mixed usage inside one document, and anything depending on GB/T 21922—2026 is marked "to verify" because the standard text is not in the corpus.
 
 **How is this different from "de-AI" tools?**
@@ -230,7 +230,7 @@ Different objective. Those tools make text read like a natural individual — co
     <tr><td><a href="references/ai-tells.md">references/ai-tells.md</a></td><td>before/after table by rule id, plus seven "do not change" cases (Chinese)</td></tr>
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>evaluation report: density, false positives, sweep, misses, blind ratings (Chinese)</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 real drafts and rewrites, numbers untouched (Chinese)</td></tr>
-    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 terms; 13 definitions quoted from GB 28050—2025 / GB 13432—2013</td></tr>
+    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 terms; 16 definitions quoted from GB 28050—2025 / GB 13432—2013</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>authors and credits: who decided what, how attribution is recorded</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>corpus sources and copyright</td></tr>
     <tr><td colspan="2">All documents are in Chinese except README.en.md and THIRD_PARTY_NOTICES.md.</td></tr>

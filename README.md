@@ -110,8 +110,8 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ### 术语与定义怎么查
 
-`references/terms.json` 收录 22 条术语，其中 13 条的定义**逐字引自标准原文**
-（GB 28050—2025 §2、GB 13432—2013 §2），其余只收名称与英文，`needs_definition` 标出，不凭记忆补写。
+`references/terms.json` 收录 22 条术语，其中 16 条的定义**逐字引自标准原文**
+（GB 28050—2025 §2 共 13 条、GB 13432—2013 §2 共 3 条），其余只收名称与英文，`needs_definition` 标出，不凭记忆补写。
 
 <table width="100%">
   <thead><tr><th>查什么</th><th>怎么查</th><th>能不能自动改</th></tr></thead>
@@ -212,7 +212,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 英文里 humanizer 指把机器文本改得像人写的工具。这里沿用这个词，但目标是反的：不是让它像自然人，而是让它像机构发布的文字。中文标题用「语体校准」，比「人味化」准确。
 
 **Q：术语写错了能改吗？**
-能改**已知的错**：维他命→维生素、粗纤维→膳食纤维、升糖指数→血糖生成指数、必要氨基酸→必需氨基酸，以及「碳水化合物就是糖」「脂肪即脂类」这类方向反了的定义。依据是 `references/terms.json`，其中 13 条定义逐字引自 GB 28050—2025 §2 与 GB 13432—2013 §2。
+能改**已知的错**：维他命→维生素、粗纤维→膳食纤维、必要氨基酸→必需氨基酸，以及「碳水化合物就是糖」「脂肪即脂类」这类方向反了的定义。依据是 `references/terms.json`：22 条术语，16 条定义逐字引自标准原文（GB 28050—2025 §2 共 13 条、GB 13432—2013 §2 共 3 条）。
 不能判**未知的对错**：术语表没收的写法，只报「同篇混用」；涉及 GB/T 21922—2026 的条目一律标「待核」，因为标准原文没入库。
 
 **Q：和「去 AI 味」的工具有什么不同？**
@@ -229,7 +229,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td><a href="references/ai-tells.md">references/ai-tells.md</a></td><td>按规则编号排的对照表 + 七条「什么时候不该改」</td></tr>
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>评测报告：密度差、误报率、阈值扫描、漏报、盲评</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 组真实初稿与改写，数字零改动</td></tr>
-    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 条术语；13 条定义逐字引自 GB 28050—2025 / GB 13432—2013</td></tr>
+    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 条术语；16 条定义逐字引自 GB 28050—2025（13 条）与 GB 13432—2013（3 条）</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>作者与致谢：人做什么、工具做什么、署名怎么留痕</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
     <tr><td colspan="2">除 README.en.md 与 THIRD_PARTY_NOTICES.md 外，文档正文均为中文。</td></tr>
