@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.11"]
+        python-version: ["3.9", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,8 +21,6 @@ jobs:
         run: python -m py_compile scripts/check.py scripts/eval.py scripts/stats.py scripts/features.py scripts/validate.py
       - name: Repository self-check
         run: python scripts/validate.py
-      - name: Checker accepts the rewritten examples
-        run: python scripts/check.py examples/after.md --threshold 3 || true
       - name: Checker flags the raw drafts
         run: |
           set +e

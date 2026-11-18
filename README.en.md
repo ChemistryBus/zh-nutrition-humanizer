@@ -10,7 +10,7 @@
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
-  <img src="https://img.shields.io/badge/python-3.8--3.12-blue" alt="Python 3.8-3.12">
+  <img src="https://img.shields.io/badge/python-3.9--3.12-blue" alt="Python 3.8-3.12">
 </p>
 
 ![overview](docs/assets/overview-en.svg)
@@ -49,7 +49,7 @@ cd zh-nutrition-humanizer
 python3 scripts/check.py examples/before.md --explain
 ```
 
-Zero dependencies, Python 3.8+, nothing to pip install.
+Zero dependencies, Python 3.9+ (CI covers 3.9 and 3.12); nothing to pip install.
 
 ### Try one check first
 

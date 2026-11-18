@@ -10,7 +10,7 @@
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
-  <img src="https://img.shields.io/badge/python-3.8--3.12-blue" alt="Python 3.8-3.12">
+  <img src="https://img.shields.io/badge/python-3.9--3.12-blue" alt="Python 3.8-3.12">
 </p>
 
 ![zh-nutrition-humanizer 总览](docs/assets/overview-zh.svg)
@@ -49,7 +49,7 @@ cd zh-nutrition-humanizer
 python3 scripts/check.py examples/before.md --explain
 ```
 
-零依赖，Python 3.8+，不需要 pip 装任何东西。
+零依赖，Python 3.9+（CI 覆盖 3.9 与 3.12），不需要 pip 装任何东西。
 
 ### 先试一次机检
 
