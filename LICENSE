@@ -1,0 +1,36 @@
+MIT License
+
+Copyright (c) 2026 ChemistryBus
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+语料说明（不在 MIT 授权范围内）
+
+references/corpus/ 与 eval/gold/ 下的文字摘录，来源为：
+
+- 《中国营养科学全书（第 2 版）》，中国营养学会，人民卫生出版社，2019
+- 《中国居民膳食指南（2022）》，中国营养学会，人民卫生出版社，2022
+- 《中国居民膳食营养素参考摄入量（2023 版）》，中国营养学会，2023
+- 国家卫生健康委员会《成人糖尿病食养指南（2023 年版）》等 11 份食养指南
+
+每段摘录 200–400 字，均标注来源与页码，仅用于语体统计与对照示例，
+不构成对原作品的转载授权。原书版权归各著作权人所有。
+若权利人认为摘录超出合理引用范围，提出后即删除。
