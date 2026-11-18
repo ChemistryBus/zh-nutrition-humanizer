@@ -43,7 +43,7 @@
 ```bash
 git clone https://github.com/ChemistryBus/sport-nutrition-humanizer.git
 cd sport-nutrition-humanizer
-python3 scripts/check.py --help 2>/dev/null || python3 scripts/check.py examples/before.md
+python3 scripts/check.py examples/before.md --explain   # 拿 20 组真实初稿试跑
 ```
 
 零依赖，Python 3.8+ 即可，不需要 pip 安装任何包。
