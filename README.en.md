@@ -2,13 +2,13 @@
 
 <h1 align="center">zh-nutrition-humanizer</h1>
 
-<p align="center"><strong>Quality control for Chinese nutrition writing</strong></p>
-<p align="center">Not "sound human": match the voice Chinese nutrition institutions publish in.</p>
-<p align="center"><strong>v1.0.2 — Voice Alignment and Full-width Tables</strong></p>
+<p align="center"><strong>Voice and style alignment for Chinese nutrition writing</strong></p>
+<p align="center">Match the tone of policy documents, learned-society books and standards · zero dependencies · corpus-calibrated thresholds</p>
+<p align="center"><strong>v1.0.3 — Writing-Register Wording and SVG Rendering</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.2"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.0.3"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -151,7 +151,7 @@ Final blind round, on the exact repository text: popular-register rewrites **20 
   <thead><tr><th width="30%">Need</th><th width="70%">Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.2</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.0.3</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
   </tbody>
 </table>
