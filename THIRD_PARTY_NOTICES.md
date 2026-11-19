@@ -4,6 +4,12 @@ This repository contains original code, documentation and rule tables, plus **sh
 excerpts** from published Chinese nutrition references. The MIT licence in `LICENSE` covers the
 code and the original writing only. It does **not** cover the excerpts below.
 
+## Scope
+
+`LICENSE` (MIT) covers the code and documentation in this repository. The corpus excerpts under
+`references/corpus/` and the gold samples under `eval/gold/` are **not** covered by that grant:
+they are short quotations from published works, reproduced for measurement and comparison only.
+
 ## Corpus excerpts (`references/corpus/`, `eval/gold/`)
 
 | Source | Publisher | Year | Excerpts |
