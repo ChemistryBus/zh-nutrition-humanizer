@@ -138,6 +138,24 @@ def nchars(s: str) -> int:
     return len(re.sub(r"\s", "", s))
 
 
+
+def mask_markdown(text: str) -> str:
+    """把代码块、行内代码、URL、HTML 标签替换成等长空白，保留换行与段落结构。
+
+    这些位置不该按散文检查：代码里的「维他命」是变量名，URL 里的数字不是剂量。
+    """
+    def blank(m):
+        return re.sub(r"[^\n]", " ", m.group(0))
+
+    text = re.sub(r"^```.*?^```", blank, text, flags=re.S | re.M)
+    text = re.sub(r"^~~~.*?^~~~", blank, text, flags=re.S | re.M)
+    text = re.sub(r"`[^`\n]*`", blank, text)
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", blank, text)
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", lambda m: m.group(1) + " " * (len(m.group(0)) - len(m.group(1))), text)
+    text = re.sub(r"https?://\S+", blank, text)
+    text = re.sub(r"<[^>\n]+>", blank, text)
+    return text
+
 def strip_front_matter(text: str) -> str:
     return re.sub(r"^---\s*\n.*?\n---\s*\n", "", text, flags=re.S)
 
@@ -244,6 +262,7 @@ def doc_checks(text: str):
 
 def analyze(text: str) -> dict:
     body = strip_front_matter(text)
+    body = mask_markdown(body)
     chars = nchars(body)
     items = rule_hits(body)
     struct, para_stats = structural_checks(body)

@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.2.2 — Upstream Attribution Proposal</strong></p>
+<p align="center"><strong>v1.3.0 — Ecosystem and Harness Tests</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.2.2"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.3.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -166,27 +166,52 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 盲评最终轮（与仓库文本逐字一致）：科普体改写 **20 胜 0 负**（4.25 vs 2.45），教材体 **16 平**（4.90 vs 4.90）——**教材体 AI 稿只能改体例，改不动语体**。这句是三轮盲评打出来的，第一轮我因为把句子压成电报句被判负 18 次。
 
-## 支持哪些 harness
+## 和主流 humanizer 比，差什么、不学什么
 
-技能目录放对，`SKILL.md` 自带 frontmatter，不需要改配置。
+高星项目（blader/humanizer 7 万星、Humanizer-zh 2.3 万星、academic-humanizer 5.5 千星）值得学的不是模式数量，是工程层的四件事。逐项对过：
 
 <table width="100%">
-  <thead><tr><th>环境</th><th>技能目录</th><th>说明</th></tr></thead>
+  <thead><tr><th>技术</th><th>主流做法</th><th>本项目</th></tr></thead>
   <tbody>
-    <tr><td>纯命令行 / CI</td><td>—</td><td><code>python3 scripts/check.py 稿子.md --threshold 3</code>，退出码 1 即超阈值</td></tr>
-    <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td><td>整目录复制，读 <code>SKILL.md</code></td></tr>
-    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>同上；技能多时在对话里点名 <code>zh-nutrition-humanizer</code></td></tr>
-    <tr><td>DSH（DeepSeek Harness）</td><td><code>~/.dsh/skills/</code></td><td>同上，frontmatter 已就绪</td></tr>
-    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>用户级目录，目录名即技能名</td></tr>
-    <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> 或 <code>~/.config/agents/skills/</code></td><td>后者为共享目录，多个 harness 可共用一份</td></tr>
-    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td>项目级可放 <code>.agents/skills</code></td></tr>
-    <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>项目级用 <code>.codebuddy/skills/</code>（沿用 CodeBuddy 内核的目录名）</td></tr>
-    <tr><td>自建流程</td><td>—</td><td><code>--json</code> 输出喂给下游；<code>scripts/eval.py</code> 可接入回归测试</td></tr>
-    <tr><td colspan="3" width="1200">目录以各 harness 官方文档为准；本表按 2026 年 11 月的约定整理。</td></tr>
+    <tr><td>模式强度排序</td><td>最强的最先改；「单独出现不算」的要多个共现才改</td><td>用每千字阈值近似：L 族出现即改，T 族超密度才改</td></tr>
+    <tr><td>文件模式保护</td><td>只改散文，保留代码、数据、frontmatter、链接目标</td><td>v1.3 起 <code>mask_markdown</code>：代码块、行内代码、URL、HTML 标签不参与检查</td></tr>
+    <tr><td>声音匹配</td><td>贴 2–3 段自己的文字，按你的节奏改</td><td>不做个人声音；锚是 141 段机构语料，目标是机构口吻</td></tr>
+    <tr><td>安装与验证</td><td>npx 一键装、插件清单、doctor</td><td><code>.claude-plugin/plugin.json</code>、<code>scripts/doctor.py</code>、Claude Code 加载实测</td></tr>
+    <tr><td colspan="3" width="1200">共性技术在工程层：保护不该改的、装得上、说得清。不在模式数量。</td></tr>
   </tbody>
 </table>
 
-目录名以各 harness 官方文档为准；上表按 2026-11 的实际目录约定整理，版本升级后若目录变动，以文档为准。
+**一条明确不学的**：Humanizer-zh 的 F 类列了「进行＋动词」「四字格排比」「被字句堆叠」等中文病灶。在我们的语料上实测：
+
+<table width="100%">
+  <thead><tr><th>特征</th><th>机构文本</th><th>大模型初稿</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>进行＋动词</td><td>0.81 / 千字</td><td>0.37</td><td>机构文本用得更多，不能当病灶</td></tr>
+    <tr><td>四字格排比</td><td>0.71 / 千字</td><td>0.30</td><td>同上</td></tr>
+    <tr><td>被字句</td><td>0.47 / 千字</td><td>0.67</td><td>方向对，差距不足以设阈值</td></tr>
+    <tr><td colspan="4" width="1200">这些规则校准的是「自然人写作」，不是「机构语体」。照搬会把公文腔当优点改掉，和目标是反的——与「升糖指数」那条同类。</td></tr>
+  </tbody>
+</table>
+
+## 支持哪些 harness
+
+技能目录放对，`SKILL.md` 自带 frontmatter；Claude Code 另有插件清单，可整包加载。
+
+<table width="100%">
+  <thead><tr><th>环境</th><th>技能目录</th><th>实测</th></tr></thead>
+  <tbody>
+    <tr><td>纯命令行 / CI</td><td>—</td><td>已验证：GitHub Actions 每次推送跑 <code>validate.py</code> 与 <code>doctor.py --ci</code></td></tr>
+    <tr><td>Claude Code</td><td><code>~/.claude/skills/</code> 或 <code>--plugin-dir</code></td><td><b>已验证</b>：<code>claude plugin validate</code> 通过，加载后显示 Skills (1)</td></tr>
+    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>目录约定；本机未装，未做加载测试</td></tr>
+    <tr><td>DSH（DeepSeek Harness）</td><td><code>~/.dsh/skills/</code></td><td>目录已就绪（486 个技能）；需放入后重开会话，本会话内无法热加载</td></tr>
+    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>目录约定；未做加载测试</td></tr>
+    <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> 或 <code>~/.config/agents/skills/</code></td><td>目录约定；本机未装</td></tr>
+    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td>目录存在（共享 agents 目录）；未做加载测试</td></tr>
+    <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>目录约定；未做加载测试</td></tr>
+    <tr><td>自建流程</td><td><code>--json</code></td><td>已验证：<code>eval.py</code> 可作回归测试</td></tr>
+    <tr><td colspan="3" width="1200">诚实标注：只有 Claude Code 与命令行是「真装进去跑过」；其余按各 harness 官方目录约定整理，本机未安装，因此不写「已通过」。<code>python3 scripts/doctor.py</code> 可一键复核。</td></tr>
+  </tbody>
+</table>
 
 ## 安装选项
 
@@ -194,7 +219,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.2.2</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.3.0</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
@@ -238,9 +263,11 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td><a href="references/ai-tells.md">references/ai-tells.md</a></td><td>按规则编号排的对照表 + 七条「什么时候不该改」</td></tr>
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>评测报告：密度差、误报率、阈值扫描、漏报、盲评</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 组真实初稿与改写，数字零改动</td></tr>
+    <tr><td><a href="examples/walkthrough.md">examples/walkthrough.md</a></td><td>一段初稿的全流程：机检 → 机械润色 → 人工改 → 终检</td></tr>
     <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 条术语；16 条定义逐字引自 GB 28050—2025（13 条）与 GB 13432—2013（3 条）</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>作者与致谢：人做什么、工具做什么、署名怎么留痕</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
+    <tr><td><a href="scripts/doctor.py">scripts/doctor.py</a></td><td>安装自检：技能契约、可移植性、harness 目录</td></tr>
     <tr><td colspan="2" width="1200">除 README.en.md 与 THIRD_PARTY_NOTICES.md 外，文档正文均为中文。</td></tr>
   </tbody>
 </table>

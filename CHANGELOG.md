@@ -2,6 +2,21 @@
 
 版本规则：规则表增删 → 第二位 +1；只改文档与示例 → 第三位 +1；语料或评测方法变更 → 记录在节内。
 
+## v1.3.0（2026-11-19）对标高星项目：补工程层，不补模式
+
+- **文件模式保护**：`check.py` 新增 `mask_markdown`，代码块、行内代码、URL、HTML 标签、图片地址
+  不参与检查（等长空白替换，保留段落结构）。新增样例 `tests/fixtures/markdown_safe.md`。
+- **Claude Code 插件清单**：`.claude-plugin/plugin.json`，`claude plugin validate` 通过；
+  `claude --plugin-dir . plugin details` 显示 `Skills (1)`，~140 always-on token。
+- **安装自检**：`scripts/doctor.py`——技能契约（frontmatter、name 与目录一致、必备文件）、
+  可移植性（复制到临时目录后三个入口仍可跑）、harness 目录探测；`--ci` 跳过本机探测，已进 CI。
+  本机实测 9/9 通过。
+- **单段全流程**：`examples/walkthrough.md`，一段真实初稿从机检 5 处 → 机械润色 4 处 → 人工改 → 终检 0 处。
+- **对标结论**写进 README：值得学的是模式强度排序、文件保护、安装验证；**明确不学**中文特有病灶
+  （进行＋动词、四字格、被字句）——实测机构文本用得更多（0.81 vs 0.37、0.71 vs 0.30），
+  照搬会把目标语体的特征当病。
+- 本地目录更名为 `zh-nutrition-humanizer`，与技能名、仓库名一致（harness 按目录名识别）。
+
 ## v1.2.2（2026-11-19）上游署名建议已提交
 
 - 向 `deepseek-ai/deepseek-harness` 的 Discussions → Ideas 提交建议：

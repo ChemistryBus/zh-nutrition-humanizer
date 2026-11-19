@@ -1,0 +1,14 @@
+{
+  "name": "zh-nutrition-humanizer",
+  "version": "1.3.0",
+  "description": "Language polishing and terminology correction for Chinese nutrition writing, calibrated on a 141-excerpt corpus of authoritative texts.",
+  "author": {
+    "name": "ChemistryBus",
+    "url": "https://github.com/ChemistryBus"
+  },
+  "homepage": "https://github.com/ChemistryBus/zh-nutrition-humanizer",
+  "repository": "https://github.com/ChemistryBus/zh-nutrition-humanizer",
+  "license": "MIT",
+  "keywords": ["chinese", "nutrition", "writing", "humanizer", "style", "terminology"],
+  "skills": ["./"]
+}

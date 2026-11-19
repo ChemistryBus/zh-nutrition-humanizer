@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.2.2 — Upstream Attribution Proposal</strong></p>
+<p align="center"><strong>v1.3.0 — Ecosystem and Harness Tests</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.2.2"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.3.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -168,27 +168,52 @@ Full rule table in [`SKILL.md`](SKILL.md) (Chinese); rule evidence in [`referenc
 
 Final blind round, on the exact repository text: popular-register rewrites **20 wins, 0 losses** (4.25 vs 2.45); textbook-register pairs are **16 ties** (4.90 vs 4.90). In other words: **a textbook-register AI draft can only be fixed at the style level, not the register level.** That conclusion came from round one, where compressing sentences into telegraph style lost 18 of 18 comparisons.
 
-## Supported harnesses
+## Compared with the popular humanizers
 
-Drop the directory in the right place; `SKILL.md` already carries frontmatter, no configuration needed.
+The high-star projects (blader/humanizer ~71k, Humanizer-zh ~23k, academic-humanizer ~5.5k) are worth copying for four engineering habits, not for the number of patterns:
 
 <table width="100%">
-  <thead><tr><th>Environment</th><th>Skills directory</th><th>Notes</th></tr></thead>
+  <thead><tr><th>Technique</th><th>Typical approach</th><th>Here</th></tr></thead>
   <tbody>
-    <tr><td>CLI / CI</td><td>—</td><td><code>python3 scripts/check.py draft.md --threshold 3</code>; exit code 1 means over threshold</td></tr>
-    <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td><td>copy the directory; reads <code>SKILL.md</code></td></tr>
-    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>same; name the skill explicitly when several are installed</td></tr>
-    <tr><td>DSH (DeepSeek Harness)</td><td><code>~/.dsh/skills/</code></td><td>same; frontmatter ready</td></tr>
-    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>user-level directory; the directory name is the skill name</td></tr>
-    <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> or <code>~/.config/agents/skills/</code></td><td>the second is a shared directory usable by several harnesses</td></tr>
-    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>project-level: <code>.agents/skills</code></td></tr>
-    <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>project-level: <code>.codebuddy/skills/</code> (inherited from the CodeBuddy core)</td></tr>
-    <tr><td>Custom pipeline</td><td>—</td><td>consume <code>--json</code>; <code>scripts/eval.py</code> works as a regression test</td></tr>
-    <tr><td colspan="3" width="1200">Directory names follow each harness's own documentation; the table reflects conventions as of November 2026.</td></tr>
+    <tr><td>Pattern strength</td><td>Fix the strongest first; "weak alone" patterns only count when several co-occur</td><td>Approximated by density thresholds: L on sight, T above a per-1,000-character limit</td></tr>
+    <tr><td>File-mode safety</td><td>Edit prose only; keep code, data, frontmatter and link targets</td><td>Since v1.3, <code>mask_markdown</code> excludes code fences, inline code, URLs and HTML tags</td></tr>
+    <tr><td>Voice matching</td><td>Paste 2–3 paragraphs of your own writing; follow its rhythm</td><td>No personal voice: the anchor is 141 institutional excerpts, because the target is institutional</td></tr>
+    <tr><td>Install and verify</td><td>One-line install, plugin manifest, doctor</td><td><code>.claude-plugin/plugin.json</code>, <code>scripts/doctor.py</code>, a real Claude Code load test</td></tr>
+    <tr><td colspan="3" width="1200">What these projects share is engineering: protect what must not change, make it installable, state what was verified.</td></tr>
   </tbody>
 </table>
 
-Directory names follow each harness's own documentation; the table reflects the conventions as of November 2026.
+**One thing deliberately not copied.** Humanizer-zh's category F lists Chinese ills such as 「进行＋动词」, four-character parallelism and stacked passives. Measured on our corpus:
+
+<table width="100%">
+  <thead><tr><th>Feature</th><th>Institution</th><th>LLM draft</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td>进行＋verb</td><td>0.81 / 1,000</td><td>0.37</td><td>Institutional text uses it more; not a defect</td></tr>
+    <tr><td>Four-character parallelism</td><td>0.71 / 1,000</td><td>0.30</td><td>Same</td></tr>
+    <tr><td>Passive constructions</td><td>0.47 / 1,000</td><td>0.67</td><td>Right direction, gap too small for a threshold</td></tr>
+    <tr><td colspan="4" width="1200">Those rules are calibrated for natural individual prose, not for institutional register. Copying them would delete exactly what the target style does, the same mistake as the 升糖指数 rule.</td></tr>
+  </tbody>
+</table>
+
+## Supported harnesses
+
+Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Code additionally gets a plugin manifest.
+
+<table width="100%">
+  <thead><tr><th>Environment</th><th>Skills directory</th><th>Tested</th></tr></thead>
+  <tbody>
+    <tr><td>CLI / CI</td><td>—</td><td>Verified: GitHub Actions runs <code>validate.py</code> and <code>doctor.py --ci</code> on every push</td></tr>
+    <tr><td>Claude Code</td><td><code>~/.claude/skills/</code> or <code>--plugin-dir</code></td><td><b>Verified</b>: <code>claude plugin validate</code> passes; loading reports Skills (1)</td></tr>
+    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>Directory convention; not installed here, no load test</td></tr>
+    <tr><td>DSH (DeepSeek Harness)</td><td><code>~/.dsh/skills/</code></td><td>Directory ready (486 skills); requires a new session, no hot reload</td></tr>
+    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>Directory convention; no load test</td></tr>
+    <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> or <code>~/.config/agents/skills/</code></td><td>Directory convention; not installed here</td></tr>
+    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>Shared agents directory exists; no load test</td></tr>
+    <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>Directory convention; no load test</td></tr>
+    <tr><td>Custom pipeline</td><td><code>--json</code></td><td>Verified: <code>eval.py</code> works as a regression test</td></tr>
+    <tr><td colspan="3" width="1200">Stated honestly: only Claude Code and the CLI were actually loaded and run. The rest follow each harness's documented directory convention and were not installed here, so they are not marked as passing. <code>python3 scripts/doctor.py</code> re-checks all of it.</td></tr>
+  </tbody>
+</table>
 
 ## Install options
 
@@ -196,7 +221,7 @@ Directory names follow each harness's own documentation; the table reflects the 
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.2.2</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.3.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>
@@ -240,9 +265,11 @@ Different objective. Those tools make text read like a natural individual — co
     <tr><td><a href="references/ai-tells.md">references/ai-tells.md</a></td><td>before/after table by rule id, plus seven "do not change" cases (Chinese)</td></tr>
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>evaluation report: density, false positives, sweep, misses, blind ratings (Chinese)</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 real drafts and rewrites, numbers untouched (Chinese)</td></tr>
+    <tr><td><a href="examples/walkthrough.md">examples/walkthrough.md</a></td><td>one draft end to end: check → polish → human edit → re-check (Chinese)</td></tr>
     <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 terms; 16 definitions quoted from GB 28050—2025 / GB 13432—2013</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>authors and credits: who decided what, how attribution is recorded</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>corpus sources and copyright</td></tr>
+    <tr><td><a href="scripts/doctor.py">scripts/doctor.py</a></td><td>install self-check: contract, portability, harness directories</td></tr>
     <tr><td colspan="2" width="1200">All documents are in Chinese except README.en.md and THIRD_PARTY_NOTICES.md.</td></tr>
   </tbody>
 </table>
