@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .DS_Store
 .work/
+# 润色产物
+*.polished.md
+*.bak

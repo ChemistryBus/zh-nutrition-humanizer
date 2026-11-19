@@ -2,6 +2,17 @@
 
 版本规则：规则表增删 → 第二位 +1；只改文档与示例 → 第三位 +1；语料或评测方法变更 → 记录在节内。
 
+## v1.5.1（2026-11-19）四台 harness 实测与润色默认干跑
+
+- **实测**：Claude Code、Codex、ZCode、MiniMax 四台全部通过（识别技能、`check` 退出码 1、
+  `polish` 47 处改动、说得清五族规则与默认指南体）。结果写进 README 与 `docs/harness-test.md`。
+- **默认改干跑**：`polish.py` 不再默认写 `<稿子>.polished.md`，只列改动；落盘用 `--out PATH`
+  或 `--write`（后者备份 `.bak`）。原因：Codex 沙箱内写不进去，ZCode / MiniMax 都发现默认会
+  在仓库里多出一个文件。实测驱动，不是猜的。
+- **写不进去不抛栈**：`--write` 遇无权限时提示并返回 1；`--out` 失败时退回标准输出。
+- 区间改动同时支持小数：`1.4 至 2.0 → 1.4～2.0`（此前只匹配整数，日志显示成 `4 至 2`）。
+- `.gitignore` 忽略 `*.polished.md` 与 `*.bak`；`validate.py` 增加「干跑不写文件」断言。
+
 ## v1.5.0（2026-11-19）语体切档、一键安装、上下文报告
 
 - **语体档**：`--profile guideline|textbook`，默认 **guideline（膳食指南体）**。

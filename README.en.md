@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.5.0 — Profiles, One-line Install, Context Report</strong></p>
+<p align="center"><strong>v1.5.1 — Four Harnesses Tested</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -78,7 +78,9 @@ Zero dependencies, Python 3.10+ (CI covers 3.10 and 3.12); nothing to pip instal
 ### Let the machine make the deterministic edits
 
 ```bash
-python3 scripts/polish.py your_draft.md        # writes your_draft.md.polished.md and lists every change
+python3 scripts/polish.py your_draft.md        # dry run: lists every change, writes nothing
+python3 scripts/polish.py your_draft.md --out polished.md   # write to a chosen file
+python3 scripts/polish.py your_draft.md --write             # overwrite in place (keeps .bak)
 ```
 
 Five kinds only: misspelled terms, numeric ranges written with 至, Chinese numerals with units,
@@ -218,14 +220,14 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <tbody>
     <tr><td>CLI / CI</td><td>—</td><td>Verified: GitHub Actions runs <code>validate.py</code> and <code>doctor.py --ci</code> on every push</td></tr>
     <tr><td>Claude Code</td><td><code>~/.claude/skills/</code> or <code>--plugin-dir</code></td><td><b>Verified</b>: <code>claude plugin validate</code> passes; loading reports Skills (1)</td></tr>
-    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>Directory convention; not installed here, no load test</td></tr>
+    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td><b>Verified</b> (2026-11-19): skill listed, check exit 1, polish 47 changes</td></tr>
     <tr><td>DSH (DeepSeek Harness)</td><td><code>~/.dsh/skills/</code></td><td>Directory ready (486 skills); requires a new session, no hot reload</td></tr>
-    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>Directory convention; no load test</td></tr>
+    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td><b>Verified</b> (2026-11-19): skill listed, check 1, polish 47</td></tr>
     <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> or <code>~/.config/agents/skills/</code></td><td>Directory convention; not installed here</td></tr>
-    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>Shared agents directory exists; no load test</td></tr>
+    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td><b>Verified</b> (2026-11-19): skill listed, check 1, polish 47</td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>Directory convention; no load test</td></tr>
     <tr><td>Custom pipeline</td><td><code>--json</code></td><td>Verified: <code>eval.py</code> works as a regression test</td></tr>
-    <tr><td colspan="3" width="1200">Stated honestly: only Claude Code and the CLI were actually loaded and run. The rest follow each harness's documented directory convention, so they are not marked as passing. Per-harness test scripts: <a href="docs/harness-test.md">docs/harness-test.md</a>; <code>python3 scripts/doctor.py</code> re-checks the rest.</td></tr>
+    <tr><td colspan="3" width="1200">Tested 2026-11-19: Claude Code, Codex, ZCode and MiniMax all passed (skill listed, check exit 1, polish 47 changes, rule families named). Kimi CLI and WorkBuddy are not installed here and follow the directory convention only. Prompts: <a href="docs/harness-test.md">docs/harness-test.md</a>.</td></tr>
   </tbody>
 </table>
 
@@ -235,7 +237,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.5.0</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.5.1</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>

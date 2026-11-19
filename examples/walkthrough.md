@@ -28,8 +28,8 @@ C 结构 数值区间用"至"×4
 ## 3 机械润色：4 处，只剩 1 处
 
 ```text
-$ python3 scripts/polish.py walk1.md
-改动 4 处 → walk1.polished.md
+$ python3 scripts/polish.py walk1.md --out walk1.polished.md
+改动 4 处 → 已写入 walk1.polished.md
   1.4 至 2.0 → 1.4～2.0
   45 至 65 → 45～65
   40 至 50 → 40～50

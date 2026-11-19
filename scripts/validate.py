@@ -17,6 +17,7 @@
 import argparse
 import importlib.util
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -114,6 +115,14 @@ def main():
     ok("润色不碰代码块", polisher.polish(code_src)[0] == code_exp)
     once = polisher.polish(src)[0]
     ok("润色幂等", polisher.polish(once)[0] == once)
+
+    import tempfile as _tf
+    with _tf.TemporaryDirectory() as td:
+        f = Path(td) / "d.md"
+        f.write_text("赛前 5 至 7 天\n", encoding="utf-8")
+        subprocess.run([sys.executable, str(ROOT / "scripts" / "polish.py"), str(f)],
+                       capture_output=True, timeout=60)
+        ok("润色默认干跑不写文件", sorted(x.name for x in Path(td).iterdir()) == ["d.md"])
 
     from collections import Counter
     lost = Counter(re.findall(r"\d+(?:\.\d+)?", src)) - Counter(re.findall(r"\d+(?:\.\d+)?", got))

@@ -3,10 +3,13 @@
 """确定性润色：只做有依据、可逆、不碰事实的替换。
 
 用法：
-    python3 scripts/polish.py 稿子.md                # 输出到 稿子.polished.md，并列出改动
-    python3 scripts/polish.py 稿子.md --stdout       # 打到标准输出
-    python3 scripts/polish.py 稿子.md --write        # 原地覆盖（会先备份 .bak）
+    python3 scripts/polish.py 稿子.md                # 默认干跑：只列改动，不写任何文件
+    python3 scripts/polish.py 稿子.md --stdout       # 把润色后的全文打到标准输出
+    python3 scripts/polish.py 稿子.md --out 新.md    # 写到指定文件
+    python3 scripts/polish.py 稿子.md --write        # 原地覆盖（先备份 .bak）
     python3 scripts/polish.py 稿子.md --json         # 机器可读的改动清单
+
+默认不落盘：sandbox 只读、或不想让仓库多出一个文件时，干跑就够了。
 
 只改五类，全部有标准或语料依据：
     1. 术语误写        维他命→维生素、炭水化合物→碳水化合物、必要氨基酸→必需氨基酸、粗纤维→膳食纤维
@@ -140,7 +143,7 @@ def fix_segment(seg: str, changes: list):
         new = f"{m.group(1)}～{m.group(2)}"
         changes.append((m.group(0), new))
         return new
-    seg = re.sub(r"(\d+)\s*(?:至|到)\s*(\d+)", range_fix, seg)
+    seg = re.sub(r"(\d+(?:\.\d+)?)\s*(?:至|到)\s*(\d+(?:\.\d+)?)", range_fix, seg)
 
     # 6 空白
     seg = re.sub(r"(\d)[ \u3000]+(mg|μg|ng|g|kg|kcal|kJ|mL|L|mmol)\b", r"\1 \2", seg)
@@ -168,6 +171,7 @@ def main():
     ap.add_argument("file")
     ap.add_argument("--stdout", action="store_true")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--out", metavar="PATH", help="把润色后的全文写到指定文件")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
@@ -178,22 +182,36 @@ def main():
     if args.json:
         print(json.dumps({"file": str(path), "changes": changes, "count": len(changes)},
                          ensure_ascii=False, indent=1))
-    elif args.stdout:
+        return
+
+    if args.stdout:
         sys.stdout.write(new)
-    else:
-        out = path.with_suffix(path.suffix + ".polished.md") if path.suffix else path.with_name(path.name + ".polished.md")
-        out.write_text(new, encoding="utf-8")
-        print(f"改动 {len(changes)} 处 → {out}")
-        for a, b in changes[:40]:
-            print(f"  {a} → {b}")
-        if len(changes) > 40:
-            print(f"  ……另有 {len(changes) - 40} 处")
+        return
+
+    print(f"改动 {len(changes)} 处（干跑，未写文件）")
+    for a, b in changes[:40]:
+        print(f"  {a} → {b}")
+    if len(changes) > 40:
+        print(f"  ……另有 {len(changes) - 40} 处")
+
+    if args.out:
+        try:
+            Path(args.out).write_text(new, encoding="utf-8")
+            print(f"已写入 {args.out}")
+        except OSError as e:
+            sys.stderr.write(f"无法写入 {args.out}：{e}\n已改为标准输出：\n")
+            sys.stdout.write(new)
 
     if args.write:
-        shutil.copyfile(path, str(path) + ".bak")
-        path.write_text(new, encoding="utf-8")
-        print(f"已覆盖 {path}（备份 {path}.bak）")
+        try:
+            shutil.copyfile(path, str(path) + ".bak")
+            path.write_text(new, encoding="utf-8")
+            print(f"已覆盖 {path}（备份 {path}.bak）")
+        except OSError as e:
+            sys.stderr.write(f"无法写入 {path}：{e}\n用 --stdout 或 --out 写到可写位置。\n")
+            return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

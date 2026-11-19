@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.5.0 — Profiles, One-line Install, Context Report</strong></p>
+<p align="center"><strong>v1.5.1 — Four Harnesses Tested</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -77,7 +77,9 @@ python3 scripts/check.py examples/before.md --explain
 ### 先让机器做确定性改动
 
 ```bash
-python3 scripts/polish.py 你的稿子.md          # 输出 稿子.polished.md，并列出每处改动
+python3 scripts/polish.py 你的稿子.md          # 干跑：只列改动，不写文件
+python3 scripts/polish.py 你的稿子.md --out 润色版.md   # 写到指定文件
+python3 scripts/polish.py 你的稿子.md --write          # 原地覆盖（先备份 .bak）
 ```
 
 只改五类：术语误写、数值区间「至」、汉字数字带单位、术语层级、多余空格。
@@ -215,14 +217,14 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <tbody>
     <tr><td>纯命令行 / CI</td><td>—</td><td>已验证：GitHub Actions 每次推送跑 <code>validate.py</code> 与 <code>doctor.py --ci</code></td></tr>
     <tr><td>Claude Code</td><td><code>~/.claude/skills/</code> 或 <code>--plugin-dir</code></td><td><b>已验证</b>：<code>claude plugin validate</code> 通过，加载后显示 Skills (1)</td></tr>
-    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>目录约定；本机未装，未做加载测试</td></tr>
+    <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td><b>已验证</b>（2026-11-19）：识别技能，check 退出码 1，polish 47 处</td></tr>
     <tr><td>DSH（DeepSeek Harness）</td><td><code>~/.dsh/skills/</code></td><td>目录已就绪（486 个技能）；需放入后重开会话，本会话内无法热加载</td></tr>
-    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>目录约定；未做加载测试</td></tr>
+    <tr><td>ZCode</td><td><code>~/.zcode/skills/&lt;skill-name&gt;/SKILL.md</code></td><td><b>已验证</b>（2026-11-19）：识别技能，check 1，polish 47 处</td></tr>
     <tr><td>Kimi CLI</td><td><code>~/.kimi/skills/</code> 或 <code>~/.config/agents/skills/</code></td><td>目录约定；本机未装</td></tr>
-    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td>目录存在（共享 agents 目录）；未做加载测试</td></tr>
+    <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td><b>已验证</b>（2026-11-19）：识别技能，check 1，polish 47 处</td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>目录约定；未做加载测试</td></tr>
     <tr><td>自建流程</td><td><code>--json</code></td><td>已验证：<code>eval.py</code> 可作回归测试</td></tr>
-    <tr><td colspan="3" width="1200">诚实标注：只有 Claude Code 与命令行是「真装进去跑过」；其余按各 harness 官方目录约定整理，因此不写「已通过」。逐项测试脚本见 <a href="docs/harness-test.md">docs/harness-test.md</a>，<code>python3 scripts/doctor.py</code> 可一键复核。</td></tr>
+    <tr><td colspan="3" width="1200">2026-11-19 实测：Claude Code、Codex、ZCode、MiniMax 四台全部通过（识别技能、check 退出码 1、polish 47 处、说得清规则族）。Kimi CLI 与 WorkBuddy 本机未装，只按目录约定整理。逐项话术见 <a href="docs/harness-test.md">docs/harness-test.md</a>。</td></tr>
   </tbody>
 </table>
 
@@ -232,7 +234,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.5.0</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.5.1</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
