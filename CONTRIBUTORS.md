@@ -35,6 +35,15 @@ git log --format='%an <%ae>%n%b' | grep -c 'Co-Authored-By: DSH'
 # 期望输出：等于提交总数
 ```
 
+## 上游建议
+
+2026-11-19 已向 DeepSeek Harness 官方仓库提交讨论，建议给出 DSH 的官方提交署名写法
+（推荐邮箱、或注册官方账号、或明确禁止使用个人账号邮箱）：
+
+https://github.com/deepseek-ai/deepseek-harness/discussions/13729
+
+在得到官方答复之前，本仓库维持现状：署 harness 名，不署模型名，不借用他人邮箱。
+
 ## 署名原则
 
 1. **署 harness，不署模型。** 工具名是稳定的，模型版本会换。
