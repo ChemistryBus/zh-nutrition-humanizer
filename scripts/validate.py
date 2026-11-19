@@ -102,7 +102,18 @@ def main():
     k_gold = sum(i["count"] for _, b in gold for i in check.rule_hits(b) if i["group"] == "K")
     ok("正样本术语误报 = 0", k_gold == 0, f"{k_gold} 处")
 
-    # 6 链式路径存在
+    # 6 润色工具：样例输出稳定，且不改变任何数值
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import polish as polisher
+    src = (ROOT / "tests" / "fixtures" / "polish_in.md").read_text(encoding="utf-8")
+    exp = (ROOT / "tests" / "fixtures" / "polish_expected.md").read_text(encoding="utf-8")
+    got, ch = polisher.polish(src)
+    ok("润色输出与样例一致", got == exp, f"{len(ch)} 处改动")
+    from collections import Counter
+    lost = Counter(re.findall(r"\d+(?:\.\d+)?", src)) - Counter(re.findall(r"\d+(?:\.\d+)?", got))
+    ok("润色不丢失原有数值", not lost, "；".join(f"{k}×{v}" for k, v in lost.items()))
+
+    # 7 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md"):
         text = (ROOT / md).read_text(encoding="utf-8")

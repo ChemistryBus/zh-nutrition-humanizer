@@ -2,13 +2,13 @@
 
 <h1 align="center">zh-nutrition-humanizer</h1>
 
-<p align="center"><strong>Voice, terminology and style alignment for Chinese nutrition writing</strong></p>
-<p align="center">Match the tone of policy documents, learned-society books and standards · checks register, terms and definitions · zero dependencies</p>
-<p align="center"><strong>v1.1.1 — A Terminology Rule Corrected</strong></p>
+<p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
+<p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
+<p align="center"><strong>v1.2.0 — Deterministic Polishing</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.1.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.2.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -29,7 +29,7 @@ That voice is not a matter of taste. It is specified by three bodies of text:
     <tr><td>National nutrition policy</td><td>National Nutrition Plan (2017–2030); Healthy China Action; the National Health Commission dietary-guidance series (11 documents, 2023–2026)</td><td>How 应 / 宜 / 不宜 / 建议 are used; addressed to a population, not to a reader</td></tr>
     <tr><td>Chinese Nutrition Society books</td><td><em>Encyclopedia of Nutrition Science</em> (2nd ed.); <em>Dietary Guidelines for Chinese Residents</em> (2022); <em>DRIs</em> (2023)</td><td>Terminology hierarchy, definition style, dose units, where evidence sits relative to a claim</td></tr>
     <tr><td>National, industry and local standards</td><td>GB 24154, GB 28050, GB 7718, the WS/T series, GB/T 21922—2026 terminology, local dietary-guidance specifications</td><td>How quantities are written, unit conventions, terminology and category boundaries</td></tr>
-    <tr><td colspan="3">The three bodies are parallel, not substitutes: policy fixes the voice, learned-society books fix terminology and definitions, standards fix quantities and units.</td></tr>
+    <tr><td colspan="3" width="1200">The three bodies are parallel, not substitutes: policy fixes the voice, learned-society books fix terminology and definitions, standards fix quantities and units.</td></tr>
   </tbody>
 </table>
 
@@ -65,7 +65,17 @@ python3 scripts/check.py examples/before.md --explain
 
 Zero dependencies, Python 3.10+ (CI covers 3.10 and 3.12); nothing to pip install.
 
-### Try one check first
+### Let the machine make the deterministic edits
+
+```bash
+python3 scripts/polish.py your_draft.md        # writes your_draft.md.polished.md and lists every change
+```
+
+Five kinds only: misspelled terms, numeric ranges written with 至, Chinese numerals with units,
+term level, redundant spaces. Text inside quotation marks is untouched; numbers change notation
+(三百毫克 → 300 mg), never value.
+
+### Then run the checker
 
 ```bash
 python3 scripts/check.py your_draft.md --explain
@@ -90,7 +100,7 @@ Five families: L/T/C are register and structure (12 rules), K is terminology (14
     <tr><td>C structure (1)</td><td>numeric ranges written with 「至」 instead of ～</td><td>0</td><td>4.52</td><td>always ～</td></tr>
     <tr><td>K terminology (14)</td><td>维他命, 粗纤维, 必要氨基酸, "carbs are sugar", "fat is lipid", "nutritional component is nutrient"…</td><td>0</td><td>draft-dependent</td><td>fix on sight, standard text cited</td></tr>
     <tr><td>S style (3)</td><td>mixed units, mixed terminology, missing English gloss</td><td>—</td><td>—</td><td>listed, not scored</td></tr>
-    <tr><td colspan="5">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density. K rules are definite errors: fix on sight.</td></tr>
+    <tr><td colspan="5" width="1200">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density. K rules are definite errors: fix on sight.</td></tr>
   </tbody>
 </table>
 
@@ -104,7 +114,7 @@ Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/a
     <tr><td>L1</td><td>每天蛋白质提高到每公斤体重一点六到二点四克</td><td>蛋白质提高到 1.6～2.4 g/kg</td></tr>
     <tr><td>T1</td><td>其核心依据是能量平衡原则，即摄入能量与总能量消耗相抵</td><td>估算以能量平衡为基础：摄入能量与总能量消耗相抵</td></tr>
     <tr><td>C1</td><td>每日 5 至 7 g/kg/d</td><td>每日 5～7 g/kg/d</td></tr>
-    <tr><td colspan="3">All 20 pairs are in examples/after.md; rewrites never touch numbers, units or evidence grades.</td></tr>
+    <tr><td colspan="3" width="1200">All 20 pairs are in examples/after.md; rewrites never touch numbers, units or evidence grades.</td></tr>
   </tbody>
 </table>
 
@@ -121,7 +131,7 @@ Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/a
     <tr><td>Wrong definition</td><td>Reversed inclusion such as "carbs are sugar", "fat is lipid", "nutritional component is nutrient"</td><td>Yes, with the standard definition and clause</td></tr>
     <tr><td>Definition under review</td><td>When the text says "X 是指 / defined as", the standard definition is printed for comparison</td><td>No, human compares</td></tr>
     <tr><td>Level and usage</td><td>Mixed usage inside one document (碳水化合物/糖类, 脂肪/脂类, 能量/热量, GI/升糖指数)</td><td>Reported only</td></tr>
-    <tr><td colspan="3">Gap: GB/T 21922—2026 and GB/Z 21922 (referenced by GB 28050) are not in the corpus, so terms that depend on them are marked "to verify".</td></tr>
+    <tr><td colspan="3" width="1200">Gap: GB/T 21922—2026 and GB/Z 21922 (referenced by GB 28050) are not in the corpus, so terms that depend on them are marked "to verify".</td></tr>
   </tbody>
 </table>
 
@@ -150,7 +160,7 @@ Full rule table in [`SKILL.md`](SKILL.md) (Chinese); rule evidence in [`referenc
     <tr><td>Paragraph false positives</td><td><strong>4.0%</strong> (2 of 50 authoritative paragraphs flagged)</td><td>&lt;15%</td></tr>
     <tr><td>Paragraph recall</td><td><strong>92%</strong> (textbook 88% / popular 96%)</td><td>—</td></tr>
     <tr><td>Threshold knee</td><td>1–2 per 1,000 chars (J = +0.88); default 3</td><td>—</td></tr>
-    <tr><td colspan="3">Metric definitions and recomputation commands are in eval/results.md; the 4/50 missed cases are in section 7.</td></tr>
+    <tr><td colspan="3" width="1200">Metric definitions and recomputation commands are in eval/results.md; the 4/50 missed cases are in section 7.</td></tr>
   </tbody>
 </table>
 
@@ -174,7 +184,7 @@ Drop the directory in the right place; `SKILL.md` already carries frontmatter, n
     <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>project-level: <code>.agents/skills</code></td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>project-level: <code>.codebuddy/skills/</code> (inherited from the CodeBuddy core)</td></tr>
     <tr><td>Custom pipeline</td><td>—</td><td>consume <code>--json</code>; <code>scripts/eval.py</code> works as a regression test</td></tr>
-    <tr><td colspan="3">Directory names follow each harness's own documentation; the table reflects conventions as of November 2026.</td></tr>
+    <tr><td colspan="3" width="1200">Directory names follow each harness's own documentation; the table reflects conventions as of November 2026.</td></tr>
   </tbody>
 </table>
 
@@ -186,9 +196,9 @@ Directory names follow each harness's own documentation; the table reflects the 
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.1.1</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.2.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
-    <tr><td colspan="2">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
+    <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>
 </table>
 
@@ -233,7 +243,7 @@ Different objective. Those tools make text read like a natural individual — co
     <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 terms; 16 definitions quoted from GB 28050—2025 / GB 13432—2013</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>authors and credits: who decided what, how attribution is recorded</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>corpus sources and copyright</td></tr>
-    <tr><td colspan="2">All documents are in Chinese except README.en.md and THIRD_PARTY_NOTICES.md.</td></tr>
+    <tr><td colspan="2" width="1200">All documents are in Chinese except README.en.md and THIRD_PARTY_NOTICES.md.</td></tr>
   </tbody>
 </table>
 
