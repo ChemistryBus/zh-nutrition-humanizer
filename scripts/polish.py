@@ -116,14 +116,21 @@ def fix_segment(seg: str, changes: list):
         return new
     seg = re.sub(r"([一二三四五六七八九十百两]+)(毫克|微克|纳克|千卡|千焦|毫升|克)", cn_unit, seg)
 
-    # 4 阿拉伯数字区间：5 至 7 → 5～7
+    # 4 百分数区间：20% 至 50% → 20%～50%
+    def pct_fix(m):
+        new = f"{m.group(1)}%～{m.group(2)}%"
+        changes.append((m.group(0), new))
+        return new
+    seg = re.sub(r"(\d+(?:\.\d+)?)\s*[%％]\s*(?:至|到)\s*(\d+(?:\.\d+)?)\s*[%％]", pct_fix, seg)
+
+    # 5 阿拉伯数字区间：5 至 7 → 5～7
     def range_fix(m):
         new = f"{m.group(1)}～{m.group(2)}"
         changes.append((m.group(0), new))
         return new
     seg = re.sub(r"(\d+)\s*(?:至|到)\s*(\d+)", range_fix, seg)
 
-    # 5 空白
+    # 6 空白
     seg = re.sub(r"(\d)[ \u3000]+(mg|μg|ng|g|kg|kcal|kJ|mL|L|mmol)\b", r"\1 \2", seg)
     seg = re.sub(r"[ \u3000]{2,}", " ", seg)
     return seg
