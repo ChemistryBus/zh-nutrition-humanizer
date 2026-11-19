@@ -72,6 +72,18 @@ def fmt_num(n: int) -> str:
     return str(n)
 
 
+def split_code(text: str):
+    """把围栏代码块与行内代码切出来，代码内不改。"""
+    pattern = re.compile(r"(```.*?```|~~~.*?~~~|`[^`\n]*`)", re.S)
+    parts, pos = [], 0
+    for m in pattern.finditer(text):
+        parts.append((text[pos:m.start()], True))
+        parts.append((m.group(0), False))
+        pos = m.end()
+    parts.append((text[pos:], True))
+    return parts
+
+
 def split_quotes(text: str):
     """把文本切成 (可改写段, 引号段) 交替，引号内不改。"""
     pattern = re.compile(r"(“[^”]*”|\"[^\"]*\"|「[^」]*」)")
@@ -142,8 +154,12 @@ def polish(text: str):
     head, body = (text[:m.end()], text[m.end():]) if m else ("", text)
     changes = []
     out = []
-    for seg, editable in split_quotes(body):
-        out.append(fix_segment(seg, changes) if editable else seg)
+    for chunk, editable in split_code(body):
+        if not editable:
+            out.append(chunk)
+            continue
+        for seg, editable2 in split_quotes(chunk):
+            out.append(fix_segment(seg, changes) if editable2 else seg)
     return head + "".join(out), changes
 
 

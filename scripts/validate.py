@@ -109,13 +109,19 @@ def main():
     exp = (ROOT / "tests" / "fixtures" / "polish_expected.md").read_text(encoding="utf-8")
     got, ch = polisher.polish(src)
     ok("润色输出与样例一致", got == exp, f"{len(ch)} 处改动")
+    code_src = (ROOT / "tests" / "fixtures" / "polish_code_in.md").read_text(encoding="utf-8")
+    code_exp = (ROOT / "tests" / "fixtures" / "polish_code_expected.md").read_text(encoding="utf-8")
+    ok("润色不碰代码块", polisher.polish(code_src)[0] == code_exp)
+    once = polisher.polish(src)[0]
+    ok("润色幂等", polisher.polish(once)[0] == once)
+
     from collections import Counter
     lost = Counter(re.findall(r"\d+(?:\.\d+)?", src)) - Counter(re.findall(r"\d+(?:\.\d+)?", got))
     ok("润色不丢失原有数值", not lost, "；".join(f"{k}×{v}" for k, v in lost.items()))
 
     # 7 链式路径存在
     missing = []
-    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md"):
+    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
         links = re.findall(r"\]\(([^)#]+?)(?:#[^)]*)?\)", text)
         links += re.findall(r'(?:href|src)="([^"#]+?)"', text)

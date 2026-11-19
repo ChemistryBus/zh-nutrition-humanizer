@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.3.0 — Ecosystem and Harness Tests</strong></p>
+<p align="center"><strong>v1.4.0 — Install Surfaces and Polish Safety</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.3.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.4.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -183,6 +183,8 @@ The high-star projects (blader/humanizer ~71k, Humanizer-zh ~23k, academic-human
   </tbody>
 </table>
 
+Three things still missing: register profiles (textbook vs guidance thresholds differ), a diff-style report (currently a list), and a one-command installer.
+
 **One thing deliberately not copied.** Humanizer-zh's category F lists Chinese ills such as 「进行＋动词」, four-character parallelism and stacked passives. Measured on our corpus:
 
 <table width="100%">
@@ -211,7 +213,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
     <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> or <code>~/.config/minimax/skills</code></td><td>Shared agents directory exists; no load test</td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>Directory convention; no load test</td></tr>
     <tr><td>Custom pipeline</td><td><code>--json</code></td><td>Verified: <code>eval.py</code> works as a regression test</td></tr>
-    <tr><td colspan="3" width="1200">Stated honestly: only Claude Code and the CLI were actually loaded and run. The rest follow each harness's documented directory convention and were not installed here, so they are not marked as passing. <code>python3 scripts/doctor.py</code> re-checks all of it.</td></tr>
+    <tr><td colspan="3" width="1200">Stated honestly: only Claude Code and the CLI were actually loaded and run. The rest follow each harness's documented directory convention, so they are not marked as passing. Per-harness test scripts: <a href="docs/harness-test.md">docs/harness-test.md</a>; <code>python3 scripts/doctor.py</code> re-checks the rest.</td></tr>
   </tbody>
 </table>
 
@@ -221,7 +223,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.3.0</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.4.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>

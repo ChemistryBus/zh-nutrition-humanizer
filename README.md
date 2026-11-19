@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.3.0 — Ecosystem and Harness Tests</strong></p>
+<p align="center"><strong>v1.4.0 — Install Surfaces and Polish Safety</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.3.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.4.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -181,6 +181,8 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   </tbody>
 </table>
 
+还没补的三件：按语体切档（教材体与指南体的阈值不同）、diff 式报告（现在只给清单）、一键安装脚本。
+
 **一条明确不学的**：Humanizer-zh 的 F 类列了「进行＋动词」「四字格排比」「被字句堆叠」等中文病灶。在我们的语料上实测：
 
 <table width="100%">
@@ -209,7 +211,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>MiniMax</td><td><code>~/.agents/skills/</code> 或 <code>~/.config/minimax/skills</code></td><td>目录存在（共享 agents 目录）；未做加载测试</td></tr>
     <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>目录约定；未做加载测试</td></tr>
     <tr><td>自建流程</td><td><code>--json</code></td><td>已验证：<code>eval.py</code> 可作回归测试</td></tr>
-    <tr><td colspan="3" width="1200">诚实标注：只有 Claude Code 与命令行是「真装进去跑过」；其余按各 harness 官方目录约定整理，本机未安装，因此不写「已通过」。<code>python3 scripts/doctor.py</code> 可一键复核。</td></tr>
+    <tr><td colspan="3" width="1200">诚实标注：只有 Claude Code 与命令行是「真装进去跑过」；其余按各 harness 官方目录约定整理，因此不写「已通过」。逐项测试脚本见 <a href="docs/harness-test.md">docs/harness-test.md</a>，<code>python3 scripts/doctor.py</code> 可一键复核。</td></tr>
   </tbody>
 </table>
 
@@ -219,7 +221,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.3.0</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.4.0</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>

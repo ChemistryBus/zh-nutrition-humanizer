@@ -2,6 +2,17 @@
 
 版本规则：规则表增删 → 第二位 +1；只改文档与示例 → 第三位 +1；语料或评测方法变更 → 记录在节内。
 
+## v1.4.0（2026-11-19）安装面与润色安全
+
+- **润色不再碰代码**：`polish.py` 增加围栏代码块与行内代码保护（此前只保护引号），
+  并新增幂等测试：连续跑两次结果一致。
+- **插件市场清单**：`.claude-plugin/marketplace.json`，`claude plugin validate` 通过，
+  可被 `/plugin marketplace add` 直接引用。
+- **逐 harness 测试脚本**：`docs/harness-test.md`，给出 Codex / ZCode / MiniMax / DSH 的
+  安装命令与「四行验收」自然语言提示，明确「能识别 / 能跑 / 不改文件 / 说得清规则族」四项判据。
+- **对标结论补充**：README 写明还没补的三件——按语体切档、diff 式报告、一键安装。
+- 评测口径不变；`validate.py` 与 `doctor.py --ci` 继续全过。
+
 ## v1.3.0（2026-11-19）对标高星项目：补工程层，不补模式
 
 - **文件模式保护**：`check.py` 新增 `mask_markdown`，代码块、行内代码、URL、HTML 标签、图片地址
