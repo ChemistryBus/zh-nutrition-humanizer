@@ -2,6 +2,13 @@
 
 版本规则：规则表增删 → 第二位 +1；只改文档与示例 → 第三位 +1；语料或评测方法变更 → 记录在节内。
 
+## v1.5.3（2026-11-19）许可证识别
+
+- `LICENSE` 恢复为标准 MIT 全文：此前在 MIT 正文后追加了中文说明，GitHub 的许可证识别
+  因此给出 `NOASSERTION`，对外分享时看起来像「自定义协议」。说明已移入 `THIRD_PARTY_NOTICES.md`
+  的 Scope 一节，README 两处仍然同时指向两个文件。
+- 现在仓库页显示 **MIT license**。
+
 ## v1.5.2（2026-11-19）交付前审校
 
 - **DSH 通过**：重启后技能从 `~/.agents/skills/zh-nutrition-humanizer` 加载（DSH 也扫这个共享目录），
