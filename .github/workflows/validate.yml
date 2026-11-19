@@ -23,6 +23,12 @@ jobs:
         run: python scripts/validate.py
       - name: Install contract (no harness probes)
         run: python scripts/doctor.py --ci
+      - name: Shell syntax
+        run: bash -n bootstrap.sh
+      - name: Profile and diff modes run
+        run: |
+          python scripts/check.py examples/before.md --profile textbook > /dev/null || true
+          python scripts/check.py examples/before.md --diff > /dev/null || true
       - name: Checker flags the raw drafts
         run: |
           set +e

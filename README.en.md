@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.4.0 — Install Surfaces and Polish Safety</strong></p>
+<p align="center"><strong>v1.5.0 — Profiles, One-line Install, Context Report</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.4.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -44,6 +44,16 @@ It addresses four recurring problems:
 
 ## 30-second start
 
+### Option 0: one-line install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ChemistryBus/zh-nutrition-humanizer/main/bootstrap.sh \
+  | bash -s -- --harness claude      # or dsh / codex / zcode / minimax / workbuddy / kimi
+```
+
+The script installs into the right skills directory, runs `doctor.py`, and prints the next step.
+Re-running it does not overwrite an existing directory.
+
 ### Option 1: let an agent install it
 
 Paste this into Claude Code / Codex / DSH:
@@ -78,7 +88,9 @@ term level, redundant spaces. Text inside quotation marks is untouched; numbers 
 ### Then run the checker
 
 ```bash
-python3 scripts/check.py your_draft.md --explain
+python3 scripts/check.py your_draft.md --explain            # evidence per hit
+python3 scripts/check.py your_draft.md --diff               # context around each hit
+python3 scripts/check.py your_draft.md --profile textbook   # textbook baseline (default: guideline)
 ```
 
 No draft at hand? Use the 20 real drafts shipped with the repo:
@@ -223,7 +235,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.4.0</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.5.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>

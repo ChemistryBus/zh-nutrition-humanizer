@@ -134,6 +134,38 @@ def definition_notes(body: str):
     return notes
 
 
+
+# ---------------------------------------------------------------- 语体档
+# 分档数字来自 references/corpus：指南体 = 膳食指南 2022 + 11 份食养指南（81 段）；
+# 教材体 = 中国营养科学全书上/下 + DRIs（60 段）。
+# 复算：python3 scripts/stats.py references/corpus --by-source
+PROFILES = {
+    "guideline": {"label": "膳食指南体", "n": 81, "sent_med": 41, "sent_p10": 17,
+                  "sent_p90": 80, "conn": 1.78, "ying": 4.24, "nums": 31.2},
+    "textbook": {"label": "教材体", "n": 60, "sent_med": 49, "sent_p10": 22,
+                 "sent_p90": 110, "conn": 2.34, "ying": 2.56, "nums": 44.2},
+}
+DEFAULT_PROFILE = "guideline"
+
+
+def doc_style(body: str) -> dict:
+    """文档层面的语体指标，用来和所选档位对照。"""
+    import statistics
+    sents = [nchars(x) for x in re.split(r"(?<=[。！？])", body) if nchars(x) > 1]
+    chars = max(nchars(body), 1)
+    text = body
+    conn = sum(text.count(w) for w in ["此外", "同时", "另外", "因此", "因而", "所以",
+                                       "首先", "其次", "最后", "然而", "但是", "总之",
+                                       "综上", "由此可见", "值得注意的是"])
+    ying = len(re.findall(r"(应|宜)(?=[\u4e00-\u9fff])", text))
+    nums = len(re.findall(r"\d", text))
+    return {
+        "sent_med": round(statistics.median(sents), 1) if sents else 0,
+        "conn": round(conn / chars * 1000, 2),
+        "ying": round(ying / chars * 1000, 2),
+        "nums": round(nums / chars * 1000, 1),
+    }
+
 def nchars(s: str) -> int:
     return len(re.sub(r"\s", "", s))
 
@@ -286,6 +318,9 @@ def main():
     ap.add_argument("--threshold", type=float, default=3.0, help="每千字允许命中数")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--explain", action="store_true", help="附基线证据")
+    ap.add_argument("--profile", choices=sorted(PROFILES), default=DEFAULT_PROFILE,
+                    help="语体档：guideline（默认，膳食指南体）或 textbook（教材体）")
+    ap.add_argument("--diff", action="store_true", help="按上下文展示命中，而不是只报计数")
     args = ap.parse_args()
 
     path = Path(args.file)
@@ -293,6 +328,14 @@ def main():
     if args.json:
         print(json.dumps({"file": str(path), **res}, ensure_ascii=False, indent=1))
         sys.exit(1 if res["per_kchar"] > args.threshold else 0)
+
+    prof = PROFILES[args.profile]
+    st = doc_style(strip_front_matter(mask_markdown(path.read_text(encoding="utf-8"))))
+    print(f"语体档：{prof['label']}（{prof['n']} 段基线）")
+    print(f"  句长中位 {st['sent_med']} 字（基线 {prof['sent_p10']}–{prof['sent_p90']}，中位 {prof['sent_med']}）")
+    print(f"  连接词 {st['conn']}/千字（基线 {prof['conn']}）")
+    print(f"  应/宜 {st['ying']}/千字（基线 {prof['ying']}）")
+    print(f"  数字 {st['nums']}/千字（基线 {prof['nums']}）\n")
 
     print(f"命中 {res['total']} 处 / {res['chars']} 字（{res['per_kchar']} 处每千字）")
     names = {"L": "口语降维", "T": "模板化", "C": "结构", "K": "术语", "S": "体例", "P": "提示"}
@@ -303,6 +346,26 @@ def main():
         print(f"{g} {names[g]} " + "；".join(f"{i['rule']}×{i['count']}" for i in rs))
     if res["doc_issues"]:
         print("S 体例 " + "；".join(f"{i['rule']}" for i in res["doc_issues"]))
+    if args.diff:
+        body = strip_front_matter(path.read_text(encoding="utf-8"))
+        masked = mask_markdown(body)
+        print()
+        for group, rid, name, pattern, hint, evidence in RULES:
+            for m in re.finditer(pattern, masked):
+                a, b = max(0, m.start() - 24), min(len(body), m.end() + 24)
+                left = body[a:m.start()].replace("\n", " ")
+                hit = body[m.start():m.end()]
+                right = body[m.end():b].replace("\n", " ")
+                print(f"  [{rid}] …{left}**{hit}**{right}…")
+        for r in TERM_RULES:
+            for m in re.finditer(r["pattern"], masked):
+                a, b = max(0, m.start() - 24), min(len(body), m.end() + 24)
+                left = body[a:m.start()].replace("\n", " ")
+                hit = body[m.start():m.end()]
+                right = body[m.end():b].replace("\n", " ")
+                print(f"  [K1] …{left}**{hit}**{right}…  → {r['hint']}")
+        sys.exit(1 if res["per_kchar"] > args.threshold else 0)
+
     print()
     for i in res["items"] + res["doc_issues"]:
         s = "、".join(i["samples"]) if i.get("samples") else ""
