@@ -74,12 +74,12 @@ polish 改动: <N> 处
 
 - **Claude Code**：`claude plugin validate .` 通过；`claude --plugin-dir . plugin details zh-nutrition-humanizer`
   显示 `Skills (1)`，无需再测。
-- **命令行 / CI**：GitHub Actions 每次推送跑 `validate.py` 与 `doctor.py --ci`。
+- **命令行 / CI**：GitHub Actions 每次推送跑 `scripts/validate.py` 与 `doctor.py --ci`。
 
 ## 实测结果（2026-11-19）
 
-四台 harness 全部通过，`check.py` 对 `examples/before.md` 都报 73 处、退出码 1，
-`polish.py` 都报 47 处改动，都能说出五族规则和默认语体档（膳食指南体）。
+四台 harness 全部通过，`scripts/check.py` 对 `examples/before.md` 都报 73 处、退出码 1，
+`scripts/polish.py` 都报 47 处改动，都能说出五族规则和默认语体档（膳食指南体）。
 
 | harness | 能识别 | check 退出码 | polish 改动 | 规则族 | 备注 |
 |---|---|---|---|---|---|
@@ -87,10 +87,10 @@ polish 改动: <N> 处
 | Codex | 是 | 1 | 47 | L/T/C/S | 沙箱内默认写出受阻，改用 `--json` 核验；v1.5.1 起默认干跑，不再写文件 |
 | ZCode | 是 | 1 | 47 | L/T/C/S（K 未命中） | 提示旧版默认会生成 `before.md.polished.md`；v1.5.1 起不再产生 |
 | MiniMax | 是 | 1 | 47 | L/T/S + P 提示 | 同上；它把文件移进了回收站 |
-| DSH | — | — | — | — | 目录就绪，需重开会话 |
+| DSH | 是 | 1 | 47 | L/T/C/S | 已加载（`~/.agents/skills`，DSH 也扫这个共享目录） |
 
 两条来自实测的修正，已并进 v1.5.1：
 
-1. **默认改为干跑**：`polish.py` 不再默认写 `<稿子>.polished.md`，只列改动；
+1. **默认改为干跑**：`scripts/polish.py` 不再默认写 `<稿子>.polished.md`，只列改动；
    要落盘用 `--out` 或 `--write`。这样在只读沙箱里也能跑，也不会污染仓库。
 2. **写不进去就退回标准输出**：`--write` 遇到无权限时给出提示并返回 1，不抛栈。

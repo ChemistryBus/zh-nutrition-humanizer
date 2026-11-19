@@ -139,11 +139,20 @@ def definition_notes(body: str):
 # 分档数字来自 references/corpus：指南体 = 膳食指南 2022 + 11 份食养指南（81 段）；
 # 教材体 = 中国营养科学全书上/下 + DRIs（60 段）。
 # 复算：python3 scripts/stats.py references/corpus --by-source
+CONNECTIVES = [
+    "此外", "同时", "另外", "值得注意", "需要指出", "必须指出", "应当指出",
+    "首先", "其次", "再次", "最后", "综上所述", "总而言之", "总之",
+    "由此可见", "一方面", "另一方面", "换言之", "也就是说", "具体而言",
+    "一般来说", "总体而言", "事实上", "实际上",
+    "因此", "因而", "所以", "由于", "因为", "但是", "然而", "不过",
+    "如果", "即使", "虽然", "尽管", "随着", "例如", "比如", "其中",
+]
+
 PROFILES = {
     "guideline": {"label": "膳食指南体", "n": 81, "sent_med": 41, "sent_p10": 17,
-                  "sent_p90": 80, "conn": 1.78, "ying": 4.24, "nums": 31.2},
+                  "sent_p90": 80, "conn": 2.85, "ying": 4.24, "nums": 31.2},
     "textbook": {"label": "教材体", "n": 60, "sent_med": 49, "sent_p10": 22,
-                 "sent_p90": 110, "conn": 2.34, "ying": 2.56, "nums": 44.2},
+                 "sent_p90": 110, "conn": 3.86, "ying": 2.56, "nums": 44.2},
 }
 DEFAULT_PROFILE = "guideline"
 
@@ -154,9 +163,7 @@ def doc_style(body: str) -> dict:
     sents = [nchars(x) for x in re.split(r"(?<=[。！？])", body) if nchars(x) > 1]
     chars = max(nchars(body), 1)
     text = body
-    conn = sum(text.count(w) for w in ["此外", "同时", "另外", "因此", "因而", "所以",
-                                       "首先", "其次", "最后", "然而", "但是", "总之",
-                                       "综上", "由此可见", "值得注意的是"])
+    conn = sum(text.count(w) for w in CONNECTIVES)
     ying = len(re.findall(r"(应|宜)(?=[\u4e00-\u9fff])", text))
     nums = len(re.findall(r"\d", text))
     return {

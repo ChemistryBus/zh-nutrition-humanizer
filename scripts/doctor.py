@@ -71,7 +71,8 @@ def main():
     # 1 技能契约
     fm = read_frontmatter((ROOT / "SKILL.md").read_text(encoding="utf-8"))
     ok("SKILL.md 有 name", bool(fm.get("name")), fm.get("name", ""))
-    ok("name 与目录名一致", fm.get("name") == ROOT.name, f"{fm.get('name')} vs {ROOT.name}")
+    ok("name 与目录名一致", fm.get("name") == ROOT.name,
+       f"{fm.get('name')} vs {ROOT.name}——harness 按目录名识别技能，不一致时把目录改名为 {fm.get('name')}")
     ok("description 存在且 ≥ 40 字", len(fm.get("description", "")) >= 40,
        f"{len(fm.get('description', ''))} 字")
     missing = [f for f in REQUIRED if not (ROOT / f).exists()]
@@ -93,7 +94,7 @@ def main():
         code, out = run(["claude", "plugin", "validate", "."], cwd=ROOT, timeout=60)
         ok("Claude Code: plugin validate", "passed" in out.lower() or code == 0,
            out.strip().splitlines()[-1] if out else "")
-        code, out = run(["claude", "--plugin-dir", ".", "plugin", "details", ROOT.name],
+        code, out = run(["claude", "--plugin-dir", ".", "plugin", "details", fm.get("name", ROOT.name)],
                         cwd=ROOT, timeout=60)
         loaded = "Skills (1)" in out
         ok("Claude Code: 技能被识别", loaded,
@@ -118,8 +119,8 @@ def main():
         for h in harness:
             state = "存在" if h["exists"] else "未安装"
             print(f"  {h['name']:<24} {h['dir']:<38} {state}")
-        print("\n说明：Claude Code 已用官方命令真实加载（Skills 1）；其余 harness 只验证目录约定与可移植性，"
-              "未在本机安装，不做「已通过」的声明。")
+        print("\n说明：本脚本只对 Claude Code 做真实加载（Skills 1）；Codex / ZCode / MiniMax / DSH"
+              " 的实测结果见 docs/harness-test.md。")
         failed = [c for c in checks if not c["pass"]]
         print(f"\n结果：{len(checks) - len(failed)}/{len(checks)} 通过")
         if failed:

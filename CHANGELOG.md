@@ -2,6 +2,20 @@
 
 版本规则：规则表增删 → 第二位 +1；只改文档与示例 → 第三位 +1；语料或评测方法变更 → 记录在节内。
 
+## v1.5.2（2026-11-19）交付前审校
+
+- **DSH 通过**：重启后技能从 `~/.agents/skills/zh-nutrition-humanizer` 加载（DSH 也扫这个共享目录），
+  四台 harness 全部到手；`docs/harness-test.md` 补记。
+- **SKILL.md 三处过时信息**：description 去掉「规则阈值由 141 段语料基线支撑」；
+  `references/eval.md` 是不存在的路径，改为 `eval/results.md`；使用一节补上
+  `polish.py`、`--profile`、`--diff`。
+- **连接词口径统一**：`check.py` 语体对照原来用一张窄表（指南体 1.78、教材体 2.34），
+  与 `references/baseline.md` 公布的 3.27 不同源。现改用与 `stats.py` 相同的连接词表，
+  指南体 2.85、教材体 3.86，全文合计 3.27，对得上了。
+- **doctor 更耐改名**：目录名与技能名不一致时给出改名提示；Claude Code 检查改用清单里的 name，
+  不再拿目录名当插件名。
+- 文档里的裸文件名（`check.py`）统一写成 `scripts/check.py`，避免歧义。
+
 ## v1.5.1（2026-11-19）四台 harness 实测与润色默认干跑
 
 - **实测**：Claude Code、Codex、ZCode、MiniMax 四台全部通过（识别技能、`check` 退出码 1、
