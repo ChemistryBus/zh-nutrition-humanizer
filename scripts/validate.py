@@ -140,7 +140,13 @@ def main():
     ok("真实稿：汉字单位命中", ids.get("S5") == 3, f"S5={ids.get('S5')}")
     ok("真实稿：破折号区间命中", ids.get("C2") == 5, f"C2={ids.get('C2')}")
 
-    # 8 链式路径存在
+    # 8 体检报告可运行
+    import subprocess as _sp
+    r = _sp.run([sys.executable, str(ROOT / "scripts" / "audit.py"),
+                 str(ROOT / "examples" / "before.md")], capture_output=True, text=True, timeout=120)
+    ok("audit.py 能出报告", r.returncode == 0 and "术语层" in r.stdout, r.stderr[:80])
+
+    # 9 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
