@@ -44,7 +44,13 @@ TERM_FIX = [
     (r"必要氨基酸", "必需氨基酸"),
     (r"粗纤维", "膳食纤维"),
     (r"能量可利用性", "能量可用性"),
+    (r"β氧化", "β-氧化"),
+    (r"三酰甘油", "甘油三酯"),
 ]
+
+# 汉字计量单位 → 国际单位（权威文本写法）
+UNIT_FIX = [("公斤", "kg"), ("千克", "kg"), ("千卡", "kcal"),
+            ("千焦", "kJ"), ("毫升", "mL"), ("克", "g")]
 
 
 def cn2num(s: str):
@@ -145,7 +151,26 @@ def fix_segment(seg: str, changes: list):
         return new
     seg = re.sub(r"(\d+(?:\.\d+)?)\s*(?:至|到)\s*(\d+(?:\.\d+)?)", range_fix, seg)
 
-    # 6 空白
+    # 6 数值区间破折号：5%—10% → 5%～10%（年份区间保留）
+    def dash_fix(m):
+        a, b = m.group(1), m.group(2)
+        if re.fullmatch(r"(19|20)\d{2}", a) and re.fullmatch(r"(19|20)\d{2}", b):
+            return m.group(0)
+        new = f"{a}～{b}"
+        changes.append((m.group(0), new))
+        return new
+    seg = re.sub(r"(?<![\d.])(\d+(?:\.\d+)?%?)\s*[—–]\s*(\d+(?:\.\d+)?%?)", dash_fix, seg)
+
+    # 7 汉字计量单位：1克 → 1 g
+    def unit_fix(m):
+        num, word = m.group(1), m.group(2)
+        to = dict(UNIT_FIX)[word]
+        new = f"{num} {to}"
+        changes.append((m.group(0), new))
+        return new
+    seg = re.sub(r"(?<![\d.])(\d+(?:\.\d+)?)\s*(公斤|千克|千卡|千焦|毫升|克)(?![升])", unit_fix, seg)
+
+    # 8 空白
     seg = re.sub(r"(\d)[ \u3000]+(mg|μg|ng|g|kg|kcal|kJ|mL|L|mmol)\b", r"\1 \2", seg)
     seg = re.sub(r"[ \u3000]{2,}", " ", seg)
     return seg

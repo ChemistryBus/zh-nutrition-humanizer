@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.5.3 — License Detection</strong></p>
+<p align="center"><strong>v1.6.0 — Terminology Audit</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.3"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.6.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -102,16 +102,16 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ## 怎么判
 
-五族规则：L/T/C 是语体与结构（12 条），K 是术语（14 条错误写法，覆盖 11 个术语），S 是文档级体例（3 项）。
+五族规则：L/T/C 是语体与结构（13 条），K 是术语（14 条错误写法 + 3 条首选写法），S 是文档级体例（5 项：单位、术语混用、英文夹注、缩写首现、汉字单位）。
 
 <table width="100%">
   <thead><tr><th>族</th><th>抓什么</th><th>机构文本</th><th>大模型初稿</th><th>判法</th></tr></thead>
   <tbody>
     <tr><td>L 口语降维（7 条）</td><td>汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾</td><td>0–0.03</td><td>0.15–2.0</td><td>出现即改</td></tr>
     <tr><td>T 模板化（4 条）</td><td>其机制在于、而非、亦、宜采用</td><td>0–0.03</td><td>0.36–1.07</td><td>超过密度才改</td></tr>
-    <tr><td>C 结构（1 条）</td><td>数值区间用“至”</td><td>0</td><td>4.52</td><td>一律改 ～</td></tr>
-    <tr><td>K 术语（14 条）</td><td>维他命、粗纤维、必要氨基酸、碳水化合物就是糖、脂肪即脂类、营养成分就是营养素……</td><td>0</td><td>视稿件</td><td>命中即改，依据为标准原文</td></tr>
-    <tr><td>S 体例（3 项）</td><td>单位混用、术语混用、首现未给英文</td><td>—</td><td>—</td><td>逐条列出，不计密度</td></tr>
+    <tr><td>C 结构（2 条）</td><td>数值区间用“至”、用破折号（年份除外）</td><td>0</td><td>4.52</td><td>一律改 ～</td></tr>
+    <tr><td>K 术语（14 条 + 3 条首选写法）</td><td>维他命、粗纤维、必要氨基酸、碳水化合物就是糖、脂肪即脂类、营养成分就是营养素、中心性肥胖、β氧化、三酰甘油……</td><td>0</td><td>视稿件</td><td>命中即改，依据为标准原文或权威文本用法</td></tr>
+    <tr><td>S 体例（5 项）</td><td>单位混用、术语混用、首现未给英文、缩写未展开、汉字单位</td><td>—</td><td>—</td><td>逐条列出，不计密度</td></tr>
     <tr><td colspan="5" width="1200">每千字为实测值：L 族在机构文本里为 0，T 族有少量正当用法，所以按密度判；K 族是确定性错误，命中即改。</td></tr>
   </tbody>
 </table>
@@ -234,7 +234,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.5.3</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.6.0</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
@@ -279,7 +279,9 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>评测报告：密度差、误报率、阈值扫描、漏报、盲评</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 组真实初稿与改写，数字零改动</td></tr>
     <tr><td><a href="examples/walkthrough.md">examples/walkthrough.md</a></td><td>一段初稿的全流程：机检 → 机械润色 → 人工改 → 终检</td></tr>
-    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 条术语；16 条定义逐字引自 GB 28050—2025（13 条）与 GB 13432—2013（3 条）</td></tr>
+    <tr><td><a href="docs/real-world-test.md">docs/real-world-test.md</a></td><td>2 万字真实稿的术语层测试：命中、可自动改的、留给人判断的</td></tr>
+    <tr><td><a href="docs/harness-test.md">docs/harness-test.md</a></td><td>各 harness 的安装与验收话术</td></tr>
+    <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 条术语、16 条标准定义、3 条首选写法、7 个缩写、6 个单位写法</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>作者与致谢：人做什么、工具做什么、署名怎么留痕</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
     <tr><td><a href="scripts/doctor.py">scripts/doctor.py</a></td><td>安装自检：技能契约、可移植性、harness 目录</td></tr>

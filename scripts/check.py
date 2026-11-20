@@ -112,15 +112,21 @@ def load_terms(path=TERMS_PATH):
     except (OSError, ValueError):
         return [], {}
     terms = data.get("terms", [])
+    extra = {"preferred": data.get("preferred", []),
+             "abbreviations": data.get("abbreviations", []),
+             "units": data.get("units", [])}
     rules = []
     for t in terms:
         for w in t.get("wrong", []):
             rules.append({"term": t["term"], "pattern": w["pattern"], "hint": w["hint"],
                           "definition": t.get("definition", ""), "source": t.get("source", "")})
-    return terms, rules
+    return terms, rules, extra
 
 
-TERMS, TERM_RULES = load_terms()
+TERMS, TERM_RULES, EXTRA = load_terms()
+PREFERRED_TERMS = [(x["variant"], x["canonical"], x["evidence"]) for x in EXTRA["preferred"]]
+ABBREVIATIONS = [(x["abbr"], x["cn"]) for x in EXTRA["abbreviations"]]
+UNIT_WORDS = [(x["word"], x["to"]) for x in EXTRA["units"]]
 
 
 def definition_notes(body: str):
@@ -172,6 +178,7 @@ def doc_style(body: str) -> dict:
         "ying": round(ying / chars * 1000, 2),
         "nums": round(nums / chars * 1000, 1),
     }
+
 
 def nchars(s: str) -> int:
     return len(re.sub(r"\s", "", s))
@@ -265,6 +272,19 @@ def structural_checks(text: str):
         issues.append(("C", "C1", "数值区间用“至”", ranges,
                        "统一为 ～：3～6 mg/kg。GB/T 15835：数值范围用浪纹线"))
 
+    dash = 0
+    for line in text.splitlines():
+        if re.search(r"DOI|et al|^\s*\[\d+\]|\[J\]|\[M\]|\[R\]", line):
+            continue
+        for m in re.finditer(r"(?<![\d.])(\d+(?:\.\d+)?%?)\s*[—–]\s*(\d+(?:\.\d+)?%?)", line):
+            a, b = m.group(1).rstrip("%"), m.group(2).rstrip("%")
+            if re.fullmatch(r"(19|20)\d{2}", a) and re.fullmatch(r"(19|20)\d{2}", b):
+                continue
+            dash += 1
+    if dash:
+        issues.append(("C", "C2", "数值区间用破折号", dash,
+                       "统一为 ～：5%～10%、7～9 小时。年份区间（2020—2023）保留破折号"))
+
     opens = sum(1 for p in paras
                 if re.match(r"^(此外|同时|另外|因此|首先|其次|最后|然而|但是|总之|综上)", p))
     return issues, {"paragraphs": len(paras),
@@ -273,8 +293,36 @@ def structural_checks(text: str):
 
 
 def doc_checks(text: str):
-    """文档级体例检查：单位、术语、首现英文。返回 (issues, notes)"""
+    """文档级体例检查：单位、术语、首现英文、首选术语、缩写。返回 (issues, notes)"""
     issues, notes = [], []
+
+    for variant, canonical, why in PREFERRED_TERMS:
+        c = text.count(variant)
+        if c:
+            issues.append({"group": "K", "id": "K2", "rule": f"首选术语：{variant} → {canonical}",
+                           "count": c, "samples": [f"{variant}×{c}"],
+                           "hint": f"改用「{canonical}」；同一文稿必须统一", "evidence": why})
+
+    used = [(w, u, len(re.findall(r"(?<![毫微千分])" + w, text))) for w, u in UNIT_WORDS]
+    used = [(w, u, c) for w, u, c in used if c]
+    if used:
+        issues.append({"group": "S", "id": "S5", "rule": "汉字计量单位",
+                       "count": sum(c for _, _, c in used),
+                       "samples": [f"{w}×{c}→{u}" for w, u, c in used],
+                       "hint": "改用国际单位：kg / g / kcal / mL",
+                       "evidence": "《成人肥胖食养指南（2024年版）》公斤 0 次、kg 23 次；千卡 0 次、kcal 189 次"})
+
+    for abbr, cn in ABBREVIATIONS:
+        first = re.search(r"(?<![A-Za-z])" + re.escape(abbr) + r"(?![A-Za-z])", text)
+        if not first:
+            continue
+        window = text[max(0, first.start() - 40): first.start()]
+        if cn in window or f"（{abbr}" in text[first.start(): first.start() + 20]:
+            continue
+        issues.append({"group": "S", "id": "S4", "rule": f"缩写首现未展开：{abbr}",
+                       "count": 1, "samples": [abbr],
+                       "hint": f"首次出现写「{cn}（{abbr}）」，后文再用缩写",
+                       "evidence": "机构文本首现给中文全称；《成人肥胖食养指南》用「内脏脂肪面积（VFA）」格式"})
     for a, pa, b, pb, hint in UNIT_PAIRS:
         ca, cb = len(re.findall(pa, text)), len(re.findall(pb, text))
         if ca and cb:
@@ -328,6 +376,7 @@ def main():
     ap.add_argument("--profile", choices=sorted(PROFILES), default=DEFAULT_PROFILE,
                     help="语体档：guideline（默认，膳食指南体）或 textbook（教材体）")
     ap.add_argument("--diff", action="store_true", help="按上下文展示命中，而不是只报计数")
+    ap.add_argument("--terms", action="store_true", help="只报术语类：K1/K2 术语、S4 缩写、S5 单位")
     args = ap.parse_args()
 
     path = Path(args.file)
@@ -335,6 +384,19 @@ def main():
     if args.json:
         print(json.dumps({"file": str(path), **res}, ensure_ascii=False, indent=1))
         sys.exit(1 if res["per_kchar"] > args.threshold else 0)
+
+    if args.terms:
+        keep = [i for i in res["items"] + res["doc_issues"] if i["id"] in ("K1", "K2", "S4", "S5")]
+        if not keep:
+            print(f"术语层未发现问题（{res['chars']} 字）")
+            sys.exit(0)
+        print(f"术语层命中 {len(keep)} 类 / {sum(i['count'] for i in keep)} 处（{res['chars']} 字）")
+        for i in keep:
+            print(f"  [{i['id']}] {i['rule']} ×{i['count']}  {'、'.join(i['samples'][:4])}")
+            print(f"        → {i['hint']}")
+            if args.explain:
+                print(f"        依据：{i['evidence']}")
+        sys.exit(1)
 
     prof = PROFILES[args.profile]
     st = doc_style(strip_front_matter(mask_markdown(path.read_text(encoding="utf-8"))))

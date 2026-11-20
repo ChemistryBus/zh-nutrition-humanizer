@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.5.3 — License Detection</strong></p>
+<p align="center"><strong>v1.6.0 — Terminology Audit</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.5.3"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.6.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -104,7 +104,7 @@ python3 scripts/check.py examples/after.md      # expect: zero paragraph-level h
 
 ## How it judges
 
-Five families: L/T/C are register and structure (12 rules), K is terminology (14 patterns across 11 terms), S is document-level style (3 checks).
+Five families: L/T/C are register and structure (13 rules), K is terminology (14 patterns plus 3 preferred spellings), S is document-level style (5 checks: units, mixed terms, English glosses, abbreviation expansion, Chinese unit words).
 
 <table width="100%">
   <thead><tr><th>Family</th><th>Catches</th><th>Institution</th><th>LLM draft</th><th>Verdict</th></tr></thead>
@@ -237,7 +237,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.5.3</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.6.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>
@@ -282,6 +282,7 @@ Different objective. Those tools make text read like a natural individual — co
     <tr><td><a href="eval/results.md">eval/results.md</a></td><td>evaluation report: density, false positives, sweep, misses, blind ratings (Chinese)</td></tr>
     <tr><td><a href="examples/after.md">examples/after.md</a></td><td>20 real drafts and rewrites, numbers untouched (Chinese)</td></tr>
     <tr><td><a href="examples/walkthrough.md">examples/walkthrough.md</a></td><td>one draft end to end: check → polish → human edit → re-check (Chinese)</td></tr>
+    <tr><td><a href="docs/real-world-test.md">docs/real-world-test.md</a></td><td>terminology layer measured on a 20,000-character real draft (Chinese)</td></tr>
     <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 terms; 16 definitions quoted from GB 28050—2025 / GB 13432—2013</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>authors and credits: who decided what, how attribution is recorded</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>corpus sources and copyright</td></tr>

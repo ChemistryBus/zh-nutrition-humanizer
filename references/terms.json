@@ -1,233 +1,306 @@
 {
-  "version": "1.0",
-  "note": "术语表。definition 只收录能从工作区标准原文逐字引用的条目；没有原文的一律留空并标 needs_definition，不凭记忆补写。",
-  "sources": {
-    "GB 28050—2025": "《食品安全国家标准 预包装食品营养标签通则》§2 术语和定义",
-    "GB 13432—2013": "《食品安全国家标准 预包装特殊膳食用食品标签》§2 术语和定义"
-  },
-  "terms": [
+ "version": "2.0",
+ "note": "术语表。definition 只收录能从工作区标准原文逐字引用的条目；没有原文的一律留空并标 needs_definition，不凭记忆补写。 2.0 起增加 preferred（首选术语变体）、abbreviations（缩写首现展开）、units（汉字单位→国际单位）三节。",
+ "sources": {
+  "GB 28050—2025": "《食品安全国家标准 预包装食品营养标签通则》§2 术语和定义",
+  "GB 13432—2013": "《食品安全国家标准 预包装特殊膳食用食品标签》§2 术语和定义"
+ },
+ "terms": [
+  {
+   "term": "营养素",
+   "en": "nutrient",
+   "definition": "食品中具有特定生理作用，能维持机体生长、发育、活动、繁殖及正常代谢所必需的物质，包括蛋白质、脂肪、碳水化合物、矿物质及维生素等。",
+   "source": "GB 28050—2025 §2.4",
+   "wrong": [
     {
-      "term": "营养素",
-      "en": "nutrient",
-      "definition": "食品中具有特定生理作用，能维持机体生长、发育、活动、繁殖及正常代谢所必需的物质，包括蛋白质、脂肪、碳水化合物、矿物质及维生素等。",
-      "source": "GB 28050—2025 §2.4",
-      "wrong": [
-        {
-          "pattern": "营养素(就是|即|等于)(维生素|矿物质)",
-          "hint": "营养素是上位概念，蛋白质、脂肪、碳水化合物、矿物质、维生素都属营养素"
-        },
-        {
-          "pattern": "(微量元素|矿物质)(就是|即)营养素",
-          "hint": "方向反了：矿物质是营养素的一类"
-        }
-      ]
+     "pattern": "营养素(就是|即|等于)(维生素|矿物质)",
+     "hint": "营养素是上位概念，蛋白质、脂肪、碳水化合物、矿物质、维生素都属营养素"
     },
     {
-      "term": "营养成分",
-      "en": "nutritional component",
-      "definition": "食品中具有的营养素和其他有益于生理机能的食物成分。",
-      "source": "GB 28050—2025 §2.5",
-      "wrong": [
-        {
-          "pattern": "营养成分(就是|即)营养素",
-          "hint": "营养成分＝营养素＋其他有益成分，范围更大"
-        }
-      ]
-    },
-    {
-      "term": "碳水化合物",
-      "en": "carbohydrate",
-      "definition": "糖、寡糖、多糖的总称。",
-      "source": "GB 28050—2025 §2.5.3",
-      "wrong": [
-        {
-          "pattern": "碳水化合物(就是|即|等于)糖(类)?",
-          "hint": "糖是碳水化合物的一部分，不是同义词（GB 28050 §2.5.3）"
-        },
-        {
-          "pattern": "糖类(包括|包含|即)(碳水化合物)",
-          "hint": "包含方向反了：碳水化合物包括糖、寡糖、多糖"
-        }
-      ]
-    },
-    {
-      "term": "糖",
-      "en": "sugar",
-      "definition": "专用于营养标签标示的糖特指食品中果糖、葡萄糖、蔗糖、麦芽糖、乳糖之和。",
-      "source": "GB 28050—2025 §2.5.4",
-      "wrong": [
-        {
-          "pattern": "糖(就是|即|等于)碳水化合物",
-          "hint": "糖是碳水化合物的一类，不能反过来定义"
-        }
-      ]
-    },
-    {
-      "term": "蛋白质",
-      "en": "protein",
-      "definition": "食品中含氮的有机化合物，以氨基酸为基本组成单位。",
-      "source": "GB 28050—2025 §2.5.1",
-      "wrong": [
-        {
-          "pattern": "蛋白质(就是|即|等于)氨基酸",
-          "hint": "氨基酸是蛋白质的组成单位，不是同义词"
-        }
-      ]
-    },
-    {
-      "term": "脂肪",
-      "en": "fat",
-      "definition": "又称甘油三酯，由脂肪酸和甘油结合而成。",
-      "source": "GB 28050—2025 §2.5.2",
-      "wrong": [
-        {
-          "pattern": "脂肪(就是|即|等于)脂类",
-          "hint": "脂类包括脂肪和类脂，脂肪是其中一类"
-        },
-        {
-          "pattern": "脂类(就是|即|等于)脂肪",
-          "hint": "脂类范围更大，含脂肪与类脂"
-        }
-      ]
-    },
-    {
-      "term": "脂肪酸",
-      "en": "fatty acid",
-      "definition": "有机酸中链状羧酸的总称，分为饱和脂肪酸和不饱和脂肪酸。",
-      "source": "GB 28050—2025 §2.5.2",
-      "wrong": []
-    },
-    {
-      "term": "反式脂肪酸",
-      "en": "trans fatty acid",
-      "definition": "油脂加工中产生的和天然存在的、含有一个或一个以上非共轭反式双键的脂肪酸总和。",
-      "source": "GB 28050—2025 §2.5.2",
-      "wrong": []
-    },
-    {
-      "term": "能量",
-      "en": "energy",
-      "definition": "食品中蛋白质、脂肪和碳水化合物等成分在人体代谢中产生的热量。",
-      "source": "GB 28050—2025 §2.3",
-      "note": "该标准自身的定义句用了「热量」；正文统一用「能量」，引文保留原词。",
-      "wrong": []
-    },
-    {
-      "term": "营养标签",
-      "en": "nutrition label",
-      "definition": "预包装食品标签上向消费者提供的有关食品营养信息和特性的描述与说明，包括营养成分表、营养声称和营养成分作用声称及其他补充信息。",
-      "source": "GB 28050—2025 §2.1",
-      "wrong": []
-    },
-    {
-      "term": "营养成分表",
-      "en": "nutrition declaration",
-      "definition": "标有食品能量和营养成分名称、含量及其占营养素参考值百分比的规范性表格。",
-      "source": "GB 28050—2025 §2.2",
-      "wrong": []
-    },
-    {
-      "term": "营养素参考值",
-      "en": "nutrient reference value, NRV",
-      "definition": "专用于营养标签比较食品能量和营养素含量水平的参考值。",
-      "source": "GB 28050—2025 §2.6",
-      "wrong": []
-    },
-    {
-      "term": "营养声称",
-      "en": "nutrition claim",
-      "definition": "对食品营养特性的描述和说明，营养声称包括含量声称和比较声称。",
-      "source": "GB 28050—2025 §2.7",
-      "wrong": []
-    },
-    {
-      "term": "特殊膳食用食品",
-      "en": "foods for special dietary uses",
-      "definition": "为满足特殊的身体或生理状况和（或）满足疾病、紊乱等状态下的特殊膳食需求，专门加工或配方的食品。",
-      "source": "GB 13432—2013 §2.1",
-      "wrong": [
-        {
-          "pattern": "特殊膳食用食品(就是|即|等于)保健食品",
-          "hint": "两者监管路径不同：特殊膳食用食品≠保健食品"
-        }
-      ]
-    },
-    {
-      "term": "推荐摄入量",
-      "en": "recommended nutrient intake, RNI",
-      "definition": "可以满足某一特定性别、年龄及生理状况群体中绝大多数个体需要的营养素摄入水平。",
-      "source": "GB 13432—2013 §2.4",
-      "wrong": []
-    },
-    {
-      "term": "适宜摄入量",
-      "en": "adequate intake, AI",
-      "definition": "营养素的一个安全摄入水平。是通过观察或实验获得的健康人群某种营养素的摄入量。",
-      "source": "GB 13432—2013 §2.5",
-      "wrong": []
-    },
-    {
-      "term": "血糖生成指数",
-      "en": "glycemic index, GI",
-      "definition": "",
-      "needs_definition": true,
-      "wrong": [],
-      "note": "《中国居民膳食指南（2022）》同一句里并用「高血糖生成指数的早餐」与「低升糖指数的早餐」，属权威文本的并用实例；因此只要求同篇统一（S2），不判对错。"
-    },
-    {
-      "term": "膳食纤维",
-      "en": "dietary fiber",
-      "definition": "",
-      "needs_definition": true,
-      "wrong": [
-        {
-          "pattern": "粗纤维",
-          "hint": "现行营养学用膳食纤维；粗纤维是旧的饲料分析指标，不是同一概念"
-        }
-      ]
-    },
-    {
-      "term": "维生素",
-      "en": "vitamin",
-      "definition": "",
-      "needs_definition": true,
-      "wrong": [
-        {
-          "pattern": "维他命",
-          "hint": "大陆规范写法为维生素"
-        }
-      ]
-    },
-    {
-      "term": "必需氨基酸",
-      "en": "essential amino acid",
-      "definition": "",
-      "needs_definition": true,
-      "wrong": [
-        {
-          "pattern": "必要氨基酸",
-          "hint": "规范写法为必需氨基酸"
-        }
-      ]
-    },
-    {
-      "term": "能量可用性",
-      "en": "energy availability, EA",
-      "definition": "",
-      "needs_definition": true,
-      "wrong": [
-        {
-          "pattern": "能量可利用性",
-          "hint": "IOC REDs 中文文献多作能量可用性，同篇内统一"
-        }
-      ]
-    },
-    {
-      "term": "相对能量缺乏",
-      "en": "relative energy deficiency in sport, RED-S",
-      "definition": "",
-      "needs_definition": true,
-      "wrong": []
+     "pattern": "(微量元素|矿物质)(就是|即)营养素",
+     "hint": "方向反了：矿物质是营养素的一类"
     }
-  ]
+   ]
+  },
+  {
+   "term": "营养成分",
+   "en": "nutritional component",
+   "definition": "食品中具有的营养素和其他有益于生理机能的食物成分。",
+   "source": "GB 28050—2025 §2.5",
+   "wrong": [
+    {
+     "pattern": "营养成分(就是|即)营养素",
+     "hint": "营养成分＝营养素＋其他有益成分，范围更大"
+    }
+   ]
+  },
+  {
+   "term": "碳水化合物",
+   "en": "carbohydrate",
+   "definition": "糖、寡糖、多糖的总称。",
+   "source": "GB 28050—2025 §2.5.3",
+   "wrong": [
+    {
+     "pattern": "碳水化合物(就是|即|等于)糖(类)?",
+     "hint": "糖是碳水化合物的一部分，不是同义词（GB 28050 §2.5.3）"
+    },
+    {
+     "pattern": "糖类(包括|包含|即)(碳水化合物)",
+     "hint": "包含方向反了：碳水化合物包括糖、寡糖、多糖"
+    }
+   ]
+  },
+  {
+   "term": "糖",
+   "en": "sugar",
+   "definition": "专用于营养标签标示的糖特指食品中果糖、葡萄糖、蔗糖、麦芽糖、乳糖之和。",
+   "source": "GB 28050—2025 §2.5.4",
+   "wrong": [
+    {
+     "pattern": "糖(就是|即|等于)碳水化合物",
+     "hint": "糖是碳水化合物的一类，不能反过来定义"
+    }
+   ]
+  },
+  {
+   "term": "蛋白质",
+   "en": "protein",
+   "definition": "食品中含氮的有机化合物，以氨基酸为基本组成单位。",
+   "source": "GB 28050—2025 §2.5.1",
+   "wrong": [
+    {
+     "pattern": "蛋白质(就是|即|等于)氨基酸",
+     "hint": "氨基酸是蛋白质的组成单位，不是同义词"
+    }
+   ]
+  },
+  {
+   "term": "脂肪",
+   "en": "fat",
+   "definition": "又称甘油三酯，由脂肪酸和甘油结合而成。",
+   "source": "GB 28050—2025 §2.5.2",
+   "wrong": [
+    {
+     "pattern": "脂肪(就是|即|等于)脂类",
+     "hint": "脂类包括脂肪和类脂，脂肪是其中一类"
+    },
+    {
+     "pattern": "脂类(就是|即|等于)脂肪",
+     "hint": "脂类范围更大，含脂肪与类脂"
+    }
+   ]
+  },
+  {
+   "term": "脂肪酸",
+   "en": "fatty acid",
+   "definition": "有机酸中链状羧酸的总称，分为饱和脂肪酸和不饱和脂肪酸。",
+   "source": "GB 28050—2025 §2.5.2",
+   "wrong": []
+  },
+  {
+   "term": "反式脂肪酸",
+   "en": "trans fatty acid",
+   "definition": "油脂加工中产生的和天然存在的、含有一个或一个以上非共轭反式双键的脂肪酸总和。",
+   "source": "GB 28050—2025 §2.5.2",
+   "wrong": []
+  },
+  {
+   "term": "能量",
+   "en": "energy",
+   "definition": "食品中蛋白质、脂肪和碳水化合物等成分在人体代谢中产生的热量。",
+   "source": "GB 28050—2025 §2.3",
+   "note": "该标准自身的定义句用了「热量」；正文统一用「能量」，引文保留原词。",
+   "wrong": []
+  },
+  {
+   "term": "营养标签",
+   "en": "nutrition label",
+   "definition": "预包装食品标签上向消费者提供的有关食品营养信息和特性的描述与说明，包括营养成分表、营养声称和营养成分作用声称及其他补充信息。",
+   "source": "GB 28050—2025 §2.1",
+   "wrong": []
+  },
+  {
+   "term": "营养成分表",
+   "en": "nutrition declaration",
+   "definition": "标有食品能量和营养成分名称、含量及其占营养素参考值百分比的规范性表格。",
+   "source": "GB 28050—2025 §2.2",
+   "wrong": []
+  },
+  {
+   "term": "营养素参考值",
+   "en": "nutrient reference value, NRV",
+   "definition": "专用于营养标签比较食品能量和营养素含量水平的参考值。",
+   "source": "GB 28050—2025 §2.6",
+   "wrong": []
+  },
+  {
+   "term": "营养声称",
+   "en": "nutrition claim",
+   "definition": "对食品营养特性的描述和说明，营养声称包括含量声称和比较声称。",
+   "source": "GB 28050—2025 §2.7",
+   "wrong": []
+  },
+  {
+   "term": "特殊膳食用食品",
+   "en": "foods for special dietary uses",
+   "definition": "为满足特殊的身体或生理状况和（或）满足疾病、紊乱等状态下的特殊膳食需求，专门加工或配方的食品。",
+   "source": "GB 13432—2013 §2.1",
+   "wrong": [
+    {
+     "pattern": "特殊膳食用食品(就是|即|等于)保健食品",
+     "hint": "两者监管路径不同：特殊膳食用食品≠保健食品"
+    }
+   ]
+  },
+  {
+   "term": "推荐摄入量",
+   "en": "recommended nutrient intake, RNI",
+   "definition": "可以满足某一特定性别、年龄及生理状况群体中绝大多数个体需要的营养素摄入水平。",
+   "source": "GB 13432—2013 §2.4",
+   "wrong": []
+  },
+  {
+   "term": "适宜摄入量",
+   "en": "adequate intake, AI",
+   "definition": "营养素的一个安全摄入水平。是通过观察或实验获得的健康人群某种营养素的摄入量。",
+   "source": "GB 13432—2013 §2.5",
+   "wrong": []
+  },
+  {
+   "term": "血糖生成指数",
+   "en": "glycemic index, GI",
+   "definition": "",
+   "needs_definition": true,
+   "wrong": [],
+   "note": "《中国居民膳食指南（2022）》同一句里并用「高血糖生成指数的早餐」与「低升糖指数的早餐」，属权威文本的并用实例；因此只要求同篇统一（S2），不判对错。"
+  },
+  {
+   "term": "膳食纤维",
+   "en": "dietary fiber",
+   "definition": "",
+   "needs_definition": true,
+   "wrong": [
+    {
+     "pattern": "粗纤维",
+     "hint": "现行营养学用膳食纤维；粗纤维是旧的饲料分析指标，不是同一概念"
+    }
+   ]
+  },
+  {
+   "term": "维生素",
+   "en": "vitamin",
+   "definition": "",
+   "needs_definition": true,
+   "wrong": [
+    {
+     "pattern": "维他命",
+     "hint": "大陆规范写法为维生素"
+    }
+   ]
+  },
+  {
+   "term": "必需氨基酸",
+   "en": "essential amino acid",
+   "definition": "",
+   "needs_definition": true,
+   "wrong": [
+    {
+     "pattern": "必要氨基酸",
+     "hint": "规范写法为必需氨基酸"
+    }
+   ]
+  },
+  {
+   "term": "能量可用性",
+   "en": "energy availability, EA",
+   "definition": "",
+   "needs_definition": true,
+   "wrong": [
+    {
+     "pattern": "能量可利用性",
+     "hint": "IOC REDs 中文文献多作能量可用性，同篇内统一"
+    }
+   ]
+  },
+  {
+   "term": "相对能量缺乏",
+   "en": "relative energy deficiency in sport, RED-S",
+   "definition": "",
+   "needs_definition": true,
+   "wrong": []
+  }
+ ],
+ "preferred": [
+  {
+   "variant": "中心性肥胖",
+   "canonical": "中心型肥胖",
+   "evidence": "《体重管理指导原则（2024年版）》《成人肥胖食养指南（2024年版）》《居民体重管理核心知识（2024年版）》均用「中心型肥胖」；《中国成人体重管理指南（2025年版）》亦见「中心性肥胖」。政策与科普语境用前者，同一文稿择一。"
+  },
+  {
+   "variant": "β氧化",
+   "canonical": "β-氧化",
+   "evidence": "脂肪酸氧化写「β-氧化」，连字符不能省；《中国营养科学全书》与相关文献均带连字符。"
+  },
+  {
+   "variant": "三酰甘油",
+   "canonical": "甘油三酯",
+   "evidence": "GB 28050—2025 与 DRIs 2023 用「甘油三酯」；「三酰甘油」是同义化学名，非首选。"
+  }
+ ],
+ "abbreviations": [
+  {
+   "abbr": "AMPK",
+   "cn": "腺苷酸活化蛋白激酶"
+  },
+  {
+   "abbr": "IGF-1",
+   "cn": "胰岛素样生长因子-1"
+  },
+  {
+   "abbr": "GLP-1",
+   "cn": "胰高血糖素样肽-1"
+  },
+  {
+   "abbr": "DPP-4",
+   "cn": "二肽基肽酶-4"
+  },
+  {
+   "abbr": "VFA",
+   "cn": "内脏脂肪面积"
+  },
+  {
+   "abbr": "BMR",
+   "cn": "基础代谢率"
+  },
+  {
+   "abbr": "BMI",
+   "cn": "体质指数"
+  }
+ ],
+ "units": [
+  {
+   "word": "公斤",
+   "to": "kg"
+  },
+  {
+   "word": "千克",
+   "to": "kg"
+  },
+  {
+   "word": "千卡",
+   "to": "kcal"
+  },
+  {
+   "word": "千焦",
+   "to": "kJ"
+  },
+  {
+   "word": "毫升",
+   "to": "mL"
+  },
+  {
+   "word": "克",
+   "to": "g"
+  }
+ ]
 }

@@ -128,7 +128,19 @@ def main():
     lost = Counter(re.findall(r"\d+(?:\.\d+)?", src)) - Counter(re.findall(r"\d+(?:\.\d+)?", got))
     ok("润色不丢失原有数值", not lost, "；".join(f"{k}×{v}" for k, v in lost.items()))
 
-    # 7 链式路径存在
+    # 7 真实稿术语层：1106 稿的问题类型
+    real = (ROOT / "tests" / "fixtures" / "real_terms.md").read_text(encoding="utf-8")
+    r = check.analyze(real)
+    ids = {}
+    for i in r["items"] + r["doc_issues"]:
+        ids.setdefault(i["id"], 0)
+        ids[i["id"]] += i["count"]
+    ok("真实稿：首选术语命中", ids.get("K2") == 2, f"K2={ids.get('K2')}")
+    ok("真实稿：缩写首现命中", ids.get("S4") == 4, f"S4={ids.get('S4')}")
+    ok("真实稿：汉字单位命中", ids.get("S5") == 3, f"S5={ids.get('S5')}")
+    ok("真实稿：破折号区间命中", ids.get("C2") == 5, f"C2={ids.get('C2')}")
+
+    # 8 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
@@ -146,7 +158,8 @@ def main():
     if FAILED:
         print(f"失败 {len(FAILED)} 项：" + "、".join(FAILED))
         return 1
-    print(f"全部通过（{len(check.RULES)} 条语体/结构规则 + {len(check.TERM_RULES)} 条术语规则 + 3 项体例）")
+    print(f"全部通过（{len(check.RULES) + 2} 条语体/结构规则 + {len(check.TERM_RULES)} 条术语规则 + 5 项体例"
+          f" + 术语层：首选术语 {len(check.PREFERRED_TERMS)}、缩写 {len(check.ABBREVIATIONS)}、单位 {len(check.UNIT_WORDS)}）")
     return 0
 
 
