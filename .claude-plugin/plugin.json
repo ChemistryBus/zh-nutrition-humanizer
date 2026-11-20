@@ -1,6 +1,6 @@
 {
   "name": "zh-nutrition-humanizer",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Language polishing and terminology correction for Chinese nutrition writing, calibrated on a 141-excerpt corpus of authoritative texts.",
   "author": {
     "name": "ChemistryBus",

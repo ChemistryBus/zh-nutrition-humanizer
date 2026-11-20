@@ -146,13 +146,19 @@ def main():
     k1 = sum(i["count"] for i in rb["items"] + rb["doc_issues"] if i["id"] == "K1")
     ok("BMI 阈值错写被捕获", k1 == 2, f"K1={k1}")
 
-    # 9 体检报告可运行
+    # 9 定义句数值核对
+    dfn = (ROOT / "tests" / "fixtures" / "definitions.md").read_text(encoding="utf-8")
+    rd = check.analyze(dfn)
+    k3 = sum(i["count"] for i in rd["items"] + rd["doc_issues"] if i["id"] == "K3")
+    ok("定义句数值错写被捕获", k3 == 2, f"K3={k3}")
+
+    # 10 体检报告可运行
     import subprocess as _sp
     r = _sp.run([sys.executable, str(ROOT / "scripts" / "audit.py"),
                  str(ROOT / "examples" / "before.md")], capture_output=True, text=True, timeout=120)
     ok("audit.py 能出报告", r.returncode == 0 and "术语层" in r.stdout, r.stderr[:80])
 
-    # 10 链式路径存在
+    # 11 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md"):
         text = (ROOT / md).read_text(encoding="utf-8")

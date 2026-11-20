@@ -131,14 +131,28 @@ UNIT_WORDS = [(x["word"], x["to"]) for x in EXTRA["units"]]
 
 
 def definition_notes(body: str):
-    """定义句：段落里出现「X 是指/定义为」时，把标准定义摆出来供比对。"""
-    notes = []
+    """定义句核对：正文写「X 是指/定义为」时，和标准定义比对数值。
+
+    数值型定义（超重、高血压、中心型肥胖等）能判「写错/漏写」；
+    非数值定义只把标准原文摆出来，供人比对。
+    """
+    issues, notes = [], []
     for t in TERMS:
         if not t.get("definition"):
             continue
-        if re.search(re.escape(t["term"]) + r"[^。]{0,8}(是指|指的是|定义为|系指|称为)", body):
-            notes.append(f"「{t['term']}」定义句待核；{t['source']}：{t['definition']}")
-    return notes
+        pat = re.escape(t["term"]) + r"[^。]{0,8}(是指|指的是|定义为|系指|称为)([^。]{0,90})"
+        for m in re.finditer(pat, body):
+            sent = m.group(0)
+            std_nums = re.findall(r"\d+(?:\.\d+)?", t["definition"])
+            body_nums = re.findall(r"\d+(?:\.\d+)?", sent)
+            if std_nums and not set(std_nums) <= set(body_nums):
+                issues.append({"group": "K", "id": "K3", "rule": f"定义与标准不一致：{t['term']}",
+                               "count": 1, "samples": [sent[:60]],
+                               "hint": f"标准定义（{t['source']}）：{t['definition']}",
+                               "evidence": "定义句里的数值必须与标准一致；缺号或多号都要核对"})
+            else:
+                notes.append(f"「{t['term']}」定义句待核；{t['source']}：{t['definition']}")
+    return issues, notes
 
 
 
@@ -359,7 +373,9 @@ def analyze(text: str) -> dict:
                       "samples": [], "hint": hint,
                       "evidence": "机构语料段末总结句 0 处 / 8.8 万字；段长 P95 ≈ 650 字"})
     doc_issues, notes = doc_checks(body)
-    notes = definition_notes(body) + notes
+    def_issues, def_notes = definition_notes(body)
+    doc_issues += def_issues
+    notes = def_notes + notes
     counted = [i for i in items if i["group"] in "LTKC"]
     total = sum(i["count"] for i in counted)
     return {"chars": chars, "total": total,
@@ -387,7 +403,7 @@ def main():
         sys.exit(1 if res["per_kchar"] > args.threshold else 0)
 
     if args.terms:
-        keep = [i for i in res["items"] + res["doc_issues"] if i["id"] in ("K1", "K2", "S4", "S5")]
+        keep = [i for i in res["items"] + res["doc_issues"] if i["id"] in ("K1", "K2", "K3", "S4", "S5")]
         if not keep:
             print(f"术语层未发现问题（{res['chars']} 字）")
             sys.exit(0)
