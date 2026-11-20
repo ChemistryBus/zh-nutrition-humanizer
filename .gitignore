@@ -5,3 +5,6 @@ __pycache__/
 # 润色产物
 *.polished.md
 *.bak
+
+# 本地原文库（含版权正文，绝不入库）
+references/cache/
