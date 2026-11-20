@@ -140,13 +140,19 @@ def main():
     ok("真实稿：汉字单位命中", ids.get("S5") == 3, f"S5={ids.get('S5')}")
     ok("真实稿：破折号区间命中", ids.get("C2") == 5, f"C2={ids.get('C2')}")
 
-    # 8 体检报告可运行
+    # 8 BMI 阈值混淆
+    bmi = (ROOT / "tests" / "fixtures" / "bmi_thresholds.md").read_text(encoding="utf-8")
+    rb = check.analyze(bmi)
+    k1 = sum(i["count"] for i in rb["items"] + rb["doc_issues"] if i["id"] == "K1")
+    ok("BMI 阈值错写被捕获", k1 == 2, f"K1={k1}")
+
+    # 9 体检报告可运行
     import subprocess as _sp
     r = _sp.run([sys.executable, str(ROOT / "scripts" / "audit.py"),
                  str(ROOT / "examples" / "before.md")], capture_output=True, text=True, timeout=120)
     ok("audit.py 能出报告", r.returncode == 0 and "术语层" in r.stdout, r.stderr[:80])
 
-    # 9 链式路径存在
+    # 10 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
