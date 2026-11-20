@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.6.2 — Synonyms, Not Errors</strong></p>
+<p align="center"><strong>v1.6.3 — Source Map</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.6.2"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.6.3"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -236,7 +236,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.6.2</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.6.3</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
@@ -284,6 +284,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td><a href="scripts/audit.py">scripts/audit.py</a></td><td>一页体检：语体对照、术语层、可自动改 vs 需人工、下一步</td></tr>
     <tr><td><a href="docs/real-world-test.md">docs/real-world-test.md</a></td><td>2 万字真实稿的术语层测试：命中、可自动改的、留给人判断的</td></tr>
     <tr><td><a href="docs/harness-test.md">docs/harness-test.md</a></td><td>各 harness 的安装与验收话术</td></tr>
+    <tr><td><a href="references/source-map.md">references/source-map.md</a></td><td>权威来源地图：文件形态、docarbiter 路由、已核对的术语锚点</td></tr>
     <tr><td><a href="references/terms.json">references/terms.json</a></td><td>22 条术语、16 条标准定义、3 条首选写法、7 个缩写、6 个单位写法</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>作者与致谢：人做什么、工具做什么、署名怎么留痕</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
