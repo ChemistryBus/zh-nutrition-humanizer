@@ -152,15 +152,22 @@ def main():
     k3 = sum(i["count"] for i in rd["items"] + rd["doc_issues"] if i["id"] == "K3")
     ok("定义句数值错写被捕获", k3 == 2, f"K3={k3}")
 
-    # 10 体检报告可运行
+    # 10 分号规则
+    semi = "前句已完整；若缺乏干预，后句另起条件。"
+    rs = check.analyze(semi)
+    s6 = sum(i["count"] for i in rs["items"] + rs["doc_issues"]
+             if i["id"] == "S6" and "条件" in i["rule"])
+    ok("分号后接条件句被捕获", s6 == 1, f"S6={s6}")
+
+    # 11 体检报告可运行
     import subprocess as _sp
     r = _sp.run([sys.executable, str(ROOT / "scripts" / "audit.py"),
                  str(ROOT / "examples" / "before.md")], capture_output=True, text=True, timeout=120)
     ok("audit.py 能出报告", r.returncode == 0 and "术语层" in r.stdout, r.stderr[:80])
 
-    # 11 链式路径存在
+    # 12 链式路径存在
     missing = []
-    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md"):
+    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md", "references/polish-playbook.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
         links = re.findall(r"\]\(([^)#]+?)(?:#[^)]*)?\)", text)
         links += re.findall(r'(?:href|src)="([^"#]+?)"', text)
@@ -176,7 +183,7 @@ def main():
     if FAILED:
         print(f"失败 {len(FAILED)} 项：" + "、".join(FAILED))
         return 1
-    print(f"全部通过（{len(check.RULES) + 2} 条语体/结构规则 + {len(check.TERM_RULES)} 条术语规则 + 5 项体例"
+    print(f"全部通过（{len(check.RULES) + 2} 条语体/结构规则 + {len(check.TERM_RULES)} 条术语规则 + 6 项体例"
           f" + 术语层：首选术语 {len(check.PREFERRED_TERMS)}、缩写 {len(check.ABBREVIATIONS)}、单位 {len(check.UNIT_WORDS)}）")
     return 0
 

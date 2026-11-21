@@ -301,6 +301,17 @@ def structural_checks(text: str):
         issues.append(("C", "C2", "数值区间用破折号", dash,
                        "统一为 ～：5%～10%、7～9 小时。年份区间（2020—2023）保留破折号"))
 
+    semis = len(re.findall(r"[；;]", text))
+    if semis:
+        k = semis / max(nchars(text), 1) * 1000
+        if k > 2.5:
+            issues.append(("S", "S6", "分号密度偏高", semis,
+                           f"{k:.2f}/千字；机构文本 1.37、大模型稿 3.35。建议把并列短句拆成句号"))
+        bad = re.findall(r"[；;]\s*(若|如果|一旦|否则|因此|所以|但|但是|然而|同时|此外|另外|而)", text)
+        if bad:
+            issues.append(("S", "S6", "分号后接条件/转折句", len(bad),
+                           "前句已完整，后句另起条件或转折：改句号更清楚"))
+
     opens = sum(1 for p in paras
                 if re.match(r"^(此外|同时|另外|因此|首先|其次|最后|然而|但是|总之|综上)", p))
     return issues, {"paragraphs": len(paras),
