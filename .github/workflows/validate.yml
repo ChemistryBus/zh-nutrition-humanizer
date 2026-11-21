@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Byte-compile scripts
-        run: python -m py_compile scripts/check.py scripts/eval.py scripts/stats.py scripts/features.py scripts/validate.py scripts/polish.py scripts/doctor.py scripts/audit.py scripts/source_db.py scripts/eval_revisions.py scripts/fidelity.py
+        run: python -m py_compile scripts/check.py scripts/eval.py scripts/stats.py scripts/features.py scripts/validate.py scripts/polish.py scripts/doctor.py scripts/audit.py scripts/source_db.py scripts/eval_revisions.py scripts/fidelity.py scripts/deliver.py
       - name: Repository self-check
         run: python scripts/validate.py
       - name: Install contract (no harness probes)
