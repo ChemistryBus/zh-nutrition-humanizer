@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.14.0 — Delivery Format</strong></p>
+<p align="center"><strong>v1.14.1 — Agent-first Setup</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.14.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.14.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -44,7 +44,20 @@ humanizer 大多在追「像人写的」。这里追的是另一件事：**中�
 
 ## 30 秒开始
 
-### 方式零：一行安装
+### 方式一：把仓库地址丢给 agent（推荐）
+
+不用自己配环境。把下面这段发给 Claude Code / Codex / DSH，它会自己 clone、放进技能目录、跑自检：
+
+```text
+克隆 https://github.com/ChemistryBus/zh-nutrition-humanizer.git 到你的技能目录
+（Claude Code 是 ~/.claude/skills/，DSH 是 ~/.agents/skills/），
+运行 python3 scripts/doctor.py --ci 自检，把结果告诉我。
+不要改我的稿子，也不要上传任何文本。
+```
+
+装完**重开一个会话**，技能就生效了。
+
+### 方式二：一行命令
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ChemistryBus/zh-nutrition-humanizer/main/bootstrap.sh \
@@ -53,18 +66,7 @@ curl -fsSL https://raw.githubusercontent.com/ChemistryBus/zh-nutrition-humanizer
 
 脚本做三件事：放进对应技能目录、跑 `doctor.py` 自检、告诉你下一步。重复运行不会覆盖已有目录。
 
-### 方式一：让 agent 帮你装
-
-把下面这段发给 Claude Code / Codex / DSH：
-
-```text
-请先问我是否允许把 zh-nutrition-humanizer 放进技能目录，得到允许后再执行：
-git clone https://github.com/ChemistryBus/zh-nutrition-humanizer.git ~/.claude/skills/zh-nutrition-humanizer
-安装完成后运行 python3 scripts/check.py examples/before.md --explain，把命中清单给我。
-不要改动我的稿子，也不要上传任何文本。
-```
-
-### 方式二：手动安装
+### 方式三：手动
 
 ```bash
 git clone https://github.com/ChemistryBus/zh-nutrition-humanizer.git
@@ -73,6 +75,16 @@ python3 scripts/check.py examples/before.md --explain
 ```
 
 零依赖，Python 3.10+（CI 覆盖 3.10 与 3.12），不需要 pip 装任何东西。
+
+### 在对话里怎么用
+
+装好之后，直接用自然语言说需求，不用记命令：
+
+> 用 zh-nutrition-humanizer 检查这篇稿子，只读，把命中和依据列出来。
+
+> 这段帮我按机构语体改一版，改完给我三件套：改后文本、改了什么、保真审计。
+
+> 这篇稿子明天要发，先跑一遍术语层，再看看有没有分号和单位问题。
 
 ### 先让机器做确定性改动
 
@@ -240,7 +252,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.14.0</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.14.1</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
