@@ -159,13 +159,24 @@ def main():
              if i["id"] == "S6" and "条件" in i["rule"])
     ok("分号后接条件句被捕获", s6 == 1, f"S6={s6}")
 
-    # 11 体检报告可运行
+    # 11 保真审计
+    fa = ROOT / "tests" / "fixtures"
+    r1 = subprocess.run([sys.executable, str(ROOT/"scripts"/"fidelity.py"),
+                         str(fa/"fidelity_a.md"), str(fa/"fidelity_b.md")],
+                        capture_output=True, text=True, timeout=60)
+    r2 = subprocess.run([sys.executable, str(ROOT/"scripts"/"fidelity.py"),
+                         str(fa/"fidelity_a.md"), str(fa/"fidelity_same.md")],
+                        capture_output=True, text=True, timeout=60)
+    ok("保真审计：数字改动判失败", r1.returncode == 1)
+    ok("保真审计：未改动判通过", r2.returncode == 0)
+
+    # 12 体检报告可运行
     import subprocess as _sp
     r = _sp.run([sys.executable, str(ROOT / "scripts" / "audit.py"),
                  str(ROOT / "examples" / "before.md")], capture_output=True, text=True, timeout=120)
     ok("audit.py 能出报告", r.returncode == 0 and "术语层" in r.stdout, r.stderr[:80])
 
-    # 12 链式路径存在
+    # 13 链式路径存在
     missing = []
     for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md", "references/polish-checklist.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
