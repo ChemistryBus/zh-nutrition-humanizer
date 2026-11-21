@@ -18,6 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check as C
 import polish as P
+import fidelity as F
 
 
 def read_input(path: Path) -> str:
@@ -31,7 +32,31 @@ def read_input(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def render(text: str, title: str) -> str:
+def fidelity_section(original: str, revised: str) -> str:
+    a, b = F.extract(original), F.extract(revised)
+    out = ["## 保真审计（原稿 vs 改后稿）", ""]
+    hard = False
+    for key, label in (("numbers", "数字"), ("citations", "引用"), ("hedges", "限定词"),
+                       ("negations", "否定词"), ("compares", "比较方向")):
+        lost, added = a[key] - b[key], b[key] - a[key]
+        if lost or added:
+            if key in ("numbers", "citations"):
+                hard = True
+            out.append(f"- **{label}**：丢失 {dict(lost) or '无'}；新增 {dict(added) or '无'}")
+    if len(out) == 2:
+        out.append("- 六类均未变化。")
+    out += ["", "## 待确认问题", ""]
+    if hard:
+        out.append("- 数字或引用发生变化：先核对是否笔误，再决定是否保留。")
+    if (a["hedges"] - b["hedges"]) or (a["negations"] - b["negations"]):
+        out.append("- 限定词/否定词有减少：确认是否把「可能/相关」写成了确定结论。")
+    if len(out) == 6:
+        out.append("- 无。")
+    out.append("")
+    return "\n".join(out)
+
+
+def render(text: str, title: str, revised: str = None) -> str:
     body = C.strip_front_matter(text)
     body = C.mask_markdown(body)
     res = C.analyze(text)
@@ -87,6 +112,9 @@ def render(text: str, title: str) -> str:
             out.append(f"| …… | 另有 {len(changes) - 15} 处 |")
         out.append("")
 
+    if revised:
+        out += [fidelity_section(text, revised)]
+
     out += ["## 下一步", "",
             "1. 跑 `python3 scripts/polish.py 稿子.md --out 稿子.改.md` 落盘机械改动；",
             "2. 按术语层清单人工补中文全称、统一首选写法；",
@@ -99,10 +127,12 @@ def main():
     ap.add_argument("file")
     ap.add_argument("--out", metavar="PATH")
     ap.add_argument("--title")
+    ap.add_argument("--revised", metavar="PATH", help="改后稿，用于保真审计")
     args = ap.parse_args()
     path = Path(args.file)
     text = read_input(path)
-    report = render(text, args.title or path.stem)
+    revised = read_input(Path(args.revised)) if args.revised else None
+    report = render(text, args.title or path.stem, revised)
     if args.out:
         Path(args.out).write_text(report, encoding="utf-8")
         print(f"报告已写入 {args.out}")

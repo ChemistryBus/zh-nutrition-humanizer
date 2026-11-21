@@ -178,7 +178,7 @@ def main():
 
     # 13 链式路径存在
     missing = []
-    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md", "references/polish-checklist.md"):
+    for md in ("README.md", "README.en.md", "SKILL.md", "THIRD_PARTY_NOTICES.md", "examples/walkthrough.md", "docs/harness-test.md", "references/source-map.md", "docs/real-world-test.md", "references/polish-checklist.md", "references/decisions-template.md"):
         text = (ROOT / md).read_text(encoding="utf-8")
         links = re.findall(r"\]\(([^)#]+?)(?:#[^)]*)?\)", text)
         links += re.findall(r'(?:href|src)="([^"#]+?)"', text)
