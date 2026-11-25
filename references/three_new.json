@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "note": "手选，只收与营养/运动营养写作相关的三新公告；使用范围以公告原文为准，未收全量。每条须带公告号与范围。",
   "items": [
     {
@@ -353,6 +353,46 @@
       "scope": "按 2023 年第 8 号公告的范围与用量；生产菌信息见 2024 年第 5 号",
       "status": "现行",
       "source_url": "https://zwfw.nhc.gov.cn/kzx/tzgg/sptjjxpzsp_224/202410/t20241022_2936.html"
+    },
+    {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "category": "食品营养强化剂新品种",
+      "name": "2'-岩藻糖基乳糖",
+      "en": "2'-fucosyllactose, 2'-FL",
+      "scope": "按 2023 年第 8 号公告的范围与用量；本公告为新增生产菌",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16244.shtml"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "category": "食品营养强化剂新品种",
+      "name": "2'-岩藻糖基乳糖",
+      "en": "2'-fucosyllactose, 2'-FL",
+      "scope": "按 2023 年第 8 号公告的范围与用量；本公告为新增生产菌",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16246.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "食品营养强化剂新品种",
+      "name": "3'-唾液酸乳糖钠盐",
+      "en": "3'-Sialyllactose sodium salt, 3'-SL",
+      "scope": "调制乳粉（仅限儿童用乳粉）0.06~0.28 g/L 等，详见公告附表",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "食品营养强化剂新品种",
+      "name": "2'-岩藻糖基乳糖",
+      "en": "2'-fucosyllactose, 2'-FL",
+      "scope": "按 2023 年第 8 号公告的范围与用量；本公告为新增生产菌",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
     }
   ],
   "announcements": [
@@ -384,7 +424,7 @@
       "announcement": "2025年第1号",
       "date": "2025-01-27",
       "count": 20,
-      "status": "待补明细"
+      "status": "已收：2'-FL 新生产菌；其余待补"
     },
     {
       "announcement": "2025年第3号",
@@ -396,7 +436,7 @@
       "announcement": "2025年第4号",
       "date": "2025-06-26",
       "count": 20,
-      "status": "待补明细"
+      "status": "已收：2'-FL 新生产菌；D-阿洛酮糖等新食品原料待补"
     },
     {
       "announcement": "2025年第7号",
@@ -408,7 +448,7 @@
       "announcement": "2026年第1号",
       "date": "2026-02-05",
       "count": 22,
-      "status": "待补明细"
+      "status": "已收：3'-SL、2'-FL；其余待补"
     },
     {
       "announcement": "2026年第5号",
