@@ -4,18 +4,18 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.16.1 — Release and Overview Refresh</strong></p>
+<p align="center"><strong>v1.16.2 — English README and Overview Refresh</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.16.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.16.2"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
   <img src="https://img.shields.io/badge/Built%20with-DSH-2f81f7" alt="Built with DSH">
 </p>
 
-![overview](docs/assets/overview-en.svg)
+![overview](docs/assets/overview-en-v2.svg)
 
 ## What it is
 
@@ -94,7 +94,7 @@ python3 scripts/polish.py your_draft.md --out polished.md   # write to a chosen 
 python3 scripts/polish.py your_draft.md --write             # overwrite in place (keeps .bak)
 ```
 
-Five kinds only: misspelled terms, numeric ranges written with 至, Chinese numerals with units,
+Five kinds only: misspelled terms, numeric ranges written with the Chinese range marker 至, Chinese numerals with units,
 term level, redundant spaces. Text inside quotation marks is untouched; numbers change notation
 (三百毫克 → 300 mg), never value.
 
@@ -126,8 +126,8 @@ Five families: L/T/C are register and structure (13 rules); K covers terminology
     <tr><td>L colloquial (7)</td><td>Chinese numerals with units, second person and imperatives, colloquial adjectives, metaphor nouns, 「像是／好比」, 「不是X而是Y」, evaluative 「更X」 endings</td><td>0–0.03</td><td>0.15–2.0</td><td>fix on sight</td></tr>
     <tr><td>T template (4)</td><td>「其机制在于」, 「而非」, 「亦」, 「宜采用」</td><td>0–0.03</td><td>0.36–1.07</td><td>fix above a density</td></tr>
     <tr><td>C structure (1)</td><td>numeric ranges written with 「至」 instead of ～</td><td>0</td><td>4.52</td><td>always ～</td></tr>
-    <tr><td>K terminology (14)</td><td>维他命, 粗纤维, 必要氨基酸, "carbs are sugar", "fat is lipid", "nutritional component is nutrient"…</td><td>0</td><td>draft-dependent</td><td>fix on sight, standard text cited</td></tr>
-    <tr><td>S style (3)</td><td>mixed units, mixed terminology, missing English gloss</td><td>—</td><td>—</td><td>listed, not scored</td></tr>
+    <tr><td>K terminology and definitions (17 patterns + K4–K6)</td><td>Wrong forms (e.g. 维他命, 粗纤维), reversed definitions, definition loops, role words, three-new scope</td><td>0</td><td>draft-dependent</td><td>fix on sight, standard text cited</td></tr>
+    <tr><td>S style (6)</td><td>mixed units, mixed terminology, missing English gloss, abbreviation expansion, Chinese unit words, semicolon use</td><td>—</td><td>—</td><td>listed, not scored</td></tr>
     <tr><td colspan="5" width="1200">Values are measured. The L family is zero in institutional text; the T family has legitimate uses, so it is judged by density. K rules are definite errors: fix on sight.</td></tr>
   </tbody>
 </table>
@@ -258,7 +258,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.16.1</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.16.2</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>
