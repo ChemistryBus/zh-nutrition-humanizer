@@ -26,6 +26,22 @@ class DefinitionChecks(unittest.TestCase):
         for key in ("定义循环", "角色错位", "标准错位", "范围错位"):
             self.assertIn(key, out)
 
+    def test_authoritative_definitions_clean(self):
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from definition_checks import check_definitions
+        text = (ROOT / "tests/fixtures/definitions_authoritative.md").read_text(encoding="utf-8")
+        issues, _ = check_definitions(text)
+        self.assertEqual(issues, [], f"权威定义误报：{[i['rule'] for i in issues]}")
+
+    def test_audit_has_definition_section(self):
+        out = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/audit.py"),
+             str(ROOT / "tests/fixtures/definition_special_food.md")],
+            capture_output=True, text=True, check=False).stdout
+        self.assertIn("## 定义与法规", out)
+        self.assertIn("K4", out)
+
     def test_no_false_positive_on_corpus_sample(self):
         files = sorted((ROOT / "references/corpus").rglob("*.md"))[:30]
         for f in files:

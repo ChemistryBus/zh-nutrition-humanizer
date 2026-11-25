@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.15.5 — 2023 Announcements Closed</strong></p>
+<p align="center"><strong>v1.16.0 — Definition Checks in Audit</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.15.5"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.16.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -169,6 +169,9 @@ GB 25596 / GB 29922（特医）、GB 22570（辅食营养补充品）、GB 20371
 - **K5 角色词**：`赤藓糖醇等营养强化剂` —— 赤藓糖醇是甜味剂，不是强化剂；
 - **K6 三新表述**：公告批准写成 GB 14880、把新食品原料写成营养强化剂、范围超出公告。
 
+误报回归：21 条权威定义 + 141 段语料，K4–K6 命中 0；见 [`eval/definition-checks.md`](eval/definition-checks.md)。
+`scripts/audit.py` 的一页报告已加「定义与法规」一节。
+
 查定义与公告：
 
 ```bash
@@ -275,7 +278,7 @@ python3 scripts/standards.py β-丙氨酸 --three-new # 公告号 + 使用范围
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.15.5</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.16.0</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>

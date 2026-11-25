@@ -92,6 +92,17 @@ def render(text: str, title: str, revised: str = None) -> str:
             out.append(f"| {i['id']} | {i['rule']} | {i['count']} | {i['evidence'][:60]} |")
         out.append("")
 
+    defs = [i for i in res["doc_issues"] if i["id"] in ("K3", "K4", "K5", "K6")]
+    out += ["## 定义与法规", ""]
+    if not defs:
+        out += ["未发现定义结构、角色词或三新表述问题。", ""]
+    else:
+        out += ["| 编号 | 问题 | 依据 |", "|---|---|---|"]
+        for i in defs:
+            out.append(f"| {i['id']} | {i['rule']} | {i['evidence'][:60]} |")
+        out.append("")
+        out += ["定义循环、来源配对、角色词与三新范围只报“疑似 + 条款”，结论仍需人判。", ""]
+
     new, changes = P.polish(text)
     out += ["## 可自动改 vs 需人工判断", "",
             f"- 机械润色可改 **{len(changes)} 处**（术语误写、区间符号、汉字单位；不碰引号与代码块）",
