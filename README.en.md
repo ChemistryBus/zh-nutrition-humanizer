@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Language polishing and terminology correction for Chinese nutrition writing</strong></p>
 <p align="center">Match the tone of policy documents, learned-society books and standards · polish language, correct terms · zero dependencies</p>
-<p align="center"><strong>v1.14.1 — Agent-first Setup</strong></p>
+<p align="center"><strong>v1.15.0 — Definitions and Three-New Foods</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.14.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.15.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -118,7 +118,7 @@ python3 scripts/check.py examples/after.md      # expect: zero paragraph-level h
 
 ## How it judges
 
-Five families: L/T/C are register and structure (13 rules), K is terminology (14 patterns plus 2 preferred spellings), S is document-level style (6 checks: units, mixed terms, English glosses, abbreviation expansion, Chinese unit words, semicolon use).
+Five families: L/T/C are register and structure (13 rules); K covers terminology and definitions (17 wrong patterns, 2 preferred spellings, definition-number checks, plus K4 definition structure / K5 role words / K6 three-new foods); S is document-level style (6 checks: units, mixed terms, English glosses, abbreviation expansion, Chinese unit words, semicolon use).
 
 <table width="100%">
   <thead><tr><th>Family</th><th>Catches</th><th>Institution</th><th>LLM draft</th><th>Verdict</th></tr></thead>
@@ -148,7 +148,7 @@ Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/a
 
 ### How terminology and definitions are checked
 
-`references/terms.json` holds 22 terms. Sixteen carry definitions quoted verbatim from the standards
+`references/terms.json` holds 38 terms. Thirty-two carry definitions quoted verbatim from the standards
 (13 in GB 28050—2025 §2, 3 in GB 13432—2013 §2); the rest carry names and English only, marked
 `needs_definition`, and no definition is written from memory.
 
@@ -162,6 +162,13 @@ Real drafts, numbers untouched; all 20 pairs in [`examples/after.md`](examples/a
     <tr><td colspan="3" width="1200">Gap: GB/T 21922—2026 and GB/Z 21922 (referenced by GB 28050) are not in the corpus, so terms that depend on them are marked "to verify".</td></tr>
   </tbody>
 </table>
+
+`references/standards.json` holds 13 definitions from GB 13432 / 14880 / 2760 / 28050 / 7718 / 24154 / 29924 / 25596 / 29922 / 22570 / 20371, with clause numbers and local file paths. `references/three_new.json` holds 13 curated "three-new food" approvals, each with announcement number, category and permitted scope. Query them:
+
+```bash
+python3 scripts/standards.py 营养强化剂
+python3 scripts/standards.py β-丙氨酸 --three-new
+```
 
 Full rule table in [`SKILL.md`](SKILL.md) (Chinese); rule evidence in [`references/rule-audit.md`](references/rule-audit.md).
 
@@ -251,7 +258,7 @@ Put the directory in the right place; `SKILL.md` carries frontmatter. Claude Cod
   <thead><tr><th>Need</th><th>Do</th></tr></thead>
   <tbody>
     <tr><td>check one draft</td><td>clone and run <code>scripts/check.py</code>; nothing installed</td></tr>
-    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.14.1</code>)</td></tr>
+    <tr><td>long-term skill</td><td>clone into the skills directory and pin a tag (<code>git checkout v1.15.0</code>)</td></tr>
     <tr><td>CI gate</td><td>copy <code>scripts/check.py</code> into the repo, or add it as a submodule</td></tr>
     <tr><td colspan="2" width="1200">Nothing to pip install. For long-term use, pin a tag and re-run scripts/validate.py after upgrading.</td></tr>
   </tbody>

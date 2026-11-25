@@ -120,7 +120,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 ## 怎么判
 
-五族规则：L/T/C 是语体与结构（13 条），K 是术语（16 条错误写法 + 2 条首选写法 + 定义句数值核对），S 是文档级体例（6 项：单位、术语混用、英文夹注、缩写首现、汉字单位、分号）。
+五族规则：L/T/C 是语体与结构（13 条），K 是术语与定义（17 条错误写法 + 2 条首选写法 + 定义句数值核对 + K4 定义结构 / K5 角色词 / K6 三新表述），S 是文档级体例（6 项：单位、术语混用、英文夹注、缩写首现、汉字单位、分号）。
 
 <table width="100%">
   <thead><tr><th>族</th><th>抓什么</th><th>机构文本</th><th>大模型初稿</th><th>判法</th></tr></thead>
@@ -128,7 +128,7 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td>L 口语降维（7 条）</td><td>汉字数字带单位、第二人称与祈使、口语形容、比喻实体词、像是／好比、不是X而是Y、更X收尾</td><td>0–0.03</td><td>0.15–2.0</td><td>出现即改</td></tr>
     <tr><td>T 模板化（4 条）</td><td>其机制在于、而非、亦、宜采用</td><td>0–0.03</td><td>0.36–1.07</td><td>超过密度才改</td></tr>
     <tr><td>C 结构（2 条）</td><td>数值区间用“至”、用破折号（年份除外）</td><td>0</td><td>4.52</td><td>一律改 ～</td></tr>
-    <tr><td>K 术语（14 条 + 2 条首选写法）</td><td>维他命、粗纤维、必要氨基酸、碳水化合物就是糖、脂肪即脂类、营养成分就是营养素、中心性肥胖、β氧化……</td><td>0</td><td>视稿件</td><td>命中即改，依据为标准原文或权威文本用法</td></tr>
+    <tr><td>K 术语与定义（17 条错误写法 + 2 条首选 + K4–K6）</td><td>维他命、粗纤维、必要氨基酸、碳水化合物就是糖、脂肪即脂类、特膳食品、中心性肥胖、β氧化；定义循环、来源未配对、角色错位、三新错位</td><td>0</td><td>视稿件</td><td>命中即改；定义与法规类给条款，结论标待核</td></tr>
     <tr><td>S 体例（6 项）</td><td>单位混用、术语混用、首现未给英文、缩写未展开、汉字单位、分号用法</td><td>—</td><td>—</td><td>逐条列出，不计密度</td></tr>
     <tr><td colspan="5" width="1200">每千字为实测值：L 族在机构文本里为 0，T 族有少量正当用法，所以按密度判；K 族是确定性错误，命中即改。</td></tr>
   </tbody>
@@ -152,6 +152,29 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
 
 `references/terms.json` 收录 38 条术语，其中 32 条的定义**逐字引自标准或指南原文**
 （GB 28050—2025 §2 共 13 条、GB 13432—2013 §2 共 3 条），其余只收名称与英文，`needs_definition` 标出，不凭记忆补写。
+
+### 标准定义与三新食品
+
+`references/standards.json` 收 13 条定义，逐字引自知识库 PDF，带条款号与文件路径：
+GB 13432（特殊膳食用食品、营养素、营养成分）、GB 14880（营养强化剂）、GB 2760（食品添加剂）、
+GB 28050（营养标签）、GB 7718（预包装食品）、GB 24154（运动营养食品）、GB 29924（食品添加剂标签）、
+GB 25596 / GB 29922（特医）、GB 22570（辅食营养补充品）、GB 20371（植物蛋白）。
+
+`references/three_new.json` 收 13 条与营养写作相关的三新公告（2025 年第 7 号、2026 年第 5/7 号），
+每条带公告号、类别、使用范围、来源链接。三新批准按公告范围使用，不等于写进 GB 14880 或 GB 2760。
+
+三条新规则：
+
+- **K4 定义结构**：定义循环（`A 是……A`）、`以 A、B 为 C 来源` 的来源未配对；
+- **K5 角色词**：`赤藓糖醇等营养强化剂` —— 赤藓糖醇是甜味剂，不是强化剂；
+- **K6 三新表述**：公告批准写成 GB 14880、把新食品原料写成营养强化剂、范围超出公告。
+
+查定义与公告：
+
+```bash
+python3 scripts/standards.py 营养强化剂          # 标准定义 + 条款
+python3 scripts/standards.py β-丙氨酸 --three-new # 公告号 + 使用范围
+```
 
 <table width="100%">
   <thead><tr><th>查什么</th><th>怎么查</th><th>能不能自动改</th></tr></thead>
@@ -307,6 +330,9 @@ python3 scripts/check.py examples/after.md      # 预期：段落级 0 命中（
     <tr><td><a href="docs/source-db.md">docs/source-db.md</a></td><td>本地原文库：按需 OCR、页级缓存、FTS 检索，不重复劳动</td></tr>
     <tr><td><a href="references/source-map.md">references/source-map.md</a></td><td>权威来源地图：文件形态、docarbiter 路由、已核对的术语锚点</td></tr>
     <tr><td><a href="references/terms.json">references/terms.json</a></td><td>38 条术语、32 条标准定义、2 条首选写法、7 个缩写、6 个单位写法</td></tr>
+    <tr><td><a href="references/standards.json">references/standards.json</a></td><td>13 条标准定义、条款号与文件路径、化合物来源表</td></tr>
+    <tr><td><a href="references/three_new.json">references/three_new.json</a></td><td>三新公告：公告号、类别、使用范围、来源链接</td></tr>
+    <tr><td><a href="scripts/standards.py">scripts/standards.py</a></td><td>查标准定义与三新公告：术语名 → 定义、条款、范围</td></tr>
     <tr><td><a href="CONTRIBUTORS.md">CONTRIBUTORS.md</a></td><td>作者与致谢：人做什么、工具做什么、署名怎么留痕</td></tr>
     <tr><td><a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a></td><td>语料来源与版权声明</td></tr>
     <tr><td><a href="scripts/doctor.py">scripts/doctor.py</a></td><td>安装自检：技能契约、可移植性、harness 目录</td></tr>
