@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "note": "手选，只收与营养/运动营养写作相关的三新公告；使用范围以公告原文为准，未收全量。每条须带公告号与范围。",
   "items": [
     {
@@ -323,6 +323,36 @@
       "status": "现行",
       "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
       "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "食品营养强化剂新品种",
+      "name": "d-核糖",
+      "en": "d-ribose",
+      "scope": "除13.01~13.04外的其他特殊膳食用食品（仅限运动营养食品）；每日 1~2 g",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi"
+    },
+    {
+      "announcement": "2024年第5号",
+      "date": "2024-10-10",
+      "category": "食品营养强化剂新品种",
+      "name": "2'-岩藻糖基乳糖",
+      "en": "2'-fucosyllactose, 2'-FL",
+      "scope": "按 2023 年第 8 号公告的范围与用量；生产菌信息见 2024 年第 5 号",
+      "status": "现行",
+      "source_url": "https://zwfw.nhc.gov.cn/kzx/tzgg/sptjjxpzsp_224/202410/t20241022_2936.html"
+    },
+    {
+      "announcement": "2024年第5号",
+      "date": "2024-10-10",
+      "category": "食品营养强化剂新品种",
+      "name": "乳糖-N-新四糖",
+      "en": "Lacto-N-neotetraose, LNnT",
+      "scope": "按 2023 年第 8 号公告的范围与用量；生产菌信息见 2024 年第 5 号",
+      "status": "现行",
+      "source_url": "https://zwfw.nhc.gov.cn/kzx/tzgg/sptjjxpzsp_224/202410/t20241022_2936.html"
     }
   ],
   "announcements": [
@@ -330,7 +360,7 @@
       "announcement": "2024年第2号",
       "date": "2024-03-13",
       "count": 23,
-      "status": "新食品原料已收，添加剂明细待补"
+      "status": "已收：d-核糖、2'-FL；其余添加剂待补"
     },
     {
       "announcement": "2024年第3号",
@@ -351,10 +381,34 @@
       "status": "新食品原料已收，添加剂明细待补"
     },
     {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "count": 20,
+      "status": "待补明细"
+    },
+    {
+      "announcement": "2025年第3号",
+      "date": "2025-04-25",
+      "count": 11,
+      "status": "已收：2'-FL 扩大；其余待补"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "count": 20,
+      "status": "待补明细"
+    },
+    {
       "announcement": "2025年第7号",
       "date": "2025-11-19",
       "count": 14,
       "status": "已收：β-丙氨酸、3 种新食品原料"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "count": 22,
+      "status": "待补明细"
     },
     {
       "announcement": "2026年第5号",

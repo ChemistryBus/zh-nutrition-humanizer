@@ -9,6 +9,15 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class DefinitionChecks(unittest.TestCase):
+    def test_three_new_schema(self):
+        import json
+        data = json.loads((ROOT / "references/three_new.json").read_text(encoding="utf-8"))
+        names = [x["name"] for x in data["items"]]
+        self.assertEqual(len(names), len(set(names)), "三新名称重复")
+        for x in data["items"]:
+            for k in ("announcement", "category", "name", "scope", "source_url"):
+                self.assertTrue(x.get(k), f"{x.get('name')} 缺 {k}")
+
     def test_fixture_hits_four(self):
         out = subprocess.run(
             [sys.executable, str(ROOT / "scripts/check.py"),
