@@ -1,5 +1,5 @@
 {
-  "version": "1.6",
+  "version": "1.7",
   "note": "手选，只收与营养/运动营养写作相关的三新公告；使用范围以公告原文为准，未收全量。每条须带公告号与范围。",
   "items": [
     {
@@ -583,6 +583,86 @@
       "scope": "调制乳粉（仅限儿童用乳粉）、婴儿配方食品、较大婴儿和幼儿配方食品、特医婴儿配方食品",
       "status": "现行",
       "source_url": "https://www.cfsa.net.cn/wap/spaqbz/xzxkgg/index.shtml"
+    },
+    {
+      "announcement": "2023年第3号",
+      "date": "2023-05-10",
+      "category": "新食品原料",
+      "name": "黑麦花粉",
+      "en": "Rye pollen",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第3号_蓝莓花色苷等14种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第3号",
+      "date": "2023-05-10",
+      "category": "食品营养强化剂新品种",
+      "name": "L-硒-甲基硒代半胱氨酸",
+      "en": "L-Se-methylselenocysteine",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第3号_蓝莓花色苷等14种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第5号",
+      "date": "2023-08-10",
+      "category": "新食品原料",
+      "name": "文冠果叶",
+      "en": "Yellowhorn leaf",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第5号_文冠果种仁等8种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "新食品原料",
+      "name": "油莎豆",
+      "en": "Tiger nut",
+      "scope": "按公告；标签标注不适宜人群与食用量",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第8号_桃胶等15种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "新食品原料",
+      "name": "肠膜明串珠菌乳脂亚种",
+      "en": "Leuconostoc mesenteroides subsp. cremoris",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第8号_桃胶等15种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "新食品原料",
+      "name": "吡咯并喹啉醌二钠盐",
+      "en": "Pyrroloquinoline quinone disodium (PQQ) salt",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第8号_桃胶等15种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "食品营养强化剂新品种",
+      "name": "乳酸镁",
+      "en": "Magnesium lactate",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第8号_桃胶等15种三新食品.pdf"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "食品营养强化剂新品种",
+      "name": "乳糖-N-新四糖",
+      "en": "Lacto-N-neotetraose, LNnT",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "00_知识库/03_标准与法规/I_三新食品/2023年第8号_桃胶等15种三新食品.pdf"
     }
   ],
   "announcements": [
@@ -590,19 +670,19 @@
       "announcement": "2023年第3号",
       "date": "2023-05-10",
       "count": 14,
-      "status": "已收：蓝莓花色苷；其余待补"
+      "status": "已收：蓝莓花色苷、黑麦花粉、L-硒-甲基硒代半胱氨酸"
     },
     {
       "announcement": "2023年第5号",
       "date": "2023-08-10",
       "count": 8,
-      "status": "已收：文冠果种仁；其余待补"
+      "status": "已收：文冠果种仁、文冠果叶（无强化剂）"
     },
     {
       "announcement": "2023年第8号",
       "date": "2023-10-07",
       "count": 15,
-      "status": "已收：桃胶、2'-FL；其余待补"
+      "status": "已收：桃胶、油莎豆、肠膜明串珠菌、PQQ、乳酸镁、2'-FL、LNnT"
     },
     {
       "announcement": "2024年第2号",
