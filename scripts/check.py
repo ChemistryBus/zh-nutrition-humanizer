@@ -106,6 +106,8 @@ GLOSS_TERMS = [
 # ---------------------------------------------------------------- 术语表
 TERMS_PATH = Path(__file__).resolve().parent.parent / "references" / "terms.json"
 
+from definition_checks import check_definitions  # K4/K5/K6
+
 
 def load_terms(path=TERMS_PATH):
     """读术语表。文件缺失时返回空表，检查器仍可运行。"""
@@ -260,7 +262,7 @@ def rule_hits(body: str):
             if len(e["samples"]) < 3:
                 e["samples"].append(m.group(0)[:16])
     for term, e in by_term.items():
-        out.append({"group": "K", "id": "K1", "rule": f"术语误写：{term}", "count": e["count"],
+        out.append({"group": "K", "id": "K1", "rule": f"术语误写：{e['samples'][0]} → {term}", "count": e["count"],
                     "samples": e["samples"], "hint": e["hint"],
                     "evidence": f"{e['source']}" if e["source"] else "术语表 references/terms.json"})
     return out
@@ -387,6 +389,9 @@ def analyze(text: str) -> dict:
     doc_issues, notes = doc_checks(body)
     def_issues, def_notes = definition_notes(body)
     doc_issues += def_issues
+    k456_issues, k456_notes = check_definitions(body)
+    doc_issues += k456_issues
+    def_notes += k456_notes
     notes = def_notes + notes
     counted = [i for i in items if i["group"] in "LTKC"]
     total = sum(i["count"] for i in counted)
@@ -415,7 +420,7 @@ def main():
         sys.exit(1 if res["per_kchar"] > args.threshold else 0)
 
     if args.terms:
-        keep = [i for i in res["items"] + res["doc_issues"] if i["id"] in ("K1", "K2", "K3", "S4", "S5")]
+        keep = [i for i in res["items"] + res["doc_issues"] if i["id"] in ("K1", "K2", "K3", "K4", "K5", "K6", "S4", "S5")]
         if not keep:
             print(f"术语层未发现问题（{res['chars']} 字）")
             sys.exit(0)
@@ -443,7 +448,9 @@ def main():
             continue
         print(f"{g} {names[g]} " + "；".join(f"{i['rule']}×{i['count']}" for i in rs))
     if res["doc_issues"]:
-        print("S 体例 " + "；".join(f"{i['rule']}" for i in res["doc_issues"]))
+        n_doc = sum(i["count"] for i in res["doc_issues"])
+        label = "K 术语与定义" if all(i["group"] == "K" for i in res["doc_issues"]) else "S 体例"
+        print(f"{label}（文档级 {n_doc} 处）" + "；".join(f"{i['rule']}" for i in res["doc_issues"]))
     if args.diff:
         body = strip_front_matter(path.read_text(encoding="utf-8"))
         masked = mask_markdown(body)

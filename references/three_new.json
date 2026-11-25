@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "note": "手选，只收与营养/运动营养写作相关的三新公告；使用范围以公告原文为准，未收全量。每条须带公告号与范围。",
+  "items": [
+    {
+      "announcement": "2025年第7号",
+      "date": "2025-11-19",
+      "category": "食品营养强化剂新品种",
+      "name": "β-丙氨酸",
+      "en": "β-Alanine",
+      "scope": "除13.01~13.04外的其他特殊膳食用食品（仅限运动营养食品）",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=235314"
+    },
+    {
+      "announcement": "2025年第7号",
+      "date": "2025-11-19",
+      "category": "扩大使用范围的食品营养强化剂",
+      "name": "(6S)-5-甲基四氢叶酸，氨基葡萄糖盐",
+      "en": "",
+      "scope": "扩大至除13.01~13.04外的其他特殊膳食用食品（仅限运动营养食品）",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=235314"
+    },
+    {
+      "announcement": "2025年第7号",
+      "date": "2025-11-19",
+      "category": "新食品原料",
+      "name": "威尼斯镰刀菌蛋白",
+      "en": "Mycoprotein from Fusarium venenatum",
+      "scope": "按公告；婴幼儿、孕妇、哺乳期妇女不宜食用",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=235314"
+    },
+    {
+      "announcement": "2025年第7号",
+      "date": "2025-11-19",
+      "category": "新食品原料",
+      "name": "接骨木莓花色苷",
+      "en": "Elderberry anthocyanins",
+      "scope": "按公告；婴幼儿、孕妇、哺乳期妇女不宜食用",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=235314"
+    },
+    {
+      "announcement": "2025年第7号",
+      "date": "2025-11-19",
+      "category": "新食品原料",
+      "name": "油橄榄果多酚",
+      "en": "Olive fruit polyphenols",
+      "scope": "按公告；婴幼儿、孕妇、哺乳期妇女不宜食用",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=235314"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "食品营养强化剂新品种",
+      "name": "3-岩藻糖基乳糖",
+      "en": "3-Fucosyllactose",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "食品营养强化剂新品种",
+      "name": "乳糖-N-四糖",
+      "en": "Lacto-N-tetraose",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "扩大使用范围的食品营养强化剂",
+      "name": "L-硒-甲基硒代半胱氨酸",
+      "en": "L-Se-methylselenocysteine",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "新食品原料",
+      "name": "L-茶氨酸（发酵法）",
+      "en": "L-theanine (fermentation)",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "新食品原料",
+      "name": "L-麦角硫因",
+      "en": "L-ergothioneine",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "新食品原料",
+      "name": "β-乳球蛋白（发酵法）",
+      "en": "β-lactoglobulin (fermentation)",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "植物甾醇",
+      "en": "Plant sterol",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "蛋白核小球藻",
+      "en": "Chlorella pyrenoidosa",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    }
+  ]
+}
