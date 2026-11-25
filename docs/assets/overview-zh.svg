@@ -7,6 +7,7 @@
 
   <rect width="1000" height="620" fill="#ffffff"/>
   <text x="40" y="46" font-size="26" font-weight="700" fill="#1f2328">zh-nutrition-humanizer</text>
+  <text x="960" y="46" text-anchor="end" font-size="12" fill="#57606a">v1.16.1 · 13 条标准定义 · 65 条三新记录</text>
   <text x="40" y="72" font-size="13" fill="#57606a">中文营养写作品控 · 把稿子校准到中文营养界公开发布文字的口吻</text>
 
   <!-- 三类权威文本 -->
@@ -82,5 +83,5 @@
   <text x="526" y="568" font-size="13px" fill="#1f2328">教材体 <tspan font-weight="700">16 平</tspan>（4.90 vs 4.90）</text>
   <text x="526" y="586" font-size="11px" fill="#6e7781">教材体只能改体例，改不动语体</text>
 
-  <text x="40" y="614" font-size="11px" fill="#6e7781">改的是表达，不是事实：数字、单位、证据等级一律不动。</text>
+  <text x="40" y="614" font-size="11px" fill="#6e7781">改的是表达，不是事实：数字、单位、证据等级一律不动。新增 K4–K6：定义循环 / 角色词 / 三新表述。</text>
 </svg>

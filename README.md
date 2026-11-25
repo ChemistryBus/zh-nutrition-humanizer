@@ -4,11 +4,11 @@
 
 <p align="center"><strong>中文营养写作的润色与术语校订</strong></p>
 <p align="center">对齐政策文件、学会出版物与标准的口吻 · 润色语言，校订术语 · 零依赖</p>
-<p align="center"><strong>v1.16.0 — Definition Checks in Audit</strong></p>
+<p align="center"><strong>v1.16.1 — Release and Overview Refresh</strong></p>
 
 <p align="center">
   <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml"><img src="https://github.com/ChemistryBus/zh-nutrition-humanizer/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
-  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.16.0"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
+  <a href="https://github.com/ChemistryBus/zh-nutrition-humanizer/releases/tag/v1.16.1"><img src="https://img.shields.io/github/v/release/ChemistryBus/zh-nutrition-humanizer?color=blue&cacheSeconds=300" alt="release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.10--3.12-blue" alt="Python 3.10-3.12">
   <img src="https://img.shields.io/badge/Agent-Skill-111111" alt="Agent Skill">
@@ -160,7 +160,7 @@ GB 13432（特殊膳食用食品、营养素、营养成分）、GB 14880（营�
 GB 28050（营养标签）、GB 7718（预包装食品）、GB 24154（运动营养食品）、GB 29924（食品添加剂标签）、
 GB 25596 / GB 29922（特医）、GB 22570（辅食营养补充品）、GB 20371（植物蛋白）。
 
-`references/three_new.json` 收 65 条三新记录（2024 年第 2/3/5/6 号、2025 年第 7 号、2026 年第 5/7 号）；2024 年条目来自二次汇总，公告原文待核。
+`references/three_new.json` 收 65 条三新记录，覆盖 2023–2026 主要公告；未逐条收的公告标「待补」，2024 年部分条目来自二次汇总，公告原文待核。
 每条带公告号、类别、使用范围、来源链接。三新批准按公告范围使用，不等于写进 GB 14880 或 GB 2760。
 
 三条新规则：
@@ -278,7 +278,7 @@ python3 scripts/standards.py β-丙氨酸 --three-new # 公告号 + 使用范围
   <thead><tr><th>需求</th><th>做法</th></tr></thead>
   <tbody>
     <tr><td>只想查一篇稿子</td><td><code>git clone</code> 后直接跑 <code>scripts/check.py</code>，不安装</td></tr>
-    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.16.0</code>）</td></tr>
+    <tr><td>当技能长期用</td><td>克隆到技能目录，版本用 tag 锁（<code>git checkout v1.16.1</code>）</td></tr>
     <tr><td>接进 CI</td><td>把 <code>scripts/check.py</code> 拷进仓库，或 <code>git submodule add</code></td></tr>
     <tr><td colspan="2" width="1200">安装不需要 pip；长期使用建议锁 tag，升级后重跑 scripts/validate.py。</td></tr>
   </tbody>
