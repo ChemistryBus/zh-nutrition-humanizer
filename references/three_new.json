@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.2",
   "note": "手选，只收与营养/运动营养写作相关的三新公告；使用范围以公告原文为准，未收全量。每条须带公告号与范围。",
   "items": [
     {
@@ -131,6 +131,242 @@
       "scope": "按公告",
       "status": "现行",
       "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "牡丹籽油",
+      "en": "Peony seed oil",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "显齿蛇葡萄叶多酚",
+      "en": "Nekemias grossedentata leaf polyphenols",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "青钱柳叶多酚",
+      "en": "Cyclocarya paliurus leaf polyphenols",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "动物双歧杆菌乳亚种 XLTG11",
+      "en": "Bifidobacterium animalis subsp. lactis XLTG11",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "category": "新食品原料",
+      "name": "紧密镰刀菌蛋白",
+      "en": "Mycoprotein from Fusarium compactum",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://law.foodmate.net/mobile/index.php?moduleid=23&itemid=237425"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "category": "新食品原料",
+      "name": "动物双歧杆菌乳亚种 CP-9",
+      "en": "Bifidobacterium animalis subsp. lactis CP-9",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "http://law.foodmate.net/mobile/index.php?moduleid=23&itemid=239800"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "新食品原料",
+      "name": "石斛原球茎",
+      "en": "Dendrobium officinale protocorm",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "新食品原料",
+      "name": "(3R,3'S)-二羟基-β-胡萝卜素",
+      "en": "(3R,3'S)-dihydroxy-β-carotene",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "新食品原料",
+      "name": "克鲁维毕赤酵母",
+      "en": "Pichia kluyveri",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "新食品原料",
+      "name": "枯草芽孢杆菌 DE111",
+      "en": "Bacillus subtilis DE111",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "新食品原料",
+      "name": "L-α-甘磷酸胆碱",
+      "en": "L-α-glycerylphosphorylcholine",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "category": "新食品原料",
+      "name": "假肠膜明串珠菌（扩大使用范围）",
+      "en": "Leuconostoc pseudomesenteroides",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第3号",
+      "date": "2024-08-05",
+      "category": "新食品原料",
+      "name": "阿拉伯木聚糖",
+      "en": "Arabinoxylan",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第3号",
+      "date": "2024-08-05",
+      "category": "新食品原料",
+      "name": "长双歧杆菌婴儿亚种 M-63",
+      "en": "Bifidobacterium longum subsp. infantis M-63",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第3号",
+      "date": "2024-08-05",
+      "category": "新食品原料",
+      "name": "N-乙酰氨基葡萄糖",
+      "en": "N-acetylglucosamine",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第5号",
+      "date": "2024-10-10",
+      "category": "新食品原料",
+      "name": "拟微球藻油",
+      "en": "Nannochloropsis oil",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第5号",
+      "date": "2024-10-10",
+      "category": "新食品原料",
+      "name": "前花青素",
+      "en": "Proanthocyanidins",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    },
+    {
+      "announcement": "2024年第6号",
+      "date": "2024-12-13",
+      "category": "新食品原料",
+      "name": "金花茶培养物",
+      "en": "Camellia chrysantha culture",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cirs-group.com/cn/food/2024-nian-shi-pin-tian-jia-ji-xin-pin-zhong-shen-bao-shen-pi-qing-kuang-fen-xi",
+      "verification": "secondary summary; 公告原文待核"
+    }
+  ],
+  "announcements": [
+    {
+      "announcement": "2024年第2号",
+      "date": "2024-03-13",
+      "count": 23,
+      "status": "新食品原料已收，添加剂明细待补"
+    },
+    {
+      "announcement": "2024年第3号",
+      "date": "2024-08-05",
+      "count": 8,
+      "status": "新食品原料已收，添加剂明细待补"
+    },
+    {
+      "announcement": "2024年第5号",
+      "date": "2024-10-10",
+      "count": 12,
+      "status": "新食品原料已收，添加剂明细待补"
+    },
+    {
+      "announcement": "2024年第6号",
+      "date": "2024-12-13",
+      "count": 11,
+      "status": "新食品原料已收，添加剂明细待补"
+    },
+    {
+      "announcement": "2025年第7号",
+      "date": "2025-11-19",
+      "count": 14,
+      "status": "已收：β-丙氨酸、3 种新食品原料"
+    },
+    {
+      "announcement": "2026年第5号",
+      "date": "2026-05-27",
+      "count": 16,
+      "status": "已收：7 种新食品原料"
+    },
+    {
+      "announcement": "2026年第7号",
+      "date": "2026-11-12",
+      "count": 22,
+      "status": "已收：4 种新食品原料、2 种强化剂新品种"
     }
   ]
 }
