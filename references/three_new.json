@@ -1,5 +1,5 @@
 {
-  "version": "1.4",
+  "version": "1.6",
   "note": "手选，只收与营养/运动营养写作相关的三新公告；使用范围以公告原文为准，未收全量。每条须带公告号与范围。",
   "items": [
     {
@@ -393,9 +393,217 @@
       "scope": "按 2023 年第 8 号公告的范围与用量；本公告为新增生产菌",
       "status": "现行",
       "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "category": "新食品原料",
+      "name": "甜叶菊多酚",
+      "en": "Stevia polyphenols",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16244.shtml"
+    },
+    {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "category": "新食品原料",
+      "name": "柠檬香桃叶",
+      "en": "Lemon myrtle leaf",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16244.shtml"
+    },
+    {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "category": "新食品原料",
+      "name": "马基莓花色苷",
+      "en": "Maqui berry anthocyanins",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16244.shtml"
+    },
+    {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "category": "新食品原料",
+      "name": "小麦极性脂质",
+      "en": "Wheat polar lipids",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16244.shtml"
+    },
+    {
+      "announcement": "2025年第1号",
+      "date": "2025-01-27",
+      "category": "新食品原料",
+      "name": "β-羟基-β-甲基丁酸钙",
+      "en": "Calcium β-hydroxy-β-methyl butyrate (CaHMB)",
+      "scope": "饮料、乳及乳制品、可可制品、巧克力及制品、糖果、烘焙食品、运动营养食品、特医食品；≤6 g/天",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16244.shtml"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "category": "新食品原料",
+      "name": "D-阿洛酮糖",
+      "en": "D-allulose / D-psicose",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16246.shtml"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "category": "新食品原料",
+      "name": "酿酒酵母 CNCM I-3799",
+      "en": "Saccharomyces cerevisiae CNCM I-3799",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16246.shtml"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "category": "新食品原料",
+      "name": "动物双歧杆菌乳亚种 BLa80",
+      "en": "Bifidobacterium animalis subsp. lactis BLa80",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16246.shtml"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "category": "新食品原料",
+      "name": "长双歧杆菌婴儿亚种 LMG 11588",
+      "en": "Bifidobacterium longum subsp. infantis LMG 11588",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16246.shtml"
+    },
+    {
+      "announcement": "2025年第4号",
+      "date": "2025-06-26",
+      "category": "新食品原料",
+      "name": "透明质酸钠（提取法）",
+      "en": "Sodium hyaluronate (extract)",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16246.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "新食品原料",
+      "name": "栀子油",
+      "en": "Gardenia oil",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "新食品原料",
+      "name": "香玉牡丹花",
+      "en": "XiangYu peony flower",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "新食品原料",
+      "name": "褐藻寡糖",
+      "en": "Alginate oligosaccharide",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "新食品原料",
+      "name": "长双歧杆菌婴儿亚种 YLGB-1496",
+      "en": "Bifidobacterium longum subsp. infantis YLGB-1496",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2026年第1号",
+      "date": "2026-02-05",
+      "category": "新食品原料",
+      "name": "亚麻荠籽油",
+      "en": "Camelina seed oil",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/spaqbz/xzxkgg/2026/16262.shtml"
+    },
+    {
+      "announcement": "2023年第3号",
+      "date": "2023-05-10",
+      "category": "新食品原料",
+      "name": "蓝莓花色苷",
+      "en": "Blueberry anthocyanins",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/wap/spaqbz/xzxkgg/index.shtml"
+    },
+    {
+      "announcement": "2023年第5号",
+      "date": "2023-08-10",
+      "category": "新食品原料",
+      "name": "文冠果种仁",
+      "en": "Yellowhorn seed",
+      "scope": "按公告",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/wap/spaqbz/xzxkgg/index.shtml"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "新食品原料",
+      "name": "桃胶",
+      "en": "Peach gum",
+      "scope": "按公告；标签标注不适宜人群与食用量",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/wap/spaqbz/xzxkgg/index.shtml"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "category": "食品营养强化剂新品种",
+      "name": "2'-岩藻糖基乳糖",
+      "en": "2'-fucosyllactose, 2'-FL",
+      "scope": "调制乳粉（仅限儿童用乳粉）、婴儿配方食品、较大婴儿和幼儿配方食品、特医婴儿配方食品",
+      "status": "现行",
+      "source_url": "https://www.cfsa.net.cn/wap/spaqbz/xzxkgg/index.shtml"
     }
   ],
   "announcements": [
+    {
+      "announcement": "2023年第3号",
+      "date": "2023-05-10",
+      "count": 14,
+      "status": "已收：蓝莓花色苷；其余待补"
+    },
+    {
+      "announcement": "2023年第5号",
+      "date": "2023-08-10",
+      "count": 8,
+      "status": "已收：文冠果种仁；其余待补"
+    },
+    {
+      "announcement": "2023年第8号",
+      "date": "2023-10-07",
+      "count": 15,
+      "status": "已收：桃胶、2'-FL；其余待补"
+    },
     {
       "announcement": "2024年第2号",
       "date": "2024-03-13",
@@ -424,7 +632,7 @@
       "announcement": "2025年第1号",
       "date": "2025-01-27",
       "count": 20,
-      "status": "已收：2'-FL 新生产菌；其余待补"
+      "status": "已收：5 种新食品原料、2'-FL 新生产菌"
     },
     {
       "announcement": "2025年第3号",
@@ -436,7 +644,7 @@
       "announcement": "2025年第4号",
       "date": "2025-06-26",
       "count": 20,
-      "status": "已收：2'-FL 新生产菌；D-阿洛酮糖等新食品原料待补"
+      "status": "已收：5 种新食品原料、2'-FL 新生产菌"
     },
     {
       "announcement": "2025年第7号",
@@ -448,7 +656,7 @@
       "announcement": "2026年第1号",
       "date": "2026-02-05",
       "count": 22,
-      "status": "已收：3'-SL、2'-FL；其余待补"
+      "status": "已收：5 种新食品原料、3'-SL、2'-FL"
     },
     {
       "announcement": "2026年第5号",
